@@ -1,0 +1,14 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Vector DB cache (dynamically generated on run)
+chroma_db/
+test_chroma/
+models/
+
+# Environments
+venv/
+env/
+.env

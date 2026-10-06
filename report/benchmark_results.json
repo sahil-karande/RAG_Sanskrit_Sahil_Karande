@@ -1,0 +1,67 @@
+{
+  "accuracy_pct": 100.0,
+  "avg_retrieval_ms": 39.519999999999996,
+  "avg_total_ms": 41.318,
+  "test_runs": [
+    {
+      "test_id": 1,
+      "query": "shankhanaadaH sharkaraam kuto gachchhati?",
+      "scheme": "Harvard-Kyoto / ITRANS",
+      "expected_section": "मूर्खभृत्यस्य",
+      "retrieved_section": "मूर्खभृत्यस्य",
+      "accuracy_match": true,
+      "transliteration_latency_ms": 5.5,
+      "retrieval_latency_ms": 48.8,
+      "generation_latency_ms": 0.0,
+      "total_latency_ms": 54.32
+    },
+    {
+      "test_id": 2,
+      "query": "bhojaraajaa kaavya paThane kim ghoshhitavaan?",
+      "scheme": "ITRANS (King Bhoja Poetry Proclamation)",
+      "expected_section": "चतुरस्य कालीदासस्य",
+      "retrieved_section": "चतुरस्य कालीदासस्य",
+      "accuracy_match": true,
+      "transliteration_latency_ms": 0.0,
+      "retrieval_latency_ms": 36.5,
+      "generation_latency_ms": 0.0,
+      "total_latency_ms": 36.51
+    },
+    {
+      "test_id": 3,
+      "query": "चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?",
+      "scheme": "Devanagari Direct",
+      "expected_section": "वृद्धायाः चातुर्यम्",
+      "retrieved_section": "वृद्धायाः चातुर्यम्",
+      "accuracy_match": true,
+      "transliteration_latency_ms": 0.0,
+      "retrieval_latency_ms": 36.0,
+      "generation_latency_ms": 0.0,
+      "total_latency_ms": 37.0
+    },
+    {
+      "test_id": 4,
+      "query": "devabhaktaH kimartham jale mritavaan?",
+      "scheme": "Romanized ITRANS",
+      "expected_section": "देवभक्तस्य कथा",
+      "retrieved_section": "देवभक्तस्य कथा",
+      "accuracy_match": true,
+      "transliteration_latency_ms": 0.0,
+      "retrieval_latency_ms": 39.7,
+      "generation_latency_ms": 0.0,
+      "total_latency_ms": 39.71
+    },
+    {
+      "test_id": 5,
+      "query": "sheetam bahu baadhate iti kasmāt doshah?",
+      "scheme": "IAST / Mixed",
+      "expected_section": "शीतं बहु बाधति",
+      "retrieved_section": "शीतं बहु बाधति",
+      "accuracy_match": true,
+      "transliteration_latency_ms": 2.5,
+      "retrieval_latency_ms": 36.6,
+      "generation_latency_ms": 0.0,
+      "total_latency_ms": 39.05
+    }
+  ]
+}
