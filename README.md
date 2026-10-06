@@ -121,7 +121,7 @@ python code/benchmark.py
 
 ### 5. Launch the Interactive Web Application
 ```bash
-streamlit run code/app.py
+python -m streamlit run code/app.py
 ```
 Open `http://localhost:8501` in your browser to interact with the Sanskrit RAG interface.
 
