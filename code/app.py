@@ -38,7 +38,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Load authentic aged parchment background texture from user's artifact
+# Load authentic aged parchment background texture (rotated landscape orientation)
 bg_image_path = os.path.join(curr_dir, "..", "data", "vintage_parchment_bg.jpg")
 bg_base64 = ""
 if os.path.exists(bg_image_path):
