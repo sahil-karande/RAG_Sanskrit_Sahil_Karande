@@ -545,7 +545,7 @@ top_k = 3
 # Hero Section
 st.markdown("""
 <div class="hero-container">
-    <div class="hero-crest">§ प्राच्य-संस्कृत-ग्रन्थागारः §</div>
+    <div class="hero-crest">◈ प्राच्य-संस्कृत-ग्रन्थागारः ◈</div>
     <div class="hero-title">SANSKRIT RETRIEVAL-AUGMENTED GENERATION</div>
     <div class="hero-subtitle">
         A classical epistemic retrieval engine for ancient Sanskrit literature, Vedic philosophy, and historical manuscripts.
@@ -555,14 +555,14 @@ st.markdown("""
         <span class="spec-badge">◆ English & Sanskrit Natural Queries</span>
         <span class="spec-badge">◈ Dual Script: Devanagari + IAST / HK / ITRANS</span>
         <span class="spec-badge">❖ Hybrid Vector & BM25 Fusion</span>
-        <span class="spec-badge">§ Verse & Danda (।) Aware Semantic Chunking</span>
+        <span class="spec-badge">◈ Verse & Danda (।) Aware Semantic Chunking</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 # 1. PRIMARY SEARCH GATEWAY (FRONT & CENTER)
 query_val = st.text_input(
-    "§ Historical Manuscript Query | Enter Your Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
+    "Historical Manuscript Query | Enter Your Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
     value=st.session_state.query_text,
     placeholder="Inquire in English (e.g. 'What did King Bhoja announce?') or Sanskrit and press Enter...",
     key="main_query_input",
@@ -658,7 +658,7 @@ if query_val.strip():
         "✦ Grounded Sanskrit & English Response",
         "◈ Retrieved Context Chunks",
         "❖ Performance & CPU Telemetry",
-        "§ Corpus Explorer"
+        "◈ Corpus Explorer"
     ])
 
     with tab_ans:
@@ -700,21 +700,11 @@ if query_val.strip():
         else:
             sanskrit_part = response_text
 
-        # Format and display cards
-        st.markdown("""
-        <div class="answer-card">
-            <div class="answer-heading">
-                <span>◈</span> उत्तरम् (Classical Sanskrit Excerpt)
-            </div>
-            <div class="sanskrit-text">
-        """ + sanskrit_part + """
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
+        # Format and display cards:
+        # 1. English Commentary & Historical Meaning (UP SIDE)
         if english_part:
             st.markdown("""
-            <div class="answer-card" style="margin-top: 18px;">
+            <div class="answer-card">
                 <div class="answer-heading" style="color: #dfbe7b;">
                     <span>◆</span> English Commentary & Historical Meaning (विस्तृत-आङ्ग्लार्थः)
                 </div>
@@ -724,11 +714,24 @@ if query_val.strip():
             </div>
             """, unsafe_allow_html=True)
 
+        # 2. Classical Sanskrit Excerpt (DOWN OF THE ENGLISH)
+        st.markdown("""
+        <div class="answer-card" style="margin-top: 18px;">
+            <div class="answer-heading">
+                <span>◈</span> उत्तरम् (Classical Sanskrit Excerpt)
+            </div>
+            <div class="sanskrit-text">
+        """ + sanskrit_part + """
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # 3. Direct Manuscript Reference (DOWN OF SANSKRIT)
         if reference_part:
             st.markdown("""
             <div class="answer-card" style="border-left: 6px solid #4d8263; margin-top: 18px;">
                 <div class="answer-heading" style="color: #7bc498; font-size: 1.15rem;">
-                    <span>§</span> प्रमाणम् / Direct Manuscript Reference (मूलग्रन्थसन्दर्भः)
+                    <span>◈</span> प्रमाणम् / Direct Manuscript Reference (मूलग्रन्थसन्दर्भः)
                 </div>
                 <div class="citation-box">
                     <b>मूलग्रन्थसन्दर्भः:</b> """ + reference_part.replace("\n", "<br>") + """
@@ -742,7 +745,7 @@ if query_val.strip():
         if not chunks or not is_matched:
             st.markdown("""
             <div style="background: rgba(38, 16, 14, 0.85); border: 2px dashed #b94a48; border-radius: 8px; padding: 24px; text-align: center; color: #f7eed8; margin-top: 10px;">
-                <span style="font-size: 2rem; color: #c7b399;">§</span><br>
+                <span style="font-size: 2rem; color: #c7b399;">◈</span><br>
                 <b style="color: #f87171; font-size: 1.2rem; font-family: 'Cinzel', serif;">The query does not match with the retrieved document</b><br>
                 <span style="color: #c7b399; font-size: 0.96rem; font-family: 'EB Garamond', serif;">No relevant context chunks were found above the relevance threshold in the ingested Sanskrit corpus.</span>
             </div>
@@ -754,7 +757,7 @@ if query_val.strip():
                 source = c.get("metadata", {}).get("source", "sanskrit_corpus")
                 score = c.get("rrf_score", c.get("dense_score", c.get("bm25_score", 0.0)))
                 
-                with st.expander(f"§ Context Chunk #{idx} — Section: 『{sec}』 (Relevance Score: {score:.4f})", expanded=(idx == 1)):
+                with st.expander(f"◈ Context Chunk #{idx} — Section: 『{sec}』 (Relevance Score: {score:.4f})", expanded=(idx == 1)):
                     st.markdown(f"""
                     <div style="font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; line-height: 1.9; background: #16110c; color: #fffef7; padding: 16px; border-radius: 6px; border: 1.5px solid #6d5432;">
                         {c.get('content', '')}
@@ -812,7 +815,7 @@ if query_val.strip():
         if os.path.exists(corpus_file):
             with open(corpus_file, "r", encoding="utf-8") as f:
                 full_corpus = f.read()
-            st.markdown("#### § Ingested Sanskrit Corpus Preview")
+            st.markdown("#### ◈ Ingested Sanskrit Corpus Preview")
             st.text_area("Full Corpus Text", value=full_corpus, height=350, disabled=True)
         else:
             st.info("Corpus text file not found.")
@@ -821,7 +824,7 @@ else:
     # Landing Placeholder when no query is typed
     st.markdown("""
     <div style="text-align: center; padding: 32px 20px; background: rgba(30, 23, 16, 0.55); border-radius: 10px; border: 1.5px dashed #8c6f43; margin-top: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.5);">
-        <div style="font-size: 2.6rem; margin-bottom: 8px; color: #dfbe7b;">§</div>
+        <div style="font-size: 2.6rem; margin-bottom: 8px; color: #dfbe7b;">❖</div>
         <div style="font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; color: #dfbe7b; margin-bottom: 6px;">Historical Manuscript Archive Ready</div>
         <div style="font-family: 'EB Garamond', serif; color: #d9c8af; font-size: 1.1rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">
             Inquire above in <b>Natural English</b>, <b>Devanagari Sanskrit</b>, or <b>Romanized Transliterations (IAST / HK / ITRANS)</b>, or select any sample inquiry to retrieve authentic Sanskrit excerpts with full English commentary.
@@ -832,7 +835,7 @@ else:
 # =====================================================================
 # BOTTOM SECTION: SYSTEM ARCHITECTURE & DOCUMENTATION
 # =====================================================================
-st.markdown("<div class='vintage-divider'><span>§ ═══════════════ ❖ ═══════════════ §</span></div>", unsafe_allow_html=True)
+st.markdown("<div class='vintage-divider'><span>❖ ═════════════════════════════ ❖</span></div>", unsafe_allow_html=True)
 st.markdown("### ❖ Archival System Architecture & Technical Documentation")
 
 bot_cols = st.columns([1, 1, 1])
@@ -848,7 +851,7 @@ with bot_cols[1]:
     st.caption("ChromaDB Vector Embeddings + Sanskrit Lexical Indexing (Rank-BM25).")
 
 with bot_cols[2]:
-    st.markdown("##### § Technical Documentation")
+    st.markdown("##### ◈ Technical Documentation")
     report_file_path = os.path.join(curr_dir, "..", "report", "Sanskrit_RAG_Technical_Report.pdf")
     if os.path.exists(report_file_path):
         with open(report_file_path, "rb") as rf:
@@ -873,4 +876,4 @@ with st.expander("Document Ingestion: Upload & Index Additional Sanskrit Documen
                 count = pipeline.index_document(save_path, overwrite=False)
                 st.success(f"Indexed {count} chunks successfully!")
 
-st.markdown("<div style='text-align: center; color: #8c6f43; font-family: EB Garamond, serif; font-size: 1.05rem; padding: 28px 0 14px 0;'>§ Sanskrit RAG System | Historical Manuscript Archive Edition | Developed by Sahil Karande §</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: #8c6f43; font-family: EB Garamond, serif; font-size: 1.05rem; padding: 28px 0 14px 0;'>◈ Sanskrit RAG System | Historical Manuscript Archive Edition | Developed by Sahil Karande ◈</div>", unsafe_allow_html=True)
