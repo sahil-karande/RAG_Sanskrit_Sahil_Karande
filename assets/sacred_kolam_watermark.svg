@@ -1,60 +1,85 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-240 -240 480 480" width="100%" height="100%">
-<g fill="none" stroke="#704822" stroke-linecap="round" stroke-linejoin="round">
-<circle cx="0" cy="0" r="5" fill="#704822" stroke="none"/>
-<circle cx="0" cy="0" r="18" stroke-width="2.5"/>
-<path d="M 135.0,28.7 A 38,38 0 0,1 92.3,102.6" stroke-width="2.2"/>
-<circle cx="133.4" cy="77.0" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="135.0" cy="28.7" r="3" fill="#704822" stroke="none"/>
-<circle cx="92.3" cy="102.6" r="3" fill="#704822" stroke="none"/>
-<path d="M 42.6,131.2 A 38,38 0 0,1 -42.6,131.2" stroke-width="2.2"/>
-<circle cx="0.0" cy="154.0" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="42.6" cy="131.2" r="3" fill="#704822" stroke="none"/>
-<circle cx="-42.6" cy="131.2" r="3" fill="#704822" stroke="none"/>
-<path d="M -92.3,102.6 A 38,38 0 0,1 -135.0,28.7" stroke-width="2.2"/>
-<circle cx="-133.4" cy="77.0" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="-92.3" cy="102.6" r="3" fill="#704822" stroke="none"/>
-<circle cx="-135.0" cy="28.7" r="3" fill="#704822" stroke="none"/>
-<path d="M -135.0,-28.7 A 38,38 0 0,1 -92.3,-102.6" stroke-width="2.2"/>
-<circle cx="-133.4" cy="-77.0" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="-135.0" cy="-28.7" r="3" fill="#704822" stroke="none"/>
-<circle cx="-92.3" cy="-102.6" r="3" fill="#704822" stroke="none"/>
-<path d="M -42.6,-131.2 A 38,38 0 0,1 42.6,-131.2" stroke-width="2.2"/>
-<circle cx="-0.0" cy="-154.0" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="-42.6" cy="-131.2" r="3" fill="#704822" stroke="none"/>
-<circle cx="42.6" cy="-131.2" r="3" fill="#704822" stroke="none"/>
-<path d="M 92.3,-102.6 A 38,38 0 0,1 135.0,-28.7" stroke-width="2.2"/>
-<circle cx="133.4" cy="-77.0" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="92.3" cy="-102.6" r="3" fill="#704822" stroke="none"/>
-<circle cx="135.0" cy="-28.7" r="3" fill="#704822" stroke="none"/>
-<path d="M -54.0,-115.0 L 0.0,-195.0 L 54.0,-115.0" stroke-width="2.8"/>
-<path d="M -54.0,-115.0 L -23.0,-46.0 L 23.0,-46.0 L 54.0,-115.0" stroke-width="2.2"/>
-<circle cx="0.0" cy="-195.0" r="4" fill="#704822" stroke="none"/>
-<circle cx="-54.0" cy="-115.0" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="-23.0" cy="-46.0" r="3.5" fill="#704822" stroke="none"/>
-<path d="M 72.6,-104.3 L 168.9,-97.5 L 126.6,-10.7" stroke-width="2.8"/>
-<path d="M 72.6,-104.3 L 28.3,-42.9 L 51.3,-3.1 L 126.6,-10.7" stroke-width="2.2"/>
-<circle cx="168.9" cy="-97.5" r="4" fill="#704822" stroke="none"/>
-<circle cx="72.6" cy="-104.3" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="28.3" cy="-42.9" r="3.5" fill="#704822" stroke="none"/>
-<path d="M 126.6,10.7 L 168.9,97.5 L 72.6,104.3" stroke-width="2.8"/>
-<path d="M 126.6,10.7 L 51.3,3.1 L 28.3,42.9 L 72.6,104.3" stroke-width="2.2"/>
-<circle cx="168.9" cy="97.5" r="4" fill="#704822" stroke="none"/>
-<circle cx="126.6" cy="10.7" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="51.3" cy="3.1" r="3.5" fill="#704822" stroke="none"/>
-<path d="M 54.0,115.0 L 0.0,195.0 L -54.0,115.0" stroke-width="2.8"/>
-<path d="M 54.0,115.0 L 23.0,46.0 L -23.0,46.0 L -54.0,115.0" stroke-width="2.2"/>
-<circle cx="0.0" cy="195.0" r="4" fill="#704822" stroke="none"/>
-<circle cx="54.0" cy="115.0" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="23.0" cy="46.0" r="3.5" fill="#704822" stroke="none"/>
-<path d="M -72.6,104.3 L -168.9,97.5 L -126.6,10.7" stroke-width="2.8"/>
-<path d="M -72.6,104.3 L -28.3,42.9 L -51.3,3.1 L -126.6,10.7" stroke-width="2.2"/>
-<circle cx="-168.9" cy="97.5" r="4" fill="#704822" stroke="none"/>
-<circle cx="-72.6" cy="104.3" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="-28.3" cy="42.9" r="3.5" fill="#704822" stroke="none"/>
-<path d="M -126.6,-10.7 L -168.9,-97.5 L -72.6,-104.3" stroke-width="2.8"/>
-<path d="M -126.6,-10.7 L -51.3,-3.1 L -28.3,-42.9 L -72.6,-104.3" stroke-width="2.2"/>
-<circle cx="-168.9" cy="-97.5" r="4" fill="#704822" stroke="none"/>
-<circle cx="-126.6" cy="-10.7" r="3.5" fill="#704822" stroke="none"/>
-<circle cx="-51.3" cy="-3.1" r="3.5" fill="#704822" stroke="none"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-220 -220 440 440" width="100%" height="100%">
+  <g fill="none" stroke="#704822" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Center dot and small ring -->
+    <circle cx="0" cy="0" r="5" fill="#704822" stroke="none"/>
+    <circle cx="0" cy="0" r="19" stroke-width="2.5"/>
+
+    <!--
+      Star of David = two equilateral triangles, tip radius = 190
+      Equilateral triangle: for radius R, vertices at angles 90°, 210°, 330°
+        sin(30°)=0.5, cos(30°)=0.866, sin(60°)=0.866, cos(60°)=0.5
+      Triangle 1 (up):   top=(0,-190), br=(164.5, 95), bl=(-164.5, 95)
+      Triangle 2 (down): bot=(0,190), tr=(164.5,-95), tl=(-164.5,-95)
+      
+      Inner hexagon intersections (where triangles cross each other), at radius 190/sqrt(3) ≈ 109.7:
+        intersections at every 60° starting 0°:
+        (109.7, 0), (54.85, -95), (-54.85, -95), (-109.7, 0), (-54.85, 95), (54.85, 95)
+        
+      Outer petal arcs: 6 arcs, one per side of the star outline (between each indent).
+      Each arc connects two adjacent outer hexagon indentation points, bulging outward.
+      Indentation points = inner hexagon vertices = where triangles cross
+      at radius ≈ 109.7, at 0°, 60°, 120°, 180°, 240°, 300°
+    -->
+
+    <!-- Triangle 1: pointing UP -->
+    <polygon points="0,-190  164.5,95  -164.5,95"
+             stroke-width="3" fill="none"/>
+
+    <!-- Triangle 2: pointing DOWN -->
+    <polygon points="0,190  164.5,-95  -164.5,-95"
+             stroke-width="3" fill="none"/>
+
+    <!--
+      Outer petal arcs between adjacent indentation points.
+      Indentation points (inner hex vertices, radius=109.7):
+        P0 = (109.7, 0)      — right
+        P1 = (54.85, -95)    — upper-right
+        P2 = (-54.85, -95)   — upper-left
+        P3 = (-109.7, 0)     — left
+        P4 = (-54.85, 95)    — lower-left
+        P5 = (54.85, 95)     — lower-right
+      
+      Arcs between: P1–P0, P0–P5, P5–P4, P4–P3, P3–P2, P2–P1
+      Arc sweep-flag=0 means counter-clockwise = bulges outward from center
+      Arc radius = 65 (tight circle that fits between adjacent points)
+    -->
+    <!-- Upper-right to Right: P1 to P0 -->
+    <path d="M 54.85,-95  A 65,65 0 0,1 109.7,0"  stroke-width="2.5"/>
+    <!-- Right to Lower-right: P0 to P5 -->
+    <path d="M 109.7,0    A 65,65 0 0,1 54.85,95"  stroke-width="2.5"/>
+    <!-- Lower-right to Lower-left: P5 to P4 -->
+    <path d="M 54.85,95   A 65,65 0 0,1 -54.85,95" stroke-width="2.5"/>
+    <!-- Lower-left to Left: P4 to P3 -->
+    <path d="M -54.85,95  A 65,65 0 0,1 -109.7,0"  stroke-width="2.5"/>
+    <!-- Left to Upper-left: P3 to P2 -->
+    <path d="M -109.7,0   A 65,65 0 0,1 -54.85,-95" stroke-width="2.5"/>
+    <!-- Upper-left to Upper-right: P2 to P1 -->
+    <path d="M -54.85,-95 A 65,65 0 0,1 54.85,-95"  stroke-width="2.5"/>
+
+    <!-- Dots at the 6 outer star tips -->
+    <circle cx="0"       cy="-190" r="5.5" fill="#704822" stroke="none"/>
+    <circle cx="164.5"   cy="-95"  r="5.5" fill="#704822" stroke="none"/>
+    <circle cx="164.5"   cy="95"   r="5.5" fill="#704822" stroke="none"/>
+    <circle cx="0"       cy="190"  r="5.5" fill="#704822" stroke="none"/>
+    <circle cx="-164.5"  cy="95"   r="5.5" fill="#704822" stroke="none"/>
+    <circle cx="-164.5"  cy="-95"  r="5.5" fill="#704822" stroke="none"/>
+
+    <!-- Dots at the 6 inner indentation points (hexagon vertices) -->
+    <circle cx="109.7"   cy="0"    r="4" fill="#704822" stroke="none"/>
+    <circle cx="54.85"   cy="-95"  r="4" fill="#704822" stroke="none"/>
+    <circle cx="-54.85"  cy="-95"  r="4" fill="#704822" stroke="none"/>
+    <circle cx="-109.7"  cy="0"    r="4" fill="#704822" stroke="none"/>
+    <circle cx="-54.85"  cy="95"   r="4" fill="#704822" stroke="none"/>
+    <circle cx="54.85"   cy="95"   r="4" fill="#704822" stroke="none"/>
+
+    <!-- Dots at arc midpoints (outermost point on each arc, ~radius 160 at 30°,90°,...) -->
+    <circle cx="138.6"   cy="-80"  r="3.5" fill="#704822" stroke="none"/>
+    <circle cx="0"       cy="160"  r="3.5" fill="#704822" stroke="none"/>
+    <circle cx="-138.6"  cy="80"   r="3.5" fill="#704822" stroke="none"/>
+    <circle cx="-138.6"  cy="-80"  r="3.5" fill="#704822" stroke="none"/>
+    <circle cx="0"       cy="-160" r="3.5" fill="#704822" stroke="none"/>
+    <circle cx="138.6"   cy="80"   r="3.5" fill="#704822" stroke="none"/>
+
+  </g>
 </svg>
