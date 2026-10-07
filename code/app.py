@@ -38,23 +38,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Load authentic aged parchment background texture (rotated landscape orientation)
-bg_image_path = os.path.join(curr_dir, "..", "data", "vintage_parchment_bg.jpg")
-bg_base64 = ""
-if os.path.exists(bg_image_path):
-    with open(bg_image_path, "rb") as f:
-        bg_base64 = base64.b64encode(f.read()).decode("utf-8")
-
-if bg_base64:
-    st.markdown(f"""
-    <style>
-        .stApp {{
-            background: url("data:image/jpeg;base64,{bg_base64}") center center / cover no-repeat fixed !important;
-            background-color: #ede0c4 !important;
-        }}
-    </style>
-    """, unsafe_allow_html=True)
-
 # Custom Vintage Historical Theme (Antique Manuscript & Aged Papyrus Palette)
 st.markdown("""
 <style>
@@ -71,9 +54,10 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* Vintage Antique Canvas Background & Global Typography */
+    /* Vintage Antique Parchment Canvas with Rich Dark Walnut Vignette Fades */
     .stApp {
-        background-color: #ede0c4 !important;
+        background: radial-gradient(ellipse at 50% 20%, #f7edcf 0%, #ecd6ad 25%, #c8a36d 55%, #7a4f26 80%, #241408 100%) fixed !important;
+        background-color: #ecd6ad !important;
         color: #2b180d !important;
     }
     .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5 {
