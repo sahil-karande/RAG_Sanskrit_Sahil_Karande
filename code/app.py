@@ -432,20 +432,20 @@ with en_cols[3]:
     if st.button("Why was 'badhati' grammatically incorrect?", use_container_width=True):
         set_query("Why was badhati incorrect in sheetam bahu badhati?")
 
-st.markdown("<span style='color: #fbbf24; font-weight: 600; font-size: 0.9rem;'>◈ Sanskrit & Transliterated Queries:</span>", unsafe_allow_html=True)
+st.markdown("<span style='color: #fbbf24; font-weight: 600; font-size: 0.9rem;'>◈ Sanskrit Queries (संस्कृत-प्रश्नाः):</span>", unsafe_allow_html=True)
 sk_cols = st.columns(4)
 with sk_cols[0]:
     if st.button("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
         set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
 with sk_cols[1]:
-    if st.button("bhojarājā kāvya-paṭhane kim ghoṣitavān?", use_container_width=True):
-        set_query("bhojaraajaa kaavya paThane kim ghoshhitavaan?")
+    if st.button("भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
+        set_query("भोजराजः काव्यपठने किं घोषितवान् ?")
 with sk_cols[2]:
-    if st.button("citrapure ghaṇṭākarṇaḥ kaḥ āsīt ?", use_container_width=True):
-        set_query("citrapure ghaṇṭākarṇaḥ nāma kaḥ āsīt ?")
+    if st.button("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
+        set_query("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?")
 with sk_cols[3]:
-    if st.button("devabhaktaḥ kimarthaṃ jale mṛtavān?", use_container_width=True):
-        set_query("devabhaktaH kimartham jale mritavaan?")
+    if st.button("देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
+        set_query("देवभक्तः किमर्थं जले मृतवान् ?")
 
 # Full-Width Search Input (With End-Corner SVG Magnifying Symbol — Press Enter to Search)
 query_val = st.text_input(
