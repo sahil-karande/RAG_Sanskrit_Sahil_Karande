@@ -34,13 +34,21 @@ st.set_page_config(
     page_title="Sanskrit RAG | CPU-Only Retrieval-Augmented Generation",
     page_icon="🕉️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # Custom High-End Styling (Vedic-Modern Dark-Slate & Warm Saffron Palette)
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+
+    /* Completely hide the sidebar */
+    section[data-testid="stSidebar"] {
+        display: none !important;
+    }
+    button[data-testid="baseButton-header"] {
+        display: none !important;
+    }
 
     :root {
         --primary-gold: #f59e0b;
@@ -384,48 +392,9 @@ if "query_text" not in st.session_state:
 def set_query(q_str):
     st.session_state.query_text = q_str
 
-# Sidebar Configuration
-with st.sidebar:
-    st.markdown("### 🕉️ Sanskrit RAG System")
-    st.caption("CPU-Centric Multilingual Architecture")
-    
-    st.markdown("---")
-    st.markdown("#### ⚡ Hardware Inference Engine")
-    st.success("✅ **100% CPU Inference (Zero GPU)**")
-    st.caption("Engineered for low-latency CPU inference via Vector Space & BM25 Fusion.")
-
-    st.markdown("---")
-    st.markdown("#### 🔍 Retrieval Engine")
-    st.info("🔥 **Hybrid Fusion Active**\n\nDual-channel search combining dense multilingual embeddings (ChromaDB) with Sanskrit lexical indexing (BM25).")
-    retrieval_mode = "hybrid"
-    top_k = 3
-
-    st.markdown("---")
-    st.markdown("#### 📄 Document Ingestion")
-    uploaded_file = st.file_uploader("Upload Sanskrit Document (.txt / .pdf)", type=["txt", "pdf"])
-    if uploaded_file is not None:
-        save_path = os.path.join(curr_dir, "..", "data", uploaded_file.name)
-        with open(save_path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        if st.button("🚀 Index Document Now", use_container_width=True):
-            with st.spinner("Parsing Sanskrit glyphs & indexing on CPU..."):
-                count = pipeline.index_document(save_path, overwrite=False)
-                st.success(f"Indexed {count} chunks successfully!")
-
-    st.markdown("---")
-    st.markdown("#### 📑 Technical Documentation")
-    report_file_path = os.path.join(curr_dir, "..", "report", "Sanskrit_RAG_Technical_Report.pdf")
-    if os.path.exists(report_file_path):
-        with open(report_file_path, "rb") as rf:
-            st.download_button(
-                label="📥 Download Technical Report (PDF)",
-                data=rf.read(),
-                file_name="Sanskrit_RAG_Technical_Report.pdf",
-                mime="application/pdf",
-                use_container_width=True
-            )
-
-    st.caption("Author: **Sahil Karande** | Assignment Submission")
+# System Pipeline Settings (Permanently Locked to CPU Hybrid Fusion)
+retrieval_mode = "hybrid"
+top_k = 3
 
 # Hero Section
 st.markdown("""
@@ -708,5 +677,48 @@ else:
     </div>
     """, unsafe_allow_html=True)
 
+# =====================================================================
+# BOTTOM SECTION: SYSTEM ARCHITECTURE & DOCUMENTATION
+# =====================================================================
 st.markdown("---")
-st.markdown("<div style='text-align: center; color: #64748b; font-size: 0.85rem;'>🕉️ Sanskrit RAG System | Developed by Sahil Karande | CPU-Only Inference</div>", unsafe_allow_html=True)
+st.markdown("### ⚙️ System Architecture & Project Documentation")
+
+bot_cols = st.columns([1, 1, 1])
+
+with bot_cols[0]:
+    st.markdown("##### ⚡ Hardware Inference Engine")
+    st.success("✅ **100% CPU Inference (Zero GPU)**")
+    st.caption("Low-latency inference via Multilingual MiniLM embeddings & BM25 Fusion on CPU.")
+
+with bot_cols[1]:
+    st.markdown("##### 🔍 Retrieval Engine")
+    st.info("🔥 **Hybrid Fusion Active**")
+    st.caption("ChromaDB Vector Embeddings + Sanskrit Lexical Indexing (Rank-BM25).")
+
+with bot_cols[2]:
+    st.markdown("##### 📑 Technical Documentation")
+    report_file_path = os.path.join(curr_dir, "..", "report", "Sanskrit_RAG_Technical_Report.pdf")
+    if os.path.exists(report_file_path):
+        with open(report_file_path, "rb") as rf:
+            st.download_button(
+                label="📥 Download Technical Report (PDF)",
+                data=rf.read(),
+                file_name="Sanskrit_RAG_Technical_Report.pdf",
+                mime="application/pdf",
+                use_container_width=True
+            )
+    st.caption("Author: **Sahil Karande** | Assignment Submission")
+
+with st.expander("📄 Document Ingestion: Upload & Index Additional Sanskrit Documents (.txt / .pdf)", expanded=False):
+    st.caption("Upload any custom Sanskrit text or PDF document to index it on CPU into ChromaDB and BM25.")
+    uploaded_file = st.file_uploader("Upload Sanskrit Document (.txt / .pdf)", type=["txt", "pdf"])
+    if uploaded_file is not None:
+        save_path = os.path.join(curr_dir, "..", "data", uploaded_file.name)
+        with open(save_path, "wb") as f:
+            f.write(uploaded_file.getbuffer())
+        if st.button("🚀 Index Document Now", use_container_width=True):
+            with st.spinner("Parsing Sanskrit glyphs & indexing on CPU..."):
+                count = pipeline.index_document(save_path, overwrite=False)
+                st.success(f"Indexed {count} chunks successfully!")
+
+st.markdown("<div style='text-align: center; color: #64748b; font-size: 0.85rem; padding: 25px 0 10px 0;'>🕉️ Sanskrit RAG System | Developed by Sahil Karande | Assignment Submission</div>", unsafe_allow_html=True)
