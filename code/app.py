@@ -37,112 +37,161 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom High-End Styling (Vedic-Modern Dark-Slate & Warm Saffron Palette)
+# Custom Royal Indian Historical King Style (Imperial Darbar & Vedic Gold-Crimson Palette)
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cinzel+Decorative:wght@700;900&family=Marcellus&family=Noto+Serif+Devanagari:wght@400;500;600;700;800&family=Rozha+One&display=swap');
 
-    /* Completely hide the sidebar */
+    /* Completely hide the sidebar & default header elements */
     section[data-testid="stSidebar"] {
         display: none !important;
     }
     button[data-testid="baseButton-header"] {
         display: none !important;
     }
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+    }
+
+    /* Royal Imperial Canvas Background */
+    .stApp {
+        background: radial-gradient(ellipse at 50% 0%, #2e0912 0%, #170408 50%, #0d0204 100%) !important;
+        color: #fdf6e2 !important;
+    }
 
     :root {
-        --primary-gold: #f59e0b;
-        --deep-gold: #d97706;
-        --saffron: #ea580c;
-        --bg-slate: #0f172a;
-        --card-bg: #1e293b;
-        --card-border: #334155;
-        --text-light: #f8fafc;
-        --text-muted: #94a3b8;
+        --royal-gold-light: #fff2b2;
+        --royal-gold: #d4af37;
+        --royal-gold-burnished: #f59e0b;
+        --royal-gold-deep: #b38728;
+        --royal-crimson-dark: #1f070c;
+        --royal-crimson-mid: #330b14;
+        --royal-crimson-card: #24080e;
+        --royal-gold-border: #c59b27;
+        --royal-ivory: #fffbeb;
+        --royal-muted: #d1bda0;
     }
 
+    /* Royal Imperial Court Hero Banner */
     .hero-container {
-        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%);
-        border: 1px solid #334155;
+        background: linear-gradient(135deg, #2e0912 0%, #42101c 50%, #22060c 100%);
+        border: 2px solid #b38728;
+        outline: 1px solid rgba(212, 175, 55, 0.45);
+        outline-offset: -5px;
         border-radius: 16px;
-        padding: 24px 30px;
-        margin-bottom: 24px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        padding: 30px 36px;
+        margin-bottom: 26px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), inset 0 0 35px rgba(212, 175, 55, 0.12);
         position: relative;
         overflow: hidden;
-    }
-    
-    .hero-container::before {
-        content: "";
-        position: absolute;
-        top: -50px;
-        right: -50px;
-        width: 180px;
-        height: 180px;
-        background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(0,0,0,0) 70%);
-        border-radius: 50%;
+        text-align: center;
     }
 
-    .hero-title {
-        font-family: 'Cinzel', serif;
-        font-size: 2.3rem;
+    .hero-crest {
+        font-family: 'Cinzel Decorative', 'Cinzel', serif;
+        font-size: 1.15rem;
         font-weight: 700;
-        background: linear-gradient(90deg, #fef08a, #f59e0b, #f97316);
+        color: #ffd700;
+        letter-spacing: 3px;
+        margin-bottom: 6px;
+        text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+    }
+    
+    .hero-title {
+        font-family: 'Cinzel Decorative', 'Cinzel', serif;
+        font-size: 2.35rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #fff7c2 0%, #ffd700 25%, #d4af37 50%, #fff0a8 75%, #b38728 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 6px;
-        letter-spacing: 0.5px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        text-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
     }
 
     .hero-subtitle {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.05rem;
-        color: #cbd5e1;
-        line-height: 1.5;
-        max-width: 950px;
+        font-family: 'Marcellus', 'Noto Serif Devanagari', serif;
+        font-size: 1.12rem;
+        color: #fce7cf;
+        line-height: 1.7;
+        max-width: 960px;
+        margin: 0 auto;
     }
 
     .badge-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 14px;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 18px;
     }
 
     .spec-badge {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        background: rgba(30, 41, 59, 0.85);
-        border: 1px solid rgba(245, 158, 11, 0.3);
-        color: #fef3c7;
-        padding: 4px 12px;
-        border-radius: 9999px;
-        font-size: 0.8rem;
-        font-weight: 500;
-        letter-spacing: 0.3px;
+        gap: 7px;
+        background: rgba(45, 10, 18, 0.95);
+        border: 1.5px solid #d4af37;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 242, 178, 0.25);
+        color: #fff2b2;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-family: 'Marcellus', serif;
+        font-size: 0.88rem;
+        font-weight: 600;
+        letter-spacing: 0.4px;
     }
 
-    /* Large & Prominent Search Input Box - No Clipping Fix */
+    /* Royal King Court Buttons (राजमुद्रा-पट्टिका) */
+    div[data-testid="stButton"] button {
+        background: linear-gradient(180deg, #380d16 0%, #1f060b 100%) !important;
+        border: 1.5px solid #d4af37 !important;
+        border-radius: 8px !important;
+        color: #fff0a8 !important;
+        font-family: 'Marcellus', 'Noto Serif Devanagari', serif !important;
+        font-size: 0.98rem !important;
+        font-weight: 600 !important;
+        padding: 10px 16px !important;
+        letter-spacing: 0.4px !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 242, 178, 0.2) !important;
+        transition: all 0.22s ease-in-out !important;
+    }
+    div[data-testid="stButton"] button:hover {
+        background: linear-gradient(180deg, #541423 0%, #300913 100%) !important;
+        border-color: #ffe58f !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.25) !important;
+        transform: translateY(-2px) !important;
+    }
+    div[data-testid="stButton"] button:active {
+        transform: translateY(1px) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
+    }
+
+    /* Imperial Search Query Gateway (राजकीय-प्रश्नद्वारम्) */
     div[data-testid="stTextInput"] {
-        margin: 20px 0 25px 0 !important;
+        margin: 24px 0 28px 0 !important;
     }
     div[data-testid="stTextInput"] > label {
         font-family: 'Cinzel', serif !important;
         font-size: 1.25rem !important;
         font-weight: 700 !important;
-        color: #f59e0b !important;
-        margin-bottom: 10px !important;
+        color: #d4af37 !important;
+        text-shadow: 0 0 12px rgba(212, 175, 55, 0.3) !important;
+        margin-bottom: 12px !important;
         display: block !important;
-        letter-spacing: 0.5px !important;
+        letter-spacing: 0.8px !important;
     }
     div[data-testid="stTextInput"] div[data-baseweb="input"] {
-        min-height: 64px !important;
-        height: 64px !important;
-        border-radius: 14px !important;
-        background-color: #1e293b !important;
-        border: 2px solid #f59e0b !important;
-        box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25) !important;
+        min-height: 66px !important;
+        height: 66px !important;
+        border-radius: 12px !important;
+        background: linear-gradient(180deg, #22080e 0%, #150408 100%) !important;
+        border: 2px solid #d4af37 !important;
+        outline: 1px solid rgba(212, 175, 55, 0.4) !important;
+        outline-offset: -5px !important;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7), inset 0 2px 8px rgba(0,0,0,0.6) !important;
         overflow: hidden !important;
         display: flex !important;
         align-items: center !important;
@@ -157,163 +206,246 @@ st.markdown("""
         align-items: center !important;
     }
     div[data-testid="stTextInput"] input {
-        font-family: 'Inter', 'Noto Sans Devanagari', sans-serif !important;
-        font-size: 1.18rem !important;
-        line-height: 1.5 !important;
+        font-family: 'Marcellus', 'Noto Serif Devanagari', serif !important;
+        font-size: 1.22rem !important;
+        line-height: 1.6 !important;
         height: 100% !important;
-        padding: 0 58px 0 24px !important; /* Space for end-corner magnifying symbol */
+        padding: 0 62px 0 26px !important;
         background-color: transparent !important;
-        color: #ffffff !important;
+        color: #fffbeb !important;
         border: none !important;
         outline: none !important;
         box-shadow: none !important;
     }
     div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within {
-        border-color: #fef08a !important;
-        box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.4), 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+        border-color: #fff0a8 !important;
+        outline-color: #ffd700 !important;
+        box-shadow: 0 0 28px rgba(212, 175, 55, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.15) !important;
     }
     div[data-testid="stTextInput"] input::placeholder {
-        color: #94a3b8 !important;
+        color: #bfa68a !important;
+        font-style: italic;
         font-size: 1.05rem !important;
     }
 
-    /* Vector SVG magnifying glass symbol (not emoji) at the end corner of search query */
+    /* Royal Golden Sceptre / Magnifying Symbol (Not emoji) */
     div[data-testid="stTextInput"] div[data-baseweb="input"]::after {
         content: '' !important;
         position: absolute !important;
         right: 22px !important;
         top: 50% !important;
         transform: translateY(-50%) !important;
-        width: 25px !important;
-        height: 25px !important;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7.5'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.5' y2='16.5'%3E%3C/line%3E%3C/svg%3E") !important;
+        width: 28px !important;
+        height: 28px !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7.5'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.5' y2='16.5'%3E%3C/line%3E%3C/svg%3E") !important;
         background-repeat: no-repeat !important;
         background-position: center !important;
         background-size: contain !important;
         pointer-events: none !important;
-        opacity: 0.85 !important;
+        opacity: 0.9 !important;
         transition: transform 0.2s ease, opacity 0.2s ease !important;
     }
     div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within::after {
         opacity: 1 !important;
-        transform: translateY(-50%) scale(1.15) !important;
-        filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.7)) !important;
+        transform: translateY(-50%) scale(1.2) !important;
+        filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.9)) !important;
     }
 
     .unmatched-alert {
-        background: rgba(220, 38, 38, 0.15);
+        background: rgba(45, 10, 15, 0.9);
         border: 2px solid #ef4444;
         border-radius: 12px;
-        padding: 18px 24px;
-        margin-bottom: 20px;
+        padding: 20px 26px;
+        margin-bottom: 22px;
         display: flex;
         align-items: center;
         gap: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
     }
 
     .transliteration-card {
-        background: #111827;
-        border: 1px solid #374151;
+        background: linear-gradient(135deg, #24080e 0%, #1a0509 100%);
+        border: 1.5px solid #b38728;
         border-radius: 12px;
-        padding: 16px 20px;
-        margin: 16px 0 24px 0;
+        padding: 18px 24px;
+        margin: 18px 0 26px 0;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        gap: 15px;
+        gap: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(212, 175, 55, 0.06);
     }
 
     .script-pill {
-        background: rgba(245, 158, 11, 0.15);
-        border: 1px solid #f59e0b;
-        color: #fbbf24;
-        padding: 4px 12px;
+        background: rgba(45, 10, 18, 0.95);
+        border: 1px solid #d4af37;
+        color: #fef08a;
+        padding: 5px 14px;
         border-radius: 6px;
-        font-size: 0.85rem;
+        font-family: 'Marcellus', serif;
+        font-size: 0.9rem;
         font-weight: 600;
     }
 
     .devanagari-preview {
-        font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
-        font-size: 1.3rem;
-        color: #38bdf8;
-        font-weight: 600;
+        font-family: 'Noto Serif Devanagari', 'Rozha One', serif;
+        font-size: 1.35rem;
+        color: #ffd700;
+        font-weight: 700;
+        text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
     }
 
+    /* Royal Decree Answer Cards (राजकीय-उत्तर-पत्रम्) */
     .answer-card {
-        background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-        border: 1px solid #475569;
-        border-left: 6px solid #f59e0b;
+        background: linear-gradient(180deg, #2a0910 0%, #1b0509 100%);
+        border: 2px solid #b38728;
+        border-left: 7px solid #d4af37;
         border-radius: 14px;
-        padding: 24px;
-        margin-top: 15px;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+        padding: 26px 28px;
+        margin-top: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.65), inset 0 0 25px rgba(212, 175, 55, 0.08);
+        position: relative;
     }
 
     .answer-heading {
-        font-family: 'Cinzel', serif;
-        font-size: 1.3rem;
-        color: #fbbf24;
-        margin-bottom: 12px;
+        font-family: 'Cinzel Decorative', 'Cinzel', serif;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #ffd700;
+        margin-bottom: 14px;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        padding-bottom: 8px;
     }
 
     .sanskrit-text {
-        font-family: 'Noto Sans Devanagari', serif;
-        font-size: 1.25rem;
-        line-height: 1.8;
-        color: #f8fafc;
-        background: rgba(15, 23, 42, 0.7);
-        border: 1px solid rgba(245, 158, 11, 0.25);
-        padding: 18px 22px;
+        font-family: 'Noto Serif Devanagari', serif;
+        font-size: 1.35rem;
+        line-height: 2.1;
+        color: #fffdf5;
+        background: rgba(14, 3, 6, 0.85);
+        border: 1px solid rgba(212, 175, 55, 0.35);
+        padding: 22px 26px;
         border-radius: 10px;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
+        box-shadow: inset 0 2px 10px rgba(0,0,0,0.6);
     }
 
     .explanation-box {
-        background: rgba(30, 41, 59, 0.6);
-        border-left: 4px solid #38bdf8;
-        padding: 18px 22px;
+        background: rgba(22, 10, 20, 0.8);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-left: 5px solid #d4af37;
+        padding: 20px 24px;
         border-radius: 8px;
-        color: #e2e8f0;
-        font-size: 1.05rem;
-        line-height: 1.7;
-        margin-bottom: 18px;
+        color: #f5eedc;
+        font-family: 'Marcellus', serif;
+        font-size: 1.08rem;
+        line-height: 1.8;
+        margin-bottom: 20px;
     }
 
     .citation-box {
-        background: rgba(15, 23, 42, 0.75);
-        border-left: 4px solid #10b981;
-        padding: 14px 18px;
+        background: rgba(10, 24, 16, 0.85);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-left: 5px solid #10b981;
+        padding: 16px 22px;
         border-radius: 8px;
-        color: #a7f3d0;
-        font-size: 0.95rem;
-        font-family: 'Noto Sans Devanagari', sans-serif;
+        color: #d1fae5;
+        font-size: 1.02rem;
+        font-family: 'Noto Serif Devanagari', serif;
+        line-height: 1.8;
     }
 
+    /* Royal Tabs (राजकीय-पट्टिका) */
+    div[data-testid="stTabs"] button[role="tab"] {
+        font-family: 'Cinzel', serif !important;
+        font-size: 1.02rem !important;
+        font-weight: 700 !important;
+        color: #d1bda0 !important;
+        background: transparent !important;
+        border-bottom: 2px solid transparent !important;
+        padding: 12px 20px !important;
+        letter-spacing: 0.5px !important;
+        transition: all 0.2s ease !important;
+    }
+    div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
+        color: #ffd700 !important;
+        border-bottom: 3px solid #d4af37 !important;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.5) !important;
+    }
+    div[data-testid="stTabs"] button[role="tab"]:hover {
+        color: #fff2b2 !important;
+    }
+
+    /* Royal Medallion Tiles (राजमुद्रा-मापकम्) */
     .stat-tile {
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 10px;
-        padding: 16px;
+        background: linear-gradient(180deg, #2b0910 0%, #190509 100%);
+        border: 1.5px solid #b38728;
+        border-radius: 12px;
+        padding: 18px;
         text-align: center;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(212, 175, 55, 0.08);
     }
 
     .stat-val {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #38bdf8;
+        font-family: 'Cinzel', serif;
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #ffd700;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
     }
 
     .stat-lbl {
-        font-size: 0.75rem;
-        color: #94a3b8;
+        font-family: 'Marcellus', serif;
+        font-size: 0.8rem;
+        color: #d1bda0;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-top: 4px;
+        letter-spacing: 0.6px;
+        margin-top: 6px;
+    }
+
+    /* Royal Expander Styling */
+    div[data-testid="stExpander"] {
+        border: 1.5px solid #b38728 !important;
+        border-radius: 10px !important;
+        background: rgba(26, 6, 11, 0.75) !important;
+        margin-bottom: 12px !important;
+    }
+    div[data-testid="stExpander"] summary {
+        font-family: 'Marcellus', 'Noto Serif Devanagari', serif !important;
+        color: #fef08a !important;
+        font-weight: 600 !important;
+    }
+
+    /* Royal Document Download Button */
+    div[data-testid="stDownloadButton"] button {
+        background: linear-gradient(180deg, #380d16 0%, #1f060b 100%) !important;
+        border: 1.5px solid #d4af37 !important;
+        color: #fff0a8 !important;
+        font-family: 'Cinzel', serif !important;
+        font-weight: 700 !important;
+        padding: 12px 20px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.6) !important;
+    }
+    div[data-testid="stDownloadButton"] button:hover {
+        background: linear-gradient(180deg, #551423 0%, #300913 100%) !important;
+        border-color: #ffd700 !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.5) !important;
+    }
+
+    .royal-divider {
+        text-align: center;
+        color: #d4af37;
+        font-family: 'Cinzel', serif;
+        font-size: 1.0rem;
+        letter-spacing: 2px;
+        margin: 25px 0;
+        opacity: 0.85;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -399,25 +531,26 @@ top_k = 3
 # Hero Section
 st.markdown("""
 <div class="hero-container">
-    <div class="hero-title">✦ Sanskrit Retrieval-Augmented Generation</div>
+    <div class="hero-crest">⚜ श्रीसंस्कृतज्ञानभाण्डारम् ⚜</div>
+    <div class="hero-title">SANSKRIT RETRIEVAL-AUGMENTED GENERATION</div>
     <div class="hero-subtitle">
-        An end-to-end question-answering architecture for Sanskrit classical literature, philosophy, and subhashitas.
-        Processes queries in native Devanagari, Romanized transliterations (IAST/HK/ITRANS), or Natural English with instant Sanskrit response and comprehensive English meaning.
+        राजकीय-शास्त्रानुसन्धान-प्रणाली | Imperial Question-Answering Architecture for Classical Sanskrit Literature, Philosophy, and Royal Subhashitas.
+        Grounded with Authentic Devanagari Decrees, Comprehensive English Commentaries, and Verbatim Citations.
     </div>
     <div class="badge-container">
         <span class="spec-badge">✦ 100% CPU Only (No GPU)</span>
-        <span class="spec-badge">◆ English Queries Supported with Full English Meaning</span>
+        <span class="spec-badge">◆ English & Sanskrit Natural Queries</span>
         <span class="spec-badge">◈ Dual Script: Devanagari + IAST / HK / ITRANS</span>
-        <span class="spec-badge">❖ Hybrid Vector & BM25 Fusion</span>
-        <span class="spec-badge">§ Sanskrit Verse & Danda (।) Aware Chunking</span>
+        <span class="spec-badge">❖ Imperial Hybrid Vector & BM25 Fusion</span>
+        <span class="spec-badge">§ Verse & Danda (।) Aware Semantic Chunking</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 # Quick Query Chips
-st.markdown("##### ✦ Quick Sample Queries (Click any button to test):")
+st.markdown("##### ⚜ Quick Sample Queries (Click any royal decree button to test):")
 
-st.markdown("<span style='color: #38bdf8; font-weight: 600; font-size: 0.9rem;'>◈ English Queries:</span>", unsafe_allow_html=True)
+st.markdown("<span style='color: #ffd700; font-family: Marcellus, serif; font-weight: 700; font-size: 0.98rem;'>◈ English Queries (आङ्ग्लभाषा-प्रश्नाः):</span>", unsafe_allow_html=True)
 en_cols = st.columns(4)
 with en_cols[0]:
     if st.button("Why did the foolish servant ruin the sugar?", use_container_width=True):
@@ -432,7 +565,7 @@ with en_cols[3]:
     if st.button("Why was 'badhati' grammatically incorrect?", use_container_width=True):
         set_query("Why was badhati incorrect in sheetam bahu badhati?")
 
-st.markdown("<span style='color: #fbbf24; font-weight: 600; font-size: 0.9rem;'>◈ Sanskrit Queries (संस्कृत-प्रश्नाः):</span>", unsafe_allow_html=True)
+st.markdown("<span style='color: #ffd700; font-family: Marcellus, serif; font-weight: 700; font-size: 0.98rem;'>◈ Sanskrit Queries (संस्कृत-प्रश्नाः):</span>", unsafe_allow_html=True)
 sk_cols = st.columns(4)
 with sk_cols[0]:
     if st.button("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
@@ -447,9 +580,9 @@ with sk_cols[3]:
     if st.button("देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
         set_query("देवभक्तः किमर्थं जले मृतवान् ?")
 
-# Full-Width Search Input (With End-Corner SVG Magnifying Symbol — Press Enter to Search)
+# Full-Width Search Input (With End-Corner Golden Sceptre/Magnifying Symbol — Press Enter to Search)
 query_val = st.text_input(
-    "Enter Your Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
+    "⚜ प्रष्टव्य-प्रश्नद्वारम् | Enter Your Royal Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
     value=st.session_state.query_text,
     placeholder="Ask in English (e.g. 'What did King Bhoja announce?') or Sanskrit and press Enter...",
     key="main_query_input",
@@ -475,12 +608,12 @@ if query_val.strip():
     st.markdown(f"""
     <div class="transliteration-card">
         <div>
-            <span style="color: #94a3b8; font-size: 0.85rem;">Input Query Language / Script:</span><br>
+            <span style="color: #d1bda0; font-family: 'Marcellus', serif; font-size: 0.88rem;">Input Query Language / Script:</span><br>
             <span class="script-pill">{detected_scheme}</span>
         </div>
-        <div style="font-size: 1.5rem; color: #f59e0b;">➔</div>
+        <div style="font-size: 1.6rem; color: #ffd700;">➔</div>
         <div style="flex-grow: 1;">
-            <span style="color: #94a3b8; font-size: 0.85rem;">Sanskrit Translation / Representation:</span><br>
+            <span style="color: #d1bda0; font-family: 'Marcellus', serif; font-size: 0.88rem;">Sanskrit Canonical Representation (संस्कृत-प्रतीकम्):</span><br>
             <span class="devanagari-preview">{search_target_display}</span>
         </div>
     </div>
@@ -519,8 +652,8 @@ if query_val.strip():
             <div class="unmatched-alert">
                 <span style="font-size: 1.8rem; color: #f87171; font-weight: bold;">[ ! ]</span>
                 <div>
-                    <div style="font-weight: 700; color: #f87171; font-size: 1.2rem;">The query does not match with the retrieved document</div>
-                    <div style="color: #cbd5e1; font-size: 0.95rem; margin-top: 4px;">
+                    <div style="font-weight: 700; color: #f87171; font-size: 1.2rem; font-family: 'Cinzel', serif;">The query does not match with the retrieved document</div>
+                    <div style="color: #fce7cf; font-size: 0.96rem; margin-top: 4px; font-family: 'Marcellus', serif;">
                         The entered query is not addressed by any documents in the ingested Sanskrit corpus. No relevant contextual evidence was found in the text to answer this question.
                     </div>
                 </div>
@@ -552,7 +685,7 @@ if query_val.strip():
         st.markdown("""
         <div class="answer-card">
             <div class="answer-heading">
-                <span>◈</span> उत्तरम् (Sanskrit Answer)
+                <span>◈</span> उत्तरम् (Imperial Sanskrit Decree)
             </div>
             <div class="sanskrit-text">
         """ + sanskrit_part + """
@@ -562,8 +695,8 @@ if query_val.strip():
 
         if english_part:
             st.markdown("""
-            <div class="answer-card" style="border-left: 6px solid #38bdf8; margin-top: 18px;">
-                <div class="answer-heading" style="color: #38bdf8;">
+            <div class="answer-card" style="margin-top: 20px;">
+                <div class="answer-heading" style="color: #fff2b2;">
                     <span>◆</span> English Explanation & Complete Meaning (विस्तृत-आङ्ग्लार्थः)
                 </div>
                 <div class="explanation-box">
@@ -574,9 +707,9 @@ if query_val.strip():
 
         if reference_part:
             st.markdown("""
-            <div class="answer-card" style="border-left: 6px solid #10b981; margin-top: 18px;">
-                <div class="answer-heading" style="color: #10b981; font-size: 1.1rem;">
-                    <span>§</span> प्रमाणम् / Direct Corpus Reference (मूलसन्दर्भः)
+            <div class="answer-card" style="border-left: 7px solid #10b981; margin-top: 20px;">
+                <div class="answer-heading" style="color: #6ee7b7; font-size: 1.15rem;">
+                    <span>§</span> प्रमाणम् / Direct Corpus Reference (मूलग्रन्थसन्दर्भः)
                 </div>
                 <div class="citation-box">
                     <b>मूलग्रन्थसन्दर्भः:</b> """ + reference_part.replace("\n", "<br>") + """
@@ -589,10 +722,10 @@ if query_val.strip():
         is_matched = result.get("is_matched", True)
         if not chunks or not is_matched:
             st.markdown("""
-            <div style="background: rgba(15, 23, 42, 0.7); border: 1.5px dashed #ef4444; border-radius: 10px; padding: 24px; text-align: center; color: #cbd5e1; margin-top: 10px;">
-                <span style="font-size: 2rem; color: #94a3b8;">§</span><br>
-                <b style="color: #f87171; font-size: 1.15rem;">The query does not match with the retrieved document</b><br>
-                <span style="color: #94a3b8; font-size: 0.95rem;">No relevant context chunks were found above the relevance threshold in the ingested Sanskrit corpus.</span>
+            <div style="background: rgba(45, 10, 15, 0.85); border: 2px dashed #ef4444; border-radius: 12px; padding: 26px; text-align: center; color: #fce7cf; margin-top: 10px;">
+                <span style="font-size: 2rem; color: #d1bda0;">§</span><br>
+                <b style="color: #f87171; font-size: 1.2rem; font-family: 'Cinzel', serif;">The query does not match with the retrieved document</b><br>
+                <span style="color: #d1bda0; font-size: 0.96rem; font-family: 'Marcellus', serif;">No relevant context chunks were found above the relevance threshold in the ingested Sanskrit corpus.</span>
             </div>
             """, unsafe_allow_html=True)
         else:
@@ -604,7 +737,7 @@ if query_val.strip():
                 
                 with st.expander(f"§ Context Chunk #{idx} — Section: 『{sec}』 (Relevance Score: {score:.4f})", expanded=(idx == 1)):
                     st.markdown(f"""
-                    <div style="font-family: 'Noto Sans Devanagari', serif; font-size: 1.15rem; line-height: 1.8; background: #0f172a; padding: 16px; border-radius: 8px; border: 1px solid #334155;">
+                    <div style="font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; line-height: 1.9; background: #140407; color: #fffdf5; padding: 18px; border-radius: 8px; border: 1.5px solid #b38728;">
                         {c.get('content', '')}
                     </div>
                     """, unsafe_allow_html=True)
@@ -668,11 +801,11 @@ if query_val.strip():
 else:
     # Landing Placeholder when no query is typed
     st.markdown("""
-    <div style="text-align: center; padding: 45px 20px; background: rgba(30, 41, 59, 0.3); border-radius: 14px; border: 1px dashed #334155; margin-top: 25px;">
-        <div style="font-size: 2.8rem; margin-bottom: 12px; color: #f59e0b;">◈</div>
-        <div style="font-family: 'Cinzel', serif; font-size: 1.35rem; color: #f59e0b; margin-bottom: 8px;">Ready for Queries</div>
-        <div style="color: #94a3b8; font-size: 1.0rem; max-width: 650px; margin: 0 auto; line-height: 1.6;">
-            Type your question above in <b>Natural English</b>, <b>Devanagari Sanskrit</b>, or <b>Romanized Transliterations (IAST / HK / ITRANS)</b>, or click any of the quick sample queries above to see the Sanskrit answer and full English explanation.
+    <div style="text-align: center; padding: 50px 24px; background: rgba(36, 8, 14, 0.45); border-radius: 14px; border: 1.5px dashed #b38728; margin-top: 25px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+        <div style="font-size: 3.2rem; margin-bottom: 14px; color: #ffd700;">⚜</div>
+        <div style="font-family: 'Cinzel Decorative', 'Cinzel', serif; font-size: 1.45rem; color: #ffd700; margin-bottom: 8px;">Ready for Royal Queries</div>
+        <div style="font-family: 'Marcellus', serif; color: #fce7cf; font-size: 1.05rem; max-width: 680px; margin: 0 auto; line-height: 1.7;">
+            Inquire in <b>Natural English</b>, <b>Devanagari Sanskrit</b>, or <b>Romanized Transliterations (IAST / HK / ITRANS)</b>, or select any imperial decree query above to receive the authentic Sanskrit answer with full English commentary.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -680,8 +813,8 @@ else:
 # =====================================================================
 # BOTTOM SECTION: SYSTEM ARCHITECTURE & DOCUMENTATION
 # =====================================================================
-st.markdown("---")
-st.markdown("### ❖ System Architecture & Project Documentation")
+st.markdown("<div class='royal-divider'><span>⚜ ═══════════════ ◆ ═══════════════ ⚜</span></div>", unsafe_allow_html=True)
+st.markdown("### ❖ Imperial System Architecture & Royal Documentation")
 
 bot_cols = st.columns([1, 1, 1])
 
@@ -721,4 +854,4 @@ with st.expander("Document Ingestion: Upload & Index Additional Sanskrit Documen
                 count = pipeline.index_document(save_path, overwrite=False)
                 st.success(f"Indexed {count} chunks successfully!")
 
-st.markdown("<div style='text-align: center; color: #64748b; font-size: 0.85rem; padding: 25px 0 10px 0;'>✦ Sanskrit RAG System | Developed by Sahil Karande | Assignment Submission</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: #b38728; font-family: Marcellus, serif; font-size: 0.95rem; padding: 30px 0 15px 0;'>⚜ Sanskrit RAG System | Royal Historical King Edition | Developed by Sahil Karande ⚜</div>", unsafe_allow_html=True)
