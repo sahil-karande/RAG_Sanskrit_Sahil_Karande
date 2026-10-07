@@ -30,13 +30,42 @@ from retriever import SanskritRetriever
 from generator import SanskritGenerator
 from pipeline import SanskritRAGPipeline
 
-# Page Configuration
+# Page Configuration (Must be first Streamlit call)
 st.set_page_config(
     page_title="Sanskrit RAG | CPU-Only Retrieval-Augmented Generation",
     page_icon="✦",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+
+# Page Theme & Sacred Lotus Mandala Watermark
+mandala_path = os.path.join(curr_dir, "..", "assets", "sacred_mandala_watermark.svg")
+mandala_b64 = ""
+if os.path.exists(mandala_path):
+    with open(mandala_path, "rb") as mf:
+        mandala_b64 = base64.b64encode(mf.read()).decode("utf-8")
+
+if mandala_b64:
+    st.markdown(f"""
+    <style>
+    .stApp::before {{
+        content: '' !important;
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 760px !important;
+        height: 760px !important;
+        background-image: url('data:image/svg+xml;base64,{mandala_b64}') !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: contain !important;
+        opacity: 0.055 !important;
+        pointer-events: none !important;
+        z-index: 0 !important;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
 
 # Custom Vintage Historical Theme (Antique Manuscript & Aged Papyrus Palette)
 st.markdown("""
@@ -54,16 +83,41 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* Vintage Antique Parchment Canvas with Soft Gentle Amber Fades */
+    /* Radiant Sandalwood Vellum Background with Celestial Golden Aura */
     .stApp {
-        background: radial-gradient(ellipse at 50% 35%, #fdf8ee 0%, #f7ecd7 35%, #ebd8b8 70%, #dfc79f 90%, #d5b88c 100%) fixed !important;
-        background-color: #f7ecd7 !important;
+        background:
+            /* Top Celestial Saffron/Golden Aura */
+            radial-gradient(ellipse 90% 45% at 50% -5%, rgba(245, 185, 95, 0.40) 0%, rgba(248, 215, 150, 0.18) 45%, transparent 75%),
+            /* Center warm vellum illumination */
+            radial-gradient(circle 700px at 50% 38%, rgba(255, 250, 240, 0.90) 0%, rgba(250, 240, 222, 0.55) 60%, transparent 100%),
+            /* Bottom-left warm terracotta vignette */
+            radial-gradient(ellipse 55% 40% at 0% 100%, rgba(165, 85, 35, 0.14) 0%, transparent 60%),
+            /* Bottom-right warm antique bronze vignette */
+            radial-gradient(ellipse 55% 40% at 100% 100%, rgba(165, 85, 35, 0.14) 0%, transparent 60%),
+            /* Base Sandalwood / Aged Vellum */
+            linear-gradient(180deg, #faf3e6 0%, #f4e7d1 50%, #edd9bc 100%)
+            fixed !important;
+        background-color: #f5e8d3 !important;
         color: #2b180d !important;
     }
-    .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5 {
-        color: #2b180d !important;
+
+    /* Delicate manuscript vellum gold dust texture */
+    .stApp::after {
+        content: '' !important;
+        position: fixed !important;
+        inset: 0 !important;
+        pointer-events: none !important;
+        z-index: 0 !important;
+        background-image:
+            radial-gradient(circle, rgba(140, 100, 50, 0.045) 1px, transparent 1px) !important;
+        background-size: 32px 32px !important;
+    }
+    .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6 {
+        color: #241107 !important;
         font-family: 'Cinzel', serif !important;
-        letter-spacing: 0.5px !important;
+        letter-spacing: 0.8px !important;
+        font-weight: 800 !important;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
     }
 
     :root {
@@ -531,40 +585,52 @@ st.markdown("""
         border: 1.5px solid #8c6f43 !important;
         border-radius: 8px !important;
         background: linear-gradient(180deg, #281d13 0%, #1a120b 100%) !important;
-        margin-bottom: 12px !important;
+        margin-bottom: 14px !important;
         box-shadow: 0 4px 14px rgba(45, 30, 15, 0.3) !important;
+        overflow: hidden !important;
     }
     div[data-testid="stExpander"] summary {
         background: transparent !important;
         display: flex !important;
+        flex-direction: row !important;
         align-items: center !important;
-        overflow: hidden !important;
+        padding: 12px 18px !important;
+        gap: 12px !important;
+        cursor: pointer !important;
+    }
+    div[data-testid="stExpander"] summary:hover {
+        background: rgba(140, 111, 67, 0.12) !important;
     }
     div[data-testid="stExpander"] summary p,
-    div[data-testid="stExpander"] summary span {
+    div[data-testid="stExpander"] summary [data-testid="stMarkdownContainer"] p {
         font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
         color: #ffd782 !important;
-        font-size: 1.1rem !important;
+        font-size: 1.12rem !important;
         font-weight: 700 !important;
-        min-width: 0 !important;
-        overflow: hidden !important;
-        white-space: nowrap !important;
-        text-overflow: ellipsis !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     div[data-testid="stExpander"] summary svg {
-        fill: #ffd782 !important;
-        width: 18px !important;
-        height: 18px !important;
+        fill: #dfbe7b !important;
+        color: #dfbe7b !important;
+        width: 20px !important;
+        height: 20px !important;
+        min-width: 20px !important;
+        max-width: 20px !important;
         flex-shrink: 0 !important;
-        overflow: visible !important;
+        overflow: hidden !important;
+        display: block !important;
+        margin: 0 !important;
     }
-    /* Hide the accessible title text inside SVG icons — prevents "keyboardArrowRight" from rendering as visible text */
     div[data-testid="stExpander"] summary svg title,
-    div[data-testid="stExpander"] summary svg text {
+    div[data-testid="stExpander"] summary svg text,
+    div[data-testid="stExpander"] summary svg desc {
         display: none !important;
         visibility: hidden !important;
         font-size: 0 !important;
-        color: transparent !important;
+        width: 0 !important;
+        height: 0 !important;
+        opacity: 0 !important;
     }
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] {
         background: #1b130b !important;
@@ -584,7 +650,7 @@ st.markdown("""
         font-weight: 500 !important;
     }
 
-    /* Vintage Document Ingestion & File Uploader */
+    /* Vintage Document Ingestion & File Uploader: Perfectly Balanced Horizontal Row */
     div[data-testid="stFileUploader"] {
         background: #16100a !important;
         border: 1.5px solid #6d5432 !important;
@@ -597,22 +663,24 @@ st.markdown("""
     div[data-testid="stFileUploader"] label p {
         color: #ffd782 !important;
         font-family: 'Cinzel', serif !important;
-        font-size: 1.05rem !important;
+        font-size: 1.02rem !important;
         font-weight: 700 !important;
-        margin-bottom: 10px !important;
+        letter-spacing: 0.5px !important;
+        margin-bottom: 12px !important;
     }
     section[data-testid="stFileUploaderDropzone"],
     div[data-testid="stFileUploaderDropzone"] {
         background: #231911 !important;
         border: 1.5px dashed #8c6f43 !important;
-        border-radius: 6px !important;
-        padding: 24px 20px !important;
+        border-radius: 8px !important;
+        padding: 16px 24px !important;
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: row !important;
         align-items: center !important;
-        justify-content: center !important;
-        gap: 12px !important;
-        text-align: center !important;
+        justify-content: space-between !important;
+        gap: 20px !important;
+        min-height: 80px !important;
+        box-sizing: border-box !important;
         transition: all 0.2s ease !important;
     }
     section[data-testid="stFileUploaderDropzone"]:hover,
@@ -620,27 +688,42 @@ st.markdown("""
         border-color: #dfbe7b !important;
         background: #2c2016 !important;
     }
-    section[data-testid="stFileUploaderDropzone"] div,
-    section[data-testid="stFileUploaderDropzone"] span,
-    section[data-testid="stFileUploaderDropzone"] p {
-        color: #faf2de !important;
-        font-family: 'EB Garamond', serif !important;
-        font-size: 1.08rem !important;
+    /* Dropzone Instructions: Icon on left, Text stacked cleanly beside it */
+    div[data-testid="stFileUploaderDropzoneInstructions"] {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 16px !important;
+        flex: 1 !important;
     }
-    section[data-testid="stFileUploaderDropzone"] small {
-        color: #dfbe7b !important;
-        font-size: 0.92rem !important;
-        font-weight: 500 !important;
-        display: block !important;
-        margin-top: 4px !important;
-    }
-    section[data-testid="stFileUploaderDropzone"] svg {
+    div[data-testid="stFileUploaderDropzoneInstructions"] svg {
         fill: #dfbe7b !important;
         color: #dfbe7b !important;
-        width: 34px !important;
-        height: 34px !important;
-        margin-bottom: 4px !important;
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        max-width: 32px !important;
+        flex-shrink: 0 !important;
+        margin: 0 !important;
     }
+    div[data-testid="stFileUploaderDropzoneInstructions"] span {
+        color: #faf2de !important;
+        font-family: 'EB Garamond', serif !important;
+        font-size: 1.12rem !important;
+        font-weight: 600 !important;
+        display: block !important;
+        line-height: 1.3 !important;
+    }
+    div[data-testid="stFileUploaderDropzoneInstructions"] small {
+        color: #dfbe7b !important;
+        font-family: 'EB Garamond', serif !important;
+        font-size: 0.95rem !important;
+        font-weight: 500 !important;
+        display: block !important;
+        margin-top: 2px !important;
+        line-height: 1.3 !important;
+    }
+    /* Browse Files Button: Right-aligned, vertically centered, no border overflow */
     section[data-testid="stFileUploaderDropzone"] button,
     div[data-testid="stFileUploaderDropzone"] button {
         background: linear-gradient(180deg, #3d2c1c 0%, #221810 100%) !important;
@@ -650,17 +733,23 @@ st.markdown("""
         font-family: 'Cinzel', serif !important;
         font-size: 0.95rem !important;
         font-weight: 700 !important;
-        padding: 8px 20px !important;
-        min-height: auto !important;
+        padding: 9px 22px !important;
+        min-height: 40px !important;
         height: auto !important;
         cursor: pointer !important;
-        margin-top: 8px !important;
+        margin: 0 !important;
         box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     section[data-testid="stFileUploaderDropzone"] button:hover {
         border-color: #dfbe7b !important;
         color: #ffffff !important;
         background: linear-gradient(180deg, #523b26 0%, #322216 100%) !important;
+        box-shadow: 0 4px 12px rgba(197, 159, 91, 0.35) !important;
     }
 
     /* Uploaded File Data Row */
@@ -761,115 +850,318 @@ st.markdown("""
         flex-shrink: 0 !important;
     }
 
-    /* Caption Styling for Archival Clarity on Parchment */
+    /* Caption Styling: High Contrast Dark Walnut on Parchment */
     div[data-testid="stCaptionContainer"] *,
     div[data-testid="stCaptionContainer"] p,
     .stCaption,
     small {
-        color: #3b2311 !important;
-        font-weight: 600 !important;
+        color: #241107 !important;
+        font-weight: 700 !important;
         font-size: 0.98rem !important;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+    }
+    /* Captions inside dark containers maintain radiant gold */
+    div[data-testid="stExpander"] div[data-testid="stCaptionContainer"] p,
+    div[data-testid="stExpander"] .stCaption,
+    div[data-testid="stVerticalBlockBorderWrapper"] .directory-badge {
+        color: #dfbe7b !important;
+        text-shadow: none !important;
     }
 
-    /* Primary Search Console Gateway Banner */
-    .search-gateway-banner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: linear-gradient(90deg, rgba(62, 45, 29, 0.95) 0%, rgba(32, 23, 15, 0.95) 100%);
-        border: 2px solid #8c6f43;
-        border-left: 8px solid #dfbe7b;
-        border-radius: 10px 10px 0 0;
-        padding: 12px 20px;
-        margin-top: 18px;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    /* ====================================================
+       UNIFIED THEME: SAME DESIGN & COLOR SCHEME FOR ALL BOXES
+       (Deep Mahogany Obsidian with Antique Gold Trim)
+    ==================================================== */
+    div[data-testid="stVerticalBlockBorderWrapper"] > div[data-testid="stVerticalBlock"] {
+        background: transparent !important;
     }
-    .gateway-title {
-        font-family: 'Cinzel', serif;
-        font-size: 1.15rem;
-        font-weight: 800;
-        color: #dfbe7b;
-        letter-spacing: 1px;
-    }
-    .gateway-hint {
-        font-family: 'EB Garamond', serif;
-        font-size: 0.98rem;
-        color: #d9c8af;
-        font-style: italic;
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        transition: all 0.25s ease-in-out !important;
     }
 
-    div[data-testid="stButton"] {
-        margin-bottom: 10px !important;
+    /* All Section Containers Share the Same Hero Color Scheme */
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.search-gateway-banner),
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.directory-banner) {
+        background: linear-gradient(135deg, #1e140d 0%, #2b1c12 50%, #160e09 100%) !important;
+        border: 2px solid #8c6f43 !important;
+        outline: 1px solid rgba(197, 159, 91, 0.4) !important;
+        outline-offset: -5px !important;
+        border-radius: 12px !important;
+        padding: 22px 26px !important;
+        margin-top: 14px !important;
+        margin-bottom: 20px !important;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.7), inset 0 0 25px rgba(140, 111, 67, 0.12) !important;
     }
 
+    /* Section Banner Headers */
+    .search-gateway-banner,
     .directory-banner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 24px;
-        margin-bottom: 14px;
-        border-bottom: 1.5px solid rgba(140, 111, 67, 0.35);
-        padding-bottom: 8px;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin-bottom: 14px !important;
+        padding-bottom: 10px !important;
+        border-bottom: 1px solid rgba(197, 159, 91, 0.35) !important;
     }
+
+    /* Section Titles Inside Boxes: Radiant Antique Gold */
+    .gateway-title,
     .directory-title {
-        font-family: 'Cinzel', serif;
-        font-size: 1.18rem;
-        font-weight: 800;
-        color: #dfbe7b;
-        letter-spacing: 1px;
+        font-family: 'Cinzel', serif !important;
+        font-size: 1.22rem !important;
+        font-weight: 800 !important;
+        color: #dfbe7b !important;
+        letter-spacing: 1px !important;
+        text-shadow: 0 0 10px rgba(197, 159, 91, 0.5) !important;
+    }
+
+    /* Subtitles / Secondary Hints */
+    .gateway-hint,
+    .directory-badge {
+        font-family: 'EB Garamond', serif !important;
+        font-size: 1rem !important;
+        color: #d9c8af !important;
+        font-style: italic !important;
     }
     .directory-badge {
-        font-family: 'EB Garamond', serif;
-        font-size: 0.95rem;
-        color: #dfbe7b;
-        background: rgba(54, 40, 27, 0.9);
-        border: 1px solid #8c6f43;
-        padding: 3px 12px;
-        border-radius: 4px;
-        font-style: italic;
+        background: rgba(35, 27, 20, 0.95) !important;
+        border: 1px solid #8c6f43 !important;
+        padding: 3px 12px !important;
+        border-radius: 4px !important;
     }
-    .shelf-label-en {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-family: 'Cinzel', serif;
-        font-size: 0.96rem;
-        font-weight: 700;
-        color: #ffd782;
-        background: rgba(54, 40, 27, 0.95);
-        border: 1px solid #8c6f43;
-        border-left: 5px solid #dfbe7b;
-        padding: 5px 14px;
-        border-radius: 4px;
-        margin-top: 10px;
-        margin-bottom: 14px;
+
+    /* Primary Inquiry Input Console */
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.search-gateway-banner) div[data-testid="stTextInput"] {
+        margin: 0 !important;
+    }
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.search-gateway-banner) div[data-testid="stTextInput"] div[data-baseweb="input"] {
+        min-height: 60px !important;
+        height: 60px !important;
+        border-radius: 8px !important;
+        background: #1c150f !important;
+        border: 2px solid #8c6f43 !important;
+        outline: 1px solid rgba(197, 159, 91, 0.35) !important;
+        outline-offset: -5px !important;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), inset 0 2px 6px rgba(0,0,0,0.6) !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        position: relative !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.search-gateway-banner) div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within {
+        border-color: #dfbe7b !important;
+        outline-color: #f5e4bd !important;
+        box-shadow: 0 0 24px rgba(197, 159, 91, 0.4), inset 0 0 12px rgba(197, 159, 91, 0.12) !important;
+    }
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.search-gateway-banner) div[data-testid="stTextInput"] input {
+        font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
+        font-size: 1.25rem !important;
+        line-height: 1.6 !important;
+        height: 100% !important;
+        padding: 0 62px 0 20px !important;
+        background-color: transparent !important;
+        color: #fffef7 !important;
+        border: none !important;
+        outline: none !important;
+    }
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.search-gateway-banner) div[data-testid="stTextInput"] input::placeholder {
+        color: #a8947b !important;
+        font-style: italic !important;
+        font-size: 1.08rem !important;
+    }
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.search-gateway-banner) div[data-testid="stTextInput"] div[data-baseweb="input"]::after {
+        content: '' !important;
+        position: absolute !important;
+        right: 18px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 26px !important;
+        height: 26px !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23dfbe7b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7.5'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.5' y2='16.5'%3E%3C/line%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: contain !important;
+        pointer-events: none !important;
+        opacity: 0.9 !important;
+    }
+
+    /* Shelf Labels: Unified Antique Dark Wood Pill with Gold Trim */
+    .shelf-label-en,
+    .shelf-label-sa {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
+        font-size: 1.02rem !important;
+        font-weight: 700 !important;
+        color: #faf2de !important;
+        background: rgba(35, 27, 20, 0.95) !important;
+        border: 1.5px solid #8c6f43 !important;
+        border-left: 4px solid #dfbe7b !important;
+        padding: 5px 16px !important;
+        border-radius: 6px !important;
+        margin-top: 8px !important;
+        margin-bottom: 12px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
     }
     .shelf-label-sa {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-family: 'Noto Serif Devanagari', serif;
-        font-size: 1.02rem;
-        font-weight: 700;
-        color: #ffb17a;
-        background: rgba(50, 26, 18, 0.95);
-        border: 1px solid #b56839;
-        border-left: 5px solid #e07a38;
-        padding: 5px 14px;
-        border-radius: 4px;
-        margin-top: 24px;
-        margin-bottom: 14px;
-        letter-spacing: normal !important;
+        margin-top: 18px !important;
+    }
+
+    /* Unified Button Styling: Matches Hero Badges & Tablets */
+    div[data-testid="stButton"] button,
+    div[data-testid="stDownloadButton"] button {
+        background: linear-gradient(180deg, #2a1f15 0%, #17110c 100%) !important;
+        border: 1.5px solid #8c6f43 !important;
+        border-left: 5px solid #dfbe7b !important;
+        border-radius: 6px !important;
+        color: #fffdf5 !important;
+        font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+        padding: 10px 14px !important;
+        min-height: 52px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(250, 242, 222, 0.1) !important;
+        transition: all 0.2s ease-in-out !important;
+        cursor: pointer !important;
+    }
+    div[data-testid="stButton"] button *,
+    div[data-testid="stButton"] button p,
+    div[data-testid="stDownloadButton"] button *,
+    div[data-testid="stDownloadButton"] button p {
+        color: #fffdf5 !important;
+        font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+        white-space: normal !important;
+        line-height: 1.35 !important;
+    }
+    div[data-testid="stButton"] button:hover,
+    div[data-testid="stDownloadButton"] button:hover {
+        background: linear-gradient(180deg, #443222 0%, #291d13 100%) !important;
+        border-color: #dfbe7b !important;
+        border-left-color: #ffd782 !important;
+        box-shadow: 0 6px 18px rgba(197, 159, 91, 0.45) !important;
+        transform: translateY(-2px) !important;
+    }
+    div[data-testid="stButton"] button:hover *,
+    div[data-testid="stDownloadButton"] button:hover * {
+        color: #ffffff !important;
+        text-shadow: 0 0 8px rgba(255, 215, 130, 0.6) !important;
+    }
+
+    /* Landing Card: Unified Dark Mahogany & Gold */
+    .archive-ready-card {
+        text-align: center !important;
+        padding: 38px 30px !important;
+        background: linear-gradient(135deg, #1e140d 0%, #2b1c12 50%, #160e09 100%) !important;
+        border: 2px solid #8c6f43 !important;
+        outline: 1px solid rgba(197, 159, 91, 0.4) !important;
+        outline-offset: -5px !important;
+        border-radius: 12px !important;
+        margin-top: 20px !important;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.7), inset 0 0 25px rgba(140, 111, 67, 0.12) !important;
+    }
+    .archive-ready-icon {
+        font-size: 2.5rem !important;
+        margin-bottom: 8px !important;
+        color: #dfbe7b !important;
+        text-shadow: 0 0 12px rgba(197, 159, 91, 0.5) !important;
+    }
+    .archive-ready-title {
+        font-family: 'Cinzel', serif !important;
+        font-size: 1.4rem !important;
+        font-weight: 800 !important;
+        color: #dfbe7b !important;
+        letter-spacing: 1.5px !important;
+        margin-bottom: 10px !important;
+        text-shadow: 0 0 10px rgba(197, 159, 91, 0.4) !important;
+    }
+    .archive-ready-body {
+        font-family: 'EB Garamond', serif !important;
+        color: #d9c8af !important;
+        font-size: 1.18rem !important;
+        max-width: 760px !important;
+        margin: 0 auto !important;
+        line-height: 1.8 !important;
+    }
+    .archive-ready-body b {
+        color: #ffd782 !important;
+    }
+
+    /* Architecture Section Titles (Direct on Sandalwood Vellum Background) */
+    .arch-section-header {
+        text-align: center !important;
+        margin-top: 14px !important;
+        margin-bottom: 24px !important;
+    }
+    .arch-title {
+        font-family: 'Cinzel', serif !important;
+        font-size: 1.38rem !important;
+        font-weight: 900 !important;
+        color: #241107 !important;
+        letter-spacing: 1.6px !important;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) !important;
+        margin-bottom: 6px !important;
+    }
+    .arch-subtitle {
+        font-family: 'EB Garamond', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+        color: #4a2810 !important;
+        letter-spacing: 0.6px !important;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+    }
+    .arch-col-title {
+        font-family: 'Cinzel', serif !important;
+        color: #241107 !important;
+        font-weight: 800 !important;
+        font-size: 1.1rem !important;
+        letter-spacing: 0.8px !important;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+        margin-bottom: 12px !important;
     }
 
     .vintage-divider {
-        text-align: center;
-        color: #c59f5b;
-        font-family: 'Cinzel', serif;
-        font-size: 0.95rem;
-        letter-spacing: 2px;
-        margin: 25px 0;
-        opacity: 0.85;
+        text-align: center !important;
+        color: #3b2010 !important;
+        font-family: 'Cinzel', serif !important;
+        font-size: 1rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 2px !important;
+        margin: 28px 0 18px 0 !important;
+        opacity: 0.9 !important;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+    }
+
+    /* Author Portfolio Hyperlinks */
+    .portfolio-link {
+        color: #6b350e !important;
+        font-weight: 800 !important;
+        text-decoration: underline !important;
+        text-underline-offset: 3px !important;
+        text-decoration-thickness: 1.5px !important;
+        transition: all 0.2s ease !important;
+        cursor: pointer !important;
+    }
+    .portfolio-link:hover {
+        color: #b85d18 !important;
+        text-decoration-color: #b85d18 !important;
+        text-shadow: 0 0 10px rgba(184, 93, 24, 0.45) !important;
+    }
+    .author-credit {
+        font-family: 'EB Garamond', serif !important;
+        font-size: 0.98rem !important;
+        font-weight: 700 !important;
+        color: #241107 !important;
+        margin-top: 6px !important;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -970,62 +1262,64 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 1. PRIMARY SEARCH GATEWAY (FRONT & CENTER)
-st.markdown("""
-<div class="search-gateway-banner">
-    <span class="gateway-title">✦ PRIMARY INQUIRY CONSOLE | ग्रन्थ-सन्धानम्</span>
-    <span class="gateway-hint">Type below in English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS</span>
-</div>
-""", unsafe_allow_html=True)
+# 1. PRIMARY SEARCH GATEWAY (Sacred Royal Sapphire Sanctum)
+with st.container(border=True):
+    st.markdown("""
+    <div class="search-gateway-banner">
+        <span class="gateway-title">✦ PRIMARY INQUIRY CONSOLE | ग्रन्थ-सन्धानम्</span>
+        <span class="gateway-hint">Type below in English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS</span>
+    </div>
+    """, unsafe_allow_html=True)
 
-query_val = st.text_input(
-    "Historical Manuscript Query | Enter Your Question:",
-    value=st.session_state.query_text,
-    placeholder="Inquire in English (e.g. 'Why was no poet able to win the reward?') or Sanskrit and press Enter...",
-    key="main_query_input",
-    label_visibility="collapsed"
-)
+    query_val = st.text_input(
+        "Historical Manuscript Query | Enter Your Question:",
+        value=st.session_state.query_text,
+        placeholder="Inquire in English (e.g. 'Why was no poet able to win the reward?') or Sanskrit and press Enter...",
+        key="main_query_input",
+        label_visibility="collapsed"
+    )
 
-# 2. STRUCTURED VINTAGE QUERY DIRECTORY
-st.markdown("""
-<div class="directory-banner">
-    <span class="directory-title">◈ HISTORICAL QUERY DIRECTORY | शीघ्र-ग्रन्थ-प्रश्नावली</span>
-    <span class="directory-badge">Click any tablet below to load authentic query</span>
-</div>
-<div class="shelf-label-en">◆ Classical English Inquiries (आङ्ग्लप्रश्नाः)</div>
-""", unsafe_allow_html=True)
+# 2. STRUCTURED VINTAGE QUERY DIRECTORY (Forest Jade Pavilion)
+with st.container(border=True):
+    st.markdown("""
+    <div class="directory-banner">
+        <span class="directory-title">◈ HISTORICAL QUERY DIRECTORY | शीघ्र-ग्रन्थ-प्रश्नावली</span>
+        <span class="directory-badge">✦ Click any tablet below to load authentic query</span>
+    </div>
+    <div class="shelf-label-en">◆ Classical English Inquiries (आङ्ग्लप्रश्नाः)</div>
+    """, unsafe_allow_html=True)
 
-ec1, ec2, ec3, ec4 = st.columns(4)
-with ec1:
-    if st.button("◆ Why did servant ruin sugar?", use_container_width=True):
-        set_query("Why did the foolish servant ruin the sugar?")
-with ec2:
-    if st.button("◆ What did King Bhoja announce?", use_container_width=True):
-        set_query("What did King Bhoja announce in his court?")
-with ec3:
-    if st.button("◆ Who was Ghantakarna demon?", use_container_width=True):
-        set_query("Who was Ghantakarna and why was the bell ringing?")
-with ec4:
-    if st.button("◆ Why was 'badhati' incorrect?", use_container_width=True):
-        set_query("Why was badhati incorrect in sheetam bahu badhati?")
+    ec1, ec2, ec3, ec4 = st.columns(4)
+    with ec1:
+        if st.button("◆ Why did servant ruin sugar?", use_container_width=True):
+            set_query("Why did the foolish servant ruin the sugar?")
+    with ec2:
+        if st.button("◆ What did King Bhoja announce?", use_container_width=True):
+            set_query("What did King Bhoja announce in his court?")
+    with ec3:
+        if st.button("◆ Who was Ghantakarna demon?", use_container_width=True):
+            set_query("Who was Ghantakarna and why was the bell ringing?")
+    with ec4:
+        if st.button("◆ Why was 'badhati' incorrect?", use_container_width=True):
+            set_query("Why was badhati incorrect in sheetam bahu badhati?")
 
-st.markdown("""
-<div class="shelf-label-sa">◈ Native Sanskrit Inscriptions (मूलसंस्कृतप्रश्नाः)</div>
-""", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="shelf-label-sa">◈ Native Sanskrit Inscriptions (मूलसंस्कृतप्रश्नाः)</div>
+    """, unsafe_allow_html=True)
 
-sc1, sc2, sc3, sc4 = st.columns(4)
-with sc1:
-    if st.button("◈ मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
-        set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
-with sc2:
-    if st.button("◈ भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
-        set_query("भोजराजः काव्यपठने किं घोषितवान् ?")
-with sc3:
-    if st.button("◈ चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
-        set_query("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?")
-with sc4:
-    if st.button("◈ देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
-        set_query("देवभक्तः किमर्थं जले मृतवान् ?")
+    sc1, sc2, sc3, sc4 = st.columns(4)
+    with sc1:
+        if st.button("◈ मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
+            set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
+    with sc2:
+        if st.button("◈ भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
+            set_query("भोजराजः काव्यपठने किं घोषितवान् ?")
+    with sc3:
+        if st.button("◈ चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
+            set_query("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?")
+    with sc4:
+        if st.button("◈ देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
+            set_query("देवभक्तः किमर्थं जले मृतवान् ?")
 
 if query_val.strip():
     # Step 1: Script Detection & Normalization Preview
@@ -1248,13 +1542,13 @@ if query_val.strip():
             st.info("Corpus text file not found.")
 
 else:
-    # Landing Placeholder when no query is typed
+    # Landing Placeholder when no query is typed (Radiant Golden Temple Saffron)
     st.markdown("""
-    <div style="text-align: center; padding: 34px 24px; background: linear-gradient(135deg, #261b12 0%, #1a120c 100%); border-radius: 10px; border: 2px solid #8c6f43; outline: 1px solid rgba(223, 190, 123, 0.35); outline-offset: -5px; margin-top: 18px; box-shadow: 0 10px 28px rgba(45, 28, 14, 0.4);">
-        <div style="font-size: 2.4rem; margin-bottom: 8px; color: #ffd782; text-shadow: 0 0 12px rgba(223, 190, 123, 0.5);">❖</div>
-        <div style="font-family: 'Cinzel', serif; font-size: 1.35rem; font-weight: 800; color: #ffd782; letter-spacing: 1px; margin-bottom: 8px;">HISTORICAL MANUSCRIPT ARCHIVE READY</div>
-        <div style="font-family: 'EB Garamond', serif; color: #fbf4e6; font-size: 1.15rem; max-width: 720px; margin: 0 auto; line-height: 1.7;">
-            Inquire above in <b style="color: #ffd782;">Natural English</b>, <b style="color: #ffd782;">Devanagari Sanskrit</b>, or <b style="color: #ffd782;">Romanized Transliterations (IAST / HK / ITRANS)</b>, or select any sample inquiry above to retrieve authentic Sanskrit excerpts with full English commentary.
+    <div class="archive-ready-card">
+        <div class="archive-ready-icon">◈ 🪷 ◈</div>
+        <div class="archive-ready-title">HISTORICAL MANUSCRIPT ARCHIVE READY</div>
+        <div class="archive-ready-body">
+            Inquire above in <b>Natural English</b>, <b>Devanagari Sanskrit</b>, or <b>Romanized Transliterations (IAST / HK / ITRANS)</b>, or select any sample inquiry above to retrieve authentic Sanskrit excerpts with full English commentary.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -1262,23 +1556,28 @@ else:
 # =====================================================================
 # BOTTOM SECTION: SYSTEM ARCHITECTURE & DOCUMENTATION
 # =====================================================================
-st.markdown("<div class='vintage-divider'><span>❖ ═════════════════════════════ ❖</span></div>", unsafe_allow_html=True)
-st.markdown("### ❖ Archival System Architecture & Technical Documentation")
+st.markdown("<div class='vintage-divider'><span>❖ ═════════════════════════════════════════════════════════════ ❖</span></div>", unsafe_allow_html=True)
+st.markdown("""
+<div class="arch-section-header">
+    <div class="arch-title">❖ ARCHIVAL SYSTEM ARCHITECTURE &amp; TECHNICAL DOCUMENTATION</div>
+    <div class="arch-subtitle">✦ Zero-GPU Classical In-Memory Inference &amp; Hybrid Retrieval Engine ✦</div>
+</div>
+""", unsafe_allow_html=True)
 
 bot_cols = st.columns([1, 1, 1])
 
 with bot_cols[0]:
-    st.markdown("##### ✦ Hardware Inference Engine")
+    st.markdown("<div class='arch-col-title'>✦ Hardware Inference Engine</div>", unsafe_allow_html=True)
     st.success("✓ **100% CPU Inference (Zero GPU)**")
     st.caption("Low-latency inference via Multilingual MiniLM embeddings & BM25 Fusion on CPU.")
 
 with bot_cols[1]:
-    st.markdown("##### ◈ Retrieval Engine")
+    st.markdown("<div class='arch-col-title'>◈ Retrieval Engine</div>", unsafe_allow_html=True)
     st.info("✦ **Hybrid Fusion Active**")
     st.caption("ChromaDB Vector Embeddings + Sanskrit Lexical Indexing (Rank-BM25).")
 
 with bot_cols[2]:
-    st.markdown("##### ◈ Technical Documentation")
+    st.markdown("<div class='arch-col-title'>◈ Technical Documentation</div>", unsafe_allow_html=True)
     report_file_path = os.path.join(curr_dir, "..", "report", "Sanskrit_RAG_Technical_Report.pdf")
     if os.path.exists(report_file_path):
         with open(report_file_path, "rb") as rf:
@@ -1289,7 +1588,7 @@ with bot_cols[2]:
                 mime="application/pdf",
                 use_container_width=True
             )
-    st.caption("Author: **Sahil Karande** | Assignment Submission")
+    st.markdown("<div class='author-credit'>Author: <a href='https://sahil-karande.vercel.app/' target='_blank' rel='noopener noreferrer' class='portfolio-link'>Sahil Karande</a> ↗ | Assignment Submission</div>", unsafe_allow_html=True)
 
 with st.expander("Document Ingestion: Upload & Index Additional Sanskrit Documents (.txt / .pdf)", expanded=False):
     st.caption("Upload any custom Sanskrit text or PDF document to index it on CPU into ChromaDB and BM25.")
@@ -1303,4 +1602,18 @@ with st.expander("Document Ingestion: Upload & Index Additional Sanskrit Documen
                 count = pipeline.index_document(save_path, overwrite=False)
                 st.success(f"Indexed {count} chunks successfully!")
 
-st.markdown("<div style='text-align: center; color: #5a381b; font-family: EB Garamond, serif; font-size: 1.1rem; font-weight: 700; padding: 28px 0 14px 0;'>◈ Sanskrit RAG System | Historical Manuscript Archive Edition | Developed by Sahil Karande ◈</div>", unsafe_allow_html=True)
+# Golden gradient footer with dark legible ink
+st.markdown("""
+<div style="
+    text-align: center;
+    margin-top: 36px;
+    padding: 22px 0 16px 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(140,111,67,0.12) 30%, rgba(140,111,67,0.18) 50%, rgba(140,111,67,0.12) 70%, transparent 100%);
+    border-top: 1.5px solid rgba(140, 111, 67, 0.45);
+    border-bottom: 1.5px solid rgba(140, 111, 67, 0.3);
+">
+    <span style="font-family:'Cinzel',serif; font-size:1.02rem; font-weight:800; color: #241107; letter-spacing:1.5px; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);">
+        ◈ Sanskrit RAG System | Historical Manuscript Archive Edition | Developed by <a href="https://sahil-karande.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-link">Sahil Karande</a> ↗ ◈
+    </span>
+</div>
+""", unsafe_allow_html=True)
