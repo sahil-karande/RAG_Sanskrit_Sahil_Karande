@@ -16,6 +16,7 @@ import os
 import sys
 import re
 import time
+import base64
 import streamlit as st
 
 # Ensure code directory is in sys.path
@@ -37,6 +38,23 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# Load authentic aged parchment background texture from user's artifact
+bg_image_path = os.path.join(curr_dir, "..", "data", "vintage_parchment_bg.jpg")
+bg_base64 = ""
+if os.path.exists(bg_image_path):
+    with open(bg_image_path, "rb") as f:
+        bg_base64 = base64.b64encode(f.read()).decode("utf-8")
+
+if bg_base64:
+    st.markdown(f"""
+    <style>
+        .stApp {{
+            background: url("data:image/jpeg;base64,{bg_base64}") center center / cover no-repeat fixed !important;
+            background-color: #ede0c4 !important;
+        }}
+    </style>
+    """, unsafe_allow_html=True)
+
 # Custom Vintage Historical Theme (Antique Manuscript & Aged Papyrus Palette)
 st.markdown("""
 <style>
@@ -53,10 +71,18 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* Vintage Antique Canvas Background (Aged Walnut & Papyrus) */
+    /* Vintage Antique Canvas Background & Global Typography */
     .stApp {
-        background: radial-gradient(ellipse at 50% 0%, #292017 0%, #1a140e 55%, #100c08 100%) !important;
-        color: #f7eed8 !important;
+        background-color: #ede0c4 !important;
+        color: #2b180d !important;
+    }
+    .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5 {
+        color: #2b180d !important;
+        font-family: 'Cinzel', serif !important;
+        letter-spacing: 0.5px !important;
+    }
+    .stApp p, .stApp label {
+        color: #2b180d !important;
     }
 
     :root {
@@ -438,25 +464,34 @@ st.markdown("""
         line-height: 1.85 !important;
     }
 
-    /* Vintage Tabs */
+    /* Vintage Tabs resting on Parchment */
+    div[data-testid="stTabs"] div[role="tablist"] {
+        border-bottom: 2px solid #8c6f43 !important;
+        gap: 6px !important;
+    }
     div[data-testid="stTabs"] button[role="tab"] {
         font-family: 'Cinzel', 'EB Garamond', serif !important;
         font-size: 1.05rem !important;
         font-weight: 700 !important;
-        color: #c7b399 !important;
-        background: transparent !important;
-        border-bottom: 2px solid transparent !important;
-        padding: 10px 18px !important;
+        color: #4a331e !important;
+        background: rgba(45, 32, 20, 0.12) !important;
+        border: 1.5px solid rgba(140, 111, 67, 0.45) !important;
+        border-bottom: none !important;
+        border-radius: 8px 8px 0 0 !important;
+        padding: 10px 20px !important;
         letter-spacing: 0.5px !important;
         transition: all 0.2s ease !important;
     }
     div[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
-        color: #dfbe7b !important;
+        color: #ffd782 !important;
+        background: #2b1d12 !important;
+        border: 1.5px solid #8c6f43 !important;
         border-bottom: 3px solid #dfbe7b !important;
-        text-shadow: 0 0 10px rgba(197, 159, 91, 0.4) !important;
+        box-shadow: 0 -4px 12px rgba(45, 30, 15, 0.3) !important;
     }
     div[data-testid="stTabs"] button[role="tab"]:hover {
-        color: #faf2de !important;
+        color: #1a0f06 !important;
+        background: rgba(45, 32, 20, 0.22) !important;
     }
 
     /* Antique Brass Metric Tiles */
@@ -490,14 +525,15 @@ st.markdown("""
     div[data-testid="stExpander"] {
         border: 1.5px solid #8c6f43 !important;
         border-radius: 8px !important;
-        background: rgba(26, 20, 14, 0.8) !important;
+        background: rgba(30, 22, 15, 0.9) !important;
         margin-bottom: 12px !important;
+        box-shadow: 0 4px 14px rgba(45, 30, 15, 0.25) !important;
     }
     div[data-testid="stExpander"] summary {
         font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
-        color: #faf2de !important;
+        color: #dfbe7b !important;
         font-size: 1.05rem !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
     }
 
     /* Vintage Download Button */
