@@ -382,9 +382,31 @@ class SanskritGenerator:
                 return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "शीतं बहु बाधति"}
 
         # -------------------------------------------------------------
-        # DOMAIN 6: GENERIC / OTHER INGESTED DOCUMENTS
+        # DOMAIN 6: GENERIC / OTHER INGESTED DOCUMENTS OR UNMATCHED
         # -------------------------------------------------------------
         else:
+            top_score = top_chunk.get("hybrid_score", top_chunk.get("dense_score", 0.0))
+            top_bm25 = top_chunk.get("bm25_score", 0.0)
+            
+            # If query relevance is low and zero lexical match, query does not match document
+            if top_score < 0.48 and top_bm25 <= 0.0:
+                sanskrit_ans = (
+                    "प्रदत्तेषु संकलित-संस्कृतग्रन्थेषु अस्य प्रश्नस्य उत्तरं न उपलभ्यते । "
+                    "(भवतः प्रश्नः संकलित-संस्कृतदस्तावेजेन सह न संबध्यते ।)"
+                )
+                english_exp = (
+                    "The query does not match with the retrieved documents in the ingested Sanskrit corpus. "
+                    "No relevant contextual evidence was found in the text to answer this question."
+                )
+                ref = "[The query does not match with the retrieved document / संदर्भो नास्ति]"
+                return {
+                    "sanskrit": sanskrit_ans, 
+                    "english": english_exp, 
+                    "ref": ref, 
+                    "section": "[Unmatched Query]",
+                    "is_matched": False
+                }
+
             clean_excerpt = content.strip().replace("\n", " ")
             sanskrit_ans = f"प्रदत्तस्य 『{section}』 सन्दर्भानुसारम्:\n{clean_excerpt[:300]}..."
             english_exp = (
@@ -393,7 +415,7 @@ class SanskritGenerator:
                 "This excerpt provides the direct factual basis answering your query from the corpus."
             )
             ref = f"[{section}] {clean_excerpt[:150]}..."
-            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": section}
+            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": section, "is_matched": True}
 
     def generate(
         self, 
@@ -410,13 +432,14 @@ class SanskritGenerator:
             return {
                 "answer": (
                     "1. उत्तरम् (Sanskrit Answer):\n"
-                    "प्रदत्ते संदर्भांशे अस्य प्रश्नस्य उत्तरं न लभ्यते ।\n\n"
+                    "प्रदत्तेषु संकलित-संस्कृतग्रन्थेषु अस्य प्रश्नस्य उत्तरं न उपलभ्यते । (भवतः प्रश्नः संकलित-संस्कृतदस्तावेजेन सह न संबध्यते ।)\n\n"
                     "2. English Explanation:\n"
-                    "The provided Sanskrit documents do not contain relevant information for this query.\n\n"
+                    "The query does not match with the retrieved documents in the ingested Sanskrit corpus. No relevant contextual evidence was found in the text to answer this question.\n\n"
                     "3. प्रमाणम् / Reference:\n"
-                    "[No Matching Context]"
+                    "[The query does not match with the retrieved document / संदर्भो नास्ति]"
                 ),
                 "context_used": [],
+                "is_matched": False,
                 "backend": self.backend
             }
 
@@ -445,6 +468,7 @@ Include both a Sanskrit answer and a comprehensive English translation and meani
                 return {
                     "answer": answer,
                     "context_used": context_chunks,
+                    "is_matched": True,
                     "backend": "llama-cpp (CPU)"
                 }
             except Exception as e:
@@ -461,9 +485,11 @@ Include both a Sanskrit answer and a comprehensive English translation and meani
 3. प्रमाणम् / Reference:
 {synth['ref']}"""
 
+        is_matched = synth.get("is_matched", True)
         return {
             "answer": answer,
-            "context_used": context_chunks,
+            "context_used": context_chunks if is_matched else [],
+            "is_matched": is_matched,
             "backend": "Context Grounded Synthesizer (Sanskrit + English)"
         }
 

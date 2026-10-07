@@ -86,20 +86,22 @@ class SanskritRAGPipeline:
         generation_time = time.time() - t2
         total_latency = time.time() - start_time
 
+        is_matched = gen_result.get("is_matched", True)
         return {
             "original_query": user_query,
             "processed_query": devanagari_query,
             "detected_scheme": detected_scheme,
             "is_devanagari": is_dev,
-            "retrieved_chunks": retrieved_chunks,
+            "retrieved_chunks": retrieved_chunks if is_matched else [],
             "response": gen_result["answer"],
+            "is_matched": is_matched,
             "backend": gen_result.get("backend", "CPU"),
             "metrics": {
                 "transliteration_latency_s": round(transliteration_time, 4),
                 "retrieval_latency_s": round(retrieval_time, 4),
                 "generation_latency_s": round(generation_time, 4),
                 "total_latency_s": round(total_latency, 4),
-                "retrieved_chunk_count": len(retrieved_chunks),
+                "retrieved_chunk_count": len(retrieved_chunks) if is_matched else 0,
                 "retrieval_mode": retrieval_mode
             }
         }

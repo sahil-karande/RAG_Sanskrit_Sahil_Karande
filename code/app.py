@@ -168,6 +168,46 @@ st.markdown("""
         font-size: 1.05rem !important;
     }
 
+    /* Form Submit Button (Search Icon / Button) */
+    div[data-testid="stFormSubmitButton"] {
+        margin-top: 0px !important;
+    }
+    div[data-testid="stFormSubmitButton"] > button {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+        color: #ffffff !important;
+        font-family: 'Cinzel', 'Inter', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: 1.15rem !important;
+        border: 2px solid #f59e0b !important;
+        border-radius: 12px !important;
+        height: 58px !important;
+        margin-top: 0px !important;
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35) !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+    }
+    div[data-testid="stFormSubmitButton"] > button:hover {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+        box-shadow: 0 6px 24px rgba(245, 158, 11, 0.6) !important;
+        transform: translateY(-2px) scale(1.02) !important;
+        border-color: #fef08a !important;
+    }
+
+    .unmatched-alert {
+        background: rgba(220, 38, 38, 0.15);
+        border: 2px solid #ef4444;
+        border-radius: 12px;
+        padding: 18px 24px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
     .transliteration-card {
         background: #111827;
         border: 1px solid #374151;
@@ -409,13 +449,20 @@ with sk_cols[3]:
     if st.button("devabhaktaH kimartham mritavaan?", use_container_width=True):
         set_query("devabhaktaH kimartham jale mritavaan?")
 
-# Search Input Form (Large, High Visibility)
-query_val = st.text_input(
-    "🔍 Enter Your Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
-    value=st.session_state.query_text,
-    placeholder="Ask in English (e.g. 'Why did the servant wash sugar?' or 'Who was Ghantakarna?') or Sanskrit...",
-    key="main_query_input"
-)
+# Search Input Form (Large, High Visibility with Enter Key & Clickable Search Button)
+with st.form(key="search_query_form", clear_on_submit=False):
+    col_input, col_btn = st.columns([5, 1])
+    with col_input:
+        query_val = st.text_input(
+            "🔍 Enter Your Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
+            value=st.session_state.query_text,
+            placeholder="Ask in English (e.g. 'Why did the foolish servant ruin the sugar?' or 'Who was Ghantakarna?') or Sanskrit...",
+            key="main_query_input",
+            label_visibility="visible"
+        )
+    with col_btn:
+        st.markdown("<div style='height: 29px;'></div>", unsafe_allow_html=True)
+        search_btn_clicked = st.form_submit_button("🔍 Search", use_container_width=True)
 
 if query_val.strip():
     # Step 1: Script Detection & Normalization Preview
@@ -472,6 +519,21 @@ if query_val.strip():
 
     with tab_ans:
         response_text = result.get("response", "")
+        is_matched = result.get("is_matched", True)
+
+        # Prominent Alert Banner if Query Does Not Match Document
+        if not is_matched or "The query does not match with the retrieved document" in response_text:
+            st.markdown("""
+            <div class="unmatched-alert">
+                <span style="font-size: 2.2rem;">⚠️</span>
+                <div>
+                    <div style="font-weight: 700; color: #f87171; font-size: 1.2rem;">The query does not match with the retrieved document</div>
+                    <div style="color: #cbd5e1; font-size: 0.95rem; margin-top: 4px;">
+                        The entered query is not addressed by any documents in the ingested Sanskrit corpus. No relevant contextual evidence was found in the text to answer this question.
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
         
         # Robust separation of Sanskrit, English, and Reference sections
         sanskrit_part = ""
@@ -532,8 +594,15 @@ if query_val.strip():
 
     with tab_chunks:
         chunks = result.get("retrieved_chunks", [])
-        if not chunks:
-            st.warning("No matching context chunks found for this query.")
+        is_matched = result.get("is_matched", True)
+        if not chunks or not is_matched:
+            st.markdown("""
+            <div style="background: rgba(15, 23, 42, 0.7); border: 1.5px dashed #ef4444; border-radius: 10px; padding: 24px; text-align: center; color: #cbd5e1; margin-top: 10px;">
+                <span style="font-size: 2rem;">📜</span><br>
+                <b style="color: #f87171; font-size: 1.15rem;">The query does not match with the retrieved document</b><br>
+                <span style="color: #94a3b8; font-size: 0.95rem;">No relevant context chunks were found above the relevance threshold in the ingested Sanskrit corpus.</span>
+            </div>
+            """, unsafe_allow_html=True)
         else:
             st.markdown(f"**Found {len(chunks)} relevant context segments from Sanskrit corpus:**")
             for idx, c in enumerate(chunks, 1):
