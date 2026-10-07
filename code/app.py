@@ -148,9 +148,14 @@ st.markdown("""
         border-radius: 6px !important;
         color: #faf2de !important;
         font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
-        font-size: 1.05rem !important;
+        font-size: 1.02rem !important;
         font-weight: 600 !important;
-        padding: 10px 14px !important;
+        padding: 8px 12px !important;
+        min-height: 52px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
         letter-spacing: normal !important;
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(250, 242, 222, 0.1) !important;
         transition: all 0.2s ease-in-out !important;
@@ -569,44 +574,46 @@ query_val = st.text_input(
     label_visibility="visible"
 )
 
-# 2. STRUCTURED SIDE-BY-SIDE VINTAGE QUERY DECKS
-col_left, col_right = st.columns(2)
+# 2. STRUCTURED VINTAGE QUERY DECKS (ENGLISH IN UPPER LINE, SANSKRIT IN DOWN LINE)
+st.markdown("""
+<div class="deck-header">
+    <span>◈</span> English Inquiries (Classical Literature)
+</div>
+""", unsafe_allow_html=True)
 
-with col_left:
-    st.markdown("""
-    <div class="deck-header">
-        <span>◈</span> English Inquiries (Classical Literature)
-    </div>
-    """, unsafe_allow_html=True)
-    c1, c2 = st.columns(2)
-    with c1:
-        if st.button("Why did servant ruin sugar?", use_container_width=True):
-            set_query("Why did the foolish servant ruin the sugar?")
-        if st.button("Who was Ghantakarna demon?", use_container_width=True):
-            set_query("Who was Ghantakarna and why was the bell ringing?")
-    with c2:
-        if st.button("What did King Bhoja announce?", use_container_width=True):
-            set_query("What did King Bhoja announce in his court?")
-        if st.button("Why was 'badhati' incorrect?", use_container_width=True):
-            set_query("Why was badhati incorrect in sheetam bahu badhati?")
+ec1, ec2, ec3, ec4 = st.columns(4)
+with ec1:
+    if st.button("Why did servant ruin sugar?", use_container_width=True):
+        set_query("Why did the foolish servant ruin the sugar?")
+with ec2:
+    if st.button("What did King Bhoja announce?", use_container_width=True):
+        set_query("What did King Bhoja announce in his court?")
+with ec3:
+    if st.button("Who was Ghantakarna demon?", use_container_width=True):
+        set_query("Who was Ghantakarna and why was the bell ringing?")
+with ec4:
+    if st.button("Why was 'badhati' incorrect?", use_container_width=True):
+        set_query("Why was badhati incorrect in sheetam bahu badhati?")
 
-with col_right:
-    st.markdown("""
-    <div class="deck-header">
-        <span>◈</span> Sanskrit Inscriptions (मूलसंस्कृतप्रश्नाः)
-    </div>
-    """, unsafe_allow_html=True)
-    c3, c4 = st.columns(2)
-    with c3:
-        if st.button("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
-            set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
-        if st.button("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
-            set_query("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?")
-    with c4:
-        if st.button("भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
-            set_query("भोजराजः काव्यपठने किं घोषितवान् ?")
-        if st.button("देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
-            set_query("देवभक्तः किमर्थं जले मृतवान् ?")
+st.markdown("""
+<div class="deck-header" style="margin-top: 14px;">
+    <span>◈</span> Sanskrit Inscriptions (मूलसंस्कृतप्रश्नाः)
+</div>
+""", unsafe_allow_html=True)
+
+sc1, sc2, sc3, sc4 = st.columns(4)
+with sc1:
+    if st.button("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
+        set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
+with sc2:
+    if st.button("भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
+        set_query("भोजराजः काव्यपठने किं घोषितवान् ?")
+with sc3:
+    if st.button("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
+        set_query("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?")
+with sc4:
+    if st.button("देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
+        set_query("देवभक्तः किमर्थं जले मृतवान् ?")
 
 if query_val.strip():
     # Step 1: Script Detection & Normalization Preview
