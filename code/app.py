@@ -138,6 +138,7 @@ st.markdown("""
         overflow: hidden !important;
         display: flex !important;
         align-items: center !important;
+        position: relative !important;
         transition: all 0.25s ease-in-out !important;
     }
     div[data-testid="stTextInput"] div[data-baseweb="base-input"] {
@@ -149,10 +150,10 @@ st.markdown("""
     }
     div[data-testid="stTextInput"] input {
         font-family: 'Inter', 'Noto Sans Devanagari', sans-serif !important;
-        font-size: 1.15rem !important;
+        font-size: 1.18rem !important;
         line-height: 1.5 !important;
         height: 100% !important;
-        padding: 0 22px !important;
+        padding: 0 58px 0 24px !important; /* Space for end-corner magnifying symbol */
         background-color: transparent !important;
         color: #ffffff !important;
         border: none !important;
@@ -168,33 +169,27 @@ st.markdown("""
         font-size: 1.05rem !important;
     }
 
-    /* Form Submit Button (Search Icon / Button) */
-    div[data-testid="stFormSubmitButton"] {
-        margin-top: 0px !important;
+    /* Vector SVG magnifying glass symbol (not emoji) at the end corner of search query */
+    div[data-testid="stTextInput"] div[data-baseweb="input"]::after {
+        content: '' !important;
+        position: absolute !important;
+        right: 22px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 25px !important;
+        height: 25px !important;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7.5'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.5' y2='16.5'%3E%3C/line%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: contain !important;
+        pointer-events: none !important;
+        opacity: 0.85 !important;
+        transition: transform 0.2s ease, opacity 0.2s ease !important;
     }
-    div[data-testid="stFormSubmitButton"] > button {
-        background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
-        color: #ffffff !important;
-        font-family: 'Cinzel', 'Inter', sans-serif !important;
-        font-weight: 700 !important;
-        font-size: 1.15rem !important;
-        border: 2px solid #f59e0b !important;
-        border-radius: 12px !important;
-        height: 58px !important;
-        margin-top: 0px !important;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35) !important;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        cursor: pointer !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 8px !important;
-    }
-    div[data-testid="stFormSubmitButton"] > button:hover {
-        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
-        box-shadow: 0 6px 24px rgba(245, 158, 11, 0.6) !important;
-        transform: translateY(-2px) scale(1.02) !important;
-        border-color: #fef08a !important;
+    div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within::after {
+        opacity: 1 !important;
+        transform: translateY(-50%) scale(1.15) !important;
+        filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.7)) !important;
     }
 
     .unmatched-alert {
@@ -327,6 +322,43 @@ def is_natural_english_query(text: str) -> bool:
     words = re.findall(r'[a-zA-Z]+', text.lower())
     return any(w in COMMON_ENGLISH_WORDS for w in words)
 
+def get_sanskrit_topic_representation(text: str) -> str:
+    """Translates English conversational questions into corresponding Sanskrit query formulation."""
+    t = text.lower()
+    if any(w in t for w in ["bhoj", "kalidas", "king", "raja"]):
+        if any(w in t for w in ["amount", "prize", "reward", "money", "lakh", "announce", "announced", "annouced", "how much"]):
+            return "भोजराज्ञा घोषितं काव्यपारितोषिकम् (King Bhoja's Announced Reward)"
+        elif any(w in t for w in ["99", "crore", "riddle", "gem", "gems"]):
+            return "कालीदासस्य ९९-कोटिरत्नकूटश्लोकः (Kalidasa's 99-Crore Gems Riddle)"
+        elif any(w in t for w in ["scholar", "scholars", "memory", "ekapathi", "dvipathi", "tripathi"]):
+            return "एकपाठि-द्विपाठि-त्रिपाठि विद्वांसः (Scholars' Photographic Memory)"
+        elif any(w in t for w in ["why", "fail", "prevent"]):
+            return "कविभ्यः पारितोषिकप्राप्तौ विघ्नः (Why Poets Failed To Win Prize)"
+        return "चतुरस्य कालीदासस्य कथा (Story of Clever Kalidasa & King Bhoja)"
+    elif any(w in t for w in ["servant", "sugar", "puppy", "dog", "milk", "cloth", "soot", "face", "shankhan", "fool"]):
+        if any(w in t for w in ["sugar", "market", "spill", "leak"]):
+            return "मूर्खभृत्येन जीर्णे वस्त्रे शर्कराहरणम् (Servant Spilling Sugar in Torn Cloth)"
+        elif any(w in t for w in ["puppy", "dog", "sack"]):
+            return "सञ्चिकायां श्वानशावकस्य श्वासरोधः (Puppy Suffocated in Sack)"
+        elif any(w in t for w in ["milk", "rope", "drag"]):
+            return "दोरकेण दुग्धपात्राकर्षणम् (Dragging Milk Pot with Rope)"
+        elif any(w in t for w in ["face", "black", "soot", "kohl"]):
+            return "कज्जलेन कृष्णमुखभृत्यः (Servant Smearing Face with Soot)"
+        return "मूर्खभृत्यस्य शंखनादस्य कथा (Story of Foolish Servant Shankhanada)"
+    elif any(w in t for w in ["ghanta", "demon", "monster", "old woman", "bell", "monkey", "tiger", "chitrapur"]):
+        if any(w in t for w in ["fruit", "fruits", "old woman", "solve", "reward"]):
+            return "मधुरफलैः घण्टाहरणं वृद्धायाः चातुर्यम् (Old Woman Solving Bell Mystery)"
+        elif any(w in t for w in ["who", "demon"]):
+            return "चित्रपुरे घण्टाकर्णराक्षसस्य जनप्रवादः (Rumor of Ghantakarna Demon)"
+        return "वृद्धायाः चातुर्यम् कथा (Story of Clever Old Woman & Bell)"
+    elif any(w in t for w in ["devotee", "god", "flood", "rain", "drown", "water", "effort"]):
+        return "देवभक्तस्य जले मरणम् उद्यमकथा (Devotee in Flood & Importance of Effort)"
+    elif any(w in t for w in ["cold", "winter", "badhati", "badhate", "grammar", "palanquin"]):
+        return "शीतं बहु बाधति आत्मनेपद-दोषविचारः (Grammar Error in 'Sheetam Bahu Badhati')"
+    else:
+        dev_tr = to_devanagari(text)
+        return dev_tr if dev_tr else "संस्कृत-अर्थानुसन्धानम् (Sanskrit Semantic Search)"
+
 # Pipeline Singleton
 @st.cache_resource
 def get_pipeline():
@@ -440,29 +472,23 @@ with sk_cols[0]:
     if st.button("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
         set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
 with sk_cols[1]:
-    if st.button("bhojaraajaa kaavya paThane... (HK)", use_container_width=True):
+    if st.button("bhojarājā kāvya-paṭhane kim ghoṣitavān?", use_container_width=True):
         set_query("bhojaraajaa kaavya paThane kim ghoshhitavaan?")
 with sk_cols[2]:
-    if st.button("citrapure ghaṇṭākarṇaḥ... (IAST)", use_container_width=True):
+    if st.button("citrapure ghaṇṭākarṇaḥ kaḥ āsīt ?", use_container_width=True):
         set_query("citrapure ghaṇṭākarṇaḥ nāma kaḥ āsīt ?")
 with sk_cols[3]:
-    if st.button("devabhaktaH kimartham mritavaan?", use_container_width=True):
+    if st.button("devabhaktaḥ kimarthaṃ jale mṛtavān?", use_container_width=True):
         set_query("devabhaktaH kimartham jale mritavaan?")
 
-# Search Input Form (Large, High Visibility with Enter Key & Clickable Search Button)
-with st.form(key="search_query_form", clear_on_submit=False):
-    col_input, col_btn = st.columns([5, 1])
-    with col_input:
-        query_val = st.text_input(
-            "🔍 Enter Your Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
-            value=st.session_state.query_text,
-            placeholder="Ask in English (e.g. 'Why did the foolish servant ruin the sugar?' or 'Who was Ghantakarna?') or Sanskrit...",
-            key="main_query_input",
-            label_visibility="visible"
-        )
-    with col_btn:
-        st.markdown("<div style='height: 29px;'></div>", unsafe_allow_html=True)
-        search_btn_clicked = st.form_submit_button("🔍 Search", use_container_width=True)
+# Full-Width Search Input (With End-Corner SVG Magnifying Symbol — Press Enter to Search)
+query_val = st.text_input(
+    "Enter Your Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
+    value=st.session_state.query_text,
+    placeholder="Ask in English (e.g. 'What did King Bhoja announce?') or Sanskrit and press Enter...",
+    key="main_query_input",
+    label_visibility="visible"
+)
 
 if query_val.strip():
     # Step 1: Script Detection & Normalization Preview
@@ -474,7 +500,7 @@ if query_val.strip():
         search_target_display = query_val
     elif is_en:
         detected_scheme = "English (Natural Language Query)"
-        search_target_display = "Cross-Lingual Multilingual Semantic Search & Topic Extraction"
+        search_target_display = get_sanskrit_topic_representation(query_val)
     else:
         detected_scheme = f"Romanized Sanskrit ({detect_transliteration_scheme(query_val)})"
         search_target_display = to_devanagari(query_val)
@@ -488,7 +514,7 @@ if query_val.strip():
         </div>
         <div style="font-size: 1.5rem; color: #f59e0b;">➔</div>
         <div style="flex-grow: 1;">
-            <span style="color: #94a3b8; font-size: 0.85rem;">Processing & Normalized Representation:</span><br>
+            <span style="color: #94a3b8; font-size: 0.85rem;">Sanskrit Translation / Representation:</span><br>
             <span class="devanagari-preview">{search_target_display}</span>
         </div>
     </div>

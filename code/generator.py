@@ -104,7 +104,7 @@ class SanskritGenerator:
         if any(w in q_lower for w in ["bhoj", "bhoja", "kalidas", "kalidasa", "poem", "poetry", "gem", "gems", "crore", "lakh", "scholar", "memoriz", "prize", "reward", "amount"]) or any(w in dev_query for w in ["भोज", "कालीदास", "काव्य", "रत्न", "लक्ष", "नृप", "राजा"]):
             
             # Sub-question 1.1: Amount / Prize announced by King Bhoja
-            if any(w in q_lower for w in ["amount", "money", "prize", "reward", "how much", "announce", "declared", "rupee", "lakh", "give", "offered"]) or any(w in dev_query for w in ["कियत्", "धन", "पारितोषिक", "लक्ष", "रूप्यक"]):
+            if any(w in q_lower for w in ["amount", "money", "prize", "reward", "how much", "announce", "annouced", "announced", "declared", "rupee", "lakh", "give", "offered", "ghosh", "ghoshit", "ghoshhit"]) or any(w in dev_query for w in ["कियत्", "धन", "पारितोषिक", "लक्ष", "रूप्यक", "घोष", "घोषित"]):
                 sanskrit_ans = (
                     "भोजराज्ञा स्वदरबारे नूतनकाव्यपठनाय **लक्षरूप्यकाणि (१,००,००० रूप्यकाणि / One Lakh Rupees)** पारितोषिकरूपेण घोषितानि आसन् । "
                     "(अनन्तरं कालीदासस्य कूटश्लोके राज्ञः पित्रा **९९ कोटिरत्नानि** संगृहीतानि इति उक्तम् ।)"
