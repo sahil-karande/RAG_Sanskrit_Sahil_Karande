@@ -40,6 +40,37 @@ class SanskritRetriever:
         self.bm25: Optional[BM25Okapi] = None
         self.tokenized_corpus: List[List[str]] = []
         
+        # Hydrate BM25 from existing persistent ChromaDB collection
+        self._hydrate_bm25_from_db()
+
+    def _get_collection(self):
+        """Safely returns valid collection handle, re-connecting if deleted/recreated."""
+        try:
+            self.collection.count()
+            return self.collection
+        except Exception:
+            self.collection = self.chroma_client.get_or_create_collection(
+                name=self.collection_name,
+                metadata={"description": "Sanskrit Corpus Embeddings"}
+            )
+            return self.collection
+
+    def _hydrate_bm25_from_db(self):
+        """Loads existing chunks from ChromaDB into BM25 index on startup."""
+        try:
+            coll = self._get_collection()
+            existing = coll.get()
+            if existing and existing["ids"]:
+                self.chunks_cache = [
+                    {"id": cid, "content": doc, "metadata": meta}
+                    for cid, doc, meta in zip(existing["ids"], existing["documents"], existing["metadatas"])
+                ]
+                self.tokenized_corpus = [self._tokenize_sanskrit(c["content"]) for c in self.chunks_cache]
+                if self.tokenized_corpus:
+                    self.bm25 = BM25Okapi(self.tokenized_corpus)
+        except Exception:
+            pass
+
     def _tokenize_sanskrit(self, text: str) -> List[str]:
         """Tokenizes Sanskrit text on word boundaries, removing punctuation."""
         cleaned = re.sub(r'[।॥\.,!?"\'\(\)\{\}\[\];:—\-\n\r]+', ' ', text)
@@ -51,10 +82,12 @@ class SanskritRetriever:
             print("[Retriever] Warning: No chunks provided to index.")
             return
 
+        coll = self._get_collection()
         if overwrite:
             try:
-                self.chroma_client.delete_collection(self.collection_name)
-                self.collection = self.chroma_client.create_collection(name=self.collection_name)
+                existing = coll.get()
+                if existing and existing["ids"]:
+                    coll.delete(ids=existing["ids"])
             except Exception:
                 pass
             self.chunks_cache = []
@@ -83,10 +116,17 @@ class SanskritRetriever:
 
     def search_dense(self, query: str, top_k: int = 4) -> List[Dict[str, Any]]:
         """Vector similarity search using ChromaDB."""
+        coll = self._get_collection()
         query_emb = self.encoder.encode([query], normalize_embeddings=True).tolist()
-        results = self.collection.query(
+        try:
+            total_docs = coll.count()
+        except Exception:
+            coll = self._get_collection()
+            total_docs = coll.count()
+
+        results = coll.query(
             query_embeddings=query_emb,
-            n_results=min(top_k, self.collection.count() or 1),
+            n_results=min(top_k, total_docs or 1),
             include=["documents", "metadatas", "distances"]
         )
         

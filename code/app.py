@@ -447,10 +447,19 @@ if query_val.strip():
     </div>
     """, unsafe_allow_html=True)
 
-    # Step 2: Query Execution with Spinner
+    # Step 2: Query Execution with Spinner & Auto-Recovery
     with st.spinner("🔍 Retrieving Sanskrit context chunks & synthesizing grounded bilingual response on CPU..."):
         t0 = time.time()
-        result = pipeline.query(query_val, top_k=top_k, retrieval_mode=retrieval_mode)
+        try:
+            result = pipeline.query(query_val, top_k=top_k, retrieval_mode=retrieval_mode)
+        except Exception:
+            # Gracefully refresh collection handle across terminal processes
+            pipeline.retriever._get_collection()
+            pipeline.retriever._hydrate_bm25_from_db()
+            default_doc = os.path.join(curr_dir, "..", "data", "sanskrit_corpus.txt")
+            if os.path.exists(default_doc):
+                pipeline.index_document(default_doc, overwrite=False)
+            result = pipeline.query(query_val, top_k=top_k, retrieval_mode=retrieval_mode)
         exec_latency = time.time() - t0
 
     # Tabs for Rich Layout
