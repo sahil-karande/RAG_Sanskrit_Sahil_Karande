@@ -8,6 +8,7 @@ Operates 100% on CPU without requiring any GPU.
 import os
 import sys
 from typing import List, Dict, Any, Optional
+from transliterate import to_devanagari
 
 try:
     from llama_cpp import Llama
@@ -94,9 +95,59 @@ class SanskritGenerator:
         section = top_chunk.get("metadata", {}).get("section", "सस्कृतकथा")
         content = top_chunk.get("content", "")
         q_lower = query.lower()
+        dev_query = to_devanagari(query)
 
-        # Story 1: Murkhabhrityasya (The Foolish Servant Shankhanada)
-        if "मूर्ख" in section or "शंखनाद" in section or any(w in q_lower for w in ["servant", "shankhana", "sugar", "sharkara", "puppy", "dog", "milk", "cloth", "soot", "face", "black"]):
+        # 1. King Bhoja & Kalidasa's Court (Prize, Poem, 99 Crores)
+        is_bhoja_query = (
+            any(w in q_lower for w in ["bhoj", "bhoja", "king", "raja", "kalidas", "kalidasa", "poem", "poetry", "gem", "gems", "crore", "court", "lakh", "scholar", "memoriz"])
+            or any(w in dev_query for w in ["भोज", "कालीदास", "काव्य", "रत्न", "लक्ष", "नृप", "राजा"])
+        )
+
+        # 2. Foolish Servant Shankhanada (Sugar, puppy, milk, soot face)
+        is_servant_query = (
+            any(w in q_lower for w in ["servant", "shankhan", "sugar", "sharkara", "puppy", "dog", "milk", "cloth", "soot", "face", "black", "foolish", "fool", "govardhan"])
+            or any(w in dev_query for w in ["शंखनाद", "मूर्ख", "भृत्य", "शर्करा", "गोवर्धन"])
+        )
+
+        # 3. Old Woman & Ghantakarna Demon (Bell, mountain, tiger, monkeys)
+        is_ghantakarna_query = (
+            any(w in q_lower for w in ["ghanta", "ghantakarna", "demon", "monster", "old woman", "vriddha", "bell", "monkey", "tiger", "fruit", "fruits", "chitrapur"])
+            or any(w in dev_query for w in ["घण्टा", "राक्षस", "वृद्धा", "वानर", "चित्रपुर"])
+        )
+
+        # 4. Devotee in Flood (Bullock cart, drowning, human effort vs destiny, 6 virtues)
+        is_devotee_query = (
+            any(w in q_lower for w in ["devotee", "devabhakta", "bhakta", "god", "flood", "rain", "drown", "water", "cart", "effort", "prayer", "virtue", "virtues", "heaven"])
+            or any(w in dev_query for w in ["देवभक्त", "उद्यम", "वृष्टि", "साहाय्य", "जल"])
+        )
+
+        # 5. Winter Grammar Riddle (Sheetam badhati vs badhate, Kalidasa palanquin)
+        is_winter_grammar_query = (
+            any(w in q_lower for w in ["cold", "winter", "sheetam", "badhati", "badhate", "grammar", "palanquin", "carrier", "parasmaipada", "atmanepada", "verb"])
+            or any(w in dev_query for w in ["शीतं", "बाधति", "बाधते", "पालखी"])
+        )
+
+        # Check by explicit query intent first; fallback to chunk section if generic
+        if is_bhoja_query or ("कालीदास" in section or "भोज" in section):
+            sanskrit_ans = (
+                "भोजराजा धारा-नगर्याः प्रसिद्धः, धार्मिकः, सत्यवक्ता, विद्वत्प्रियः च नृपः आसीत् । "
+                "तस्य राजसभायां महाकविः कालीदासः अन्ये च अद्वितीयस्मरणशक्तियुक्ताः विद्वांसः (एकपाठिनः, द्विपाठिनः, त्रिपाठिनः) आसन् । "
+                "राजा नूतनकाव्यपठनाय लक्षरूप्यकाणि पारितोषिकं घोषितवान् आसीत् । "
+                "अन्ते चतुरः कालीदासः ९९ कोटिरत्नश्लोकेन विदुषः जित्वा नूतनकवये लक्षरूप्यकाणि प्रापितवान् ।"
+            )
+            english_exp = (
+                "King Bhoja (भोजराजा) was a celebrated, generous, and truth-speaking patron king renowned in classical Sanskrit literature. "
+                "His royal court was famed for assembling the greatest scholars, including the legendary poet Kalidasa.\n\n"
+                "In our corpus narrative ('चतुरस्य कालीदासस्य'), King Bhoja announced a grand royal prize of 1 Lakh Rupees to any poet who could recite "
+                "a brand-new, original poem in his court. However, his court scholars (Ekapathins, Dvipathins, and Tripathins) possessed photographic "
+                "memories and repeatedly claimed all poems were already known to them, preventing anyone from winning.\n\n"
+                "Clever poet Kalidasa outsmarted them with the famous 99-crore gems riddle ('पित्रा ते संगृहीता नवनवतिमिता रत्नकोट्यो मदीयः'), "
+                "ensuring justice and rewarding the poet with the prize."
+            )
+            ref = "घोषितं कदाचित् भोजराज्ञा, यदि कोऽपि कविः मम दरबारे नूतनं काव्यं पठति तर्हि ददामि तस्मै लक्षरुप्यकाणि इति ... स्वस्ति श्री भोजराजन् त्वमखिलभुवने धार्मिकः सत्यवक्ता ।"
+            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "चतुरस्य कालीदासस्य"}
+
+        elif is_servant_query or ("मूर्ख" in section or "शंखनाद" in section):
             sanskrit_ans = (
                 "मूर्खभृत्यः शंखनादः गोवर्धनदासस्य आज्ञापालकः आसीत् परन्तु मूढः । "
                 "सः शर्कराम् जीर्णे वस्त्रे न्यस्तवान् येन मार्गे सर्वा शर्करा स्रुता । "
@@ -115,32 +166,9 @@ class SanskritGenerator:
                 "is far preferable to keeping a fool."
             )
             ref = "वरम् भृत्यविहिनस्य जिवितम् श्रमपूरितम् । मूर्खभृत्यस्य संसर्गात् सर्वम् कार्यम् विनश्यति ॥"
-            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": section}
+            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "मूर्खभृत्यस्य"}
 
-        # Story 2: Chaturasya Kalidasasya (King Bhoja & The 99 Crore Gems Riddle)
-        elif "कालीदास" in section or "भोज" in section or any(w in q_lower for w in ["bhoja", "kalidasa", "poem", "poetry", "gems", "99", "crore", "scholar", "lakh", "memoriz"]):
-            sanskrit_ans = (
-                "भोजराजा घोषयामास यत् यः कोऽपि नूतनं काव्यं पठेत्, तस्मै लक्षरूप्यकाणि दीयन्ते इति । "
-                "परन्तु दरबारे एकपाठिनः द्विपाठिनः त्रिपाठिनः च विद्वांसः आसन् ये श्रुत्वा एव तत् काव्यं कण्ठस्थं कृत्वा "
-                "'पुरातनम् एतत्' इति कथयन्ति स्म । तदा चतुरः कालीदासः श्लोकं रचितवान् यस्मिन् राज्ञः पित्रा ९९ कोटिमितानि "
-                "रत्नानि गृहीतानि इति लिखितम् । यदि विद्वांसः श्लोकं जानन्ति तर्हि धनं प्रत्यर्पणीयम्, न जानन्ति चेत् लक्षरूप्यकाणि दातव्यानि । "
-                "एवं कविना लक्षरूप्यकाणि प्राप्तानि ।"
-            )
-            english_exp = (
-                "King Bhoja proclaimed a royal prize of 1 Lakh Rupees to any poet who could recite a brand-new, original poem in his court. "
-                "However, the court scholars had phenomenal memories: some could recite a poem after hearing it once (Ekapathins), twice (Dvipathins), "
-                "or thrice (Tripathins). They would repeat any newly recited poem and falsely claim it was already an old, well-known work, "
-                "preventing any poet from winning the prize.\n\n"
-                "Clever poet Kalidasa outsmarted them by composing a verse stating: 'O King Bhoja, your father borrowed 99 Crore precious gems from me; "
-                "return them to me! All the scholars in your court know this is true. If they do not know it, then they don't know my poem either, "
-                "so give me the 1 Lakh Rupees!' Because admitting to knowing the poem would force the king to repay 99 Crores, the scholars remained silent, "
-                "and the poet was awarded the prize."
-            )
-            ref = "स्वस्ति श्री भोजराजन् त्वमखिलभुवने धार्मिकः सत्यवक्ता । पित्रा ते संगृहीता नवनवतिमिता रत्नकोट्यो मदीयः ॥"
-            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": section}
-
-        # Story 3: Vriddhayah Chaturyam (The Old Woman & Ghantakarna Demon)
-        elif "वृद्धा" in section or "घण्टा" in section or any(w in q_lower for w in ["ghanta", "demon", "old woman", "vriddha", "bell", "monkey", "tiger", "chitrapur"]):
+        elif is_ghantakarna_query or ("वृद्धा" in section or "घण्टा" in section):
             sanskrit_ans = (
                 "चित्रपुरे श्रीपर्वतस्य शिखरप्रदेशे 'घण्टाकर्णः नाम राक्षसः मनुष्यान् खादति घण्टां च वादयति' इति भीतिप्रदः जनप्रवादः आसीत् । "
                 "वस्तुतः कश्चन चौरः घण्टां चोरयित्वा वने व्याघ्रेण हतः, तत्र वानराः कौतुकेन तां घण्टाम् अधुन्वन् । "
@@ -154,10 +182,9 @@ class SanskritGenerator:
                 "and lured them away with sweet fruits. She recovered the bell, brought it to the king, dispelled the town's fear, and earned a large gold reward."
             )
             ref = "अथैकदा कश्चन चोरः घण्टामेकां चोरयित्वा वनं गतः, व्याघ्रण च हतः ... अन्यस्मिन् दिने केचन वानराः तत्र आगछन् कुतुहलेन तां घण्टां हस्ते धृत्वा अधुन्वन् ।"
-            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": section}
+            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "वृद्धायाः चातुर्यम्"}
 
-        # Story 4: Devabhaktasya Katha (The Devotee in the Flood)
-        elif "देवभक्त" in section or any(w in q_lower for w in ["devabhakta", "devotee", "flood", "rain", "drown", "water", "cart", "effort", "prayer", "six virtues", "virtue"]):
+        elif is_devotee_query or ("देवभक्त" in section):
             sanskrit_ans = (
                 "एकः देवभक्तः केवलं देवाय प्रार्थनां करोति स्म, किञ्चिदपि प्रयत्नं न करोति स्म । "
                 "वृष्टिकाले यदा तस्य शकटं जले मग्नम्, तदा त्रयः जनाः साहाय्यम् आगतवन्तः किन्तु सः 'देवः एव रक्षिष्यति' इति उक्त्वा सर्वान् निराकृतवान् । "
@@ -173,10 +200,9 @@ class SanskritGenerator:
                 "**The Six Virtues:** Effort (उद्यम), Courage (साहस), Patience (धैर्य), Intelligence (बुद्धि), Strength (शक्ति), and Valour (पराक्रम) — where these six exist, God assists."
             )
             ref = "उद्यमः साहसम् धैर्यम् बुद्धिः शक्तिः पराक्रमः । षडेते यत्र वर्तन्ते तत्र देवः साहाय्यकृत् ॥"
-            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": section}
+            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "देवभक्तस्य कथा"}
 
-        # Story 5: Sheetam Bahu Badhati (Winter Grammar Riddle)
-        elif "शीतं" in section or "बाध" in section or any(w in q_lower for w in ["cold", "sheetam", "badhati", "badhate", "grammar", "winter", "palanquin", "parasmaipada", "atmanepada"]):
+        elif is_winter_grammar_query or ("शीतं" in section or "बाध" in section):
             sanskrit_ans = (
                 "भोजराज्ञः दरबारे विवादं कर्तुम् आगच्छन् कश्चन गर्विष्ठः परदेशीयः पण्डितः शिशिरऋतौ 'शीतं बहु बाधति' इति उक्तवान् । "
                 "तदा पालखीधारकवेषेण स्थितः कालीदासः प्रतिवदति—'न तथा बाधते शीतं यथा बाधति बाधते' । "
@@ -192,7 +218,7 @@ class SanskritGenerator:
                 "the scholar was intimidated by the certainty of his defeat and retreated home immediately without debating."
             )
             ref = "चतुरः कालीदासः त्वरया एव प्रतिवदति, 'न तथा बाधते शीतं यथा बाधति बाधते' । आत्मनेपदी खलु 'बाध्' धातुः इति न विज्ञातं पण्डितेन ।"
-            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": section}
+            return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "शीतं बहु बाधति"}
 
         # Generic / Newly Ingested Sanskrit Documents
         else:

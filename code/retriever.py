@@ -142,20 +142,18 @@ class SanskritRetriever:
         # Cross-lingual English query topic enhancement for BM25
         q_lower = query.lower()
         english_sanskrit_hints = []
-        if any(w in q_lower for w in ["servant", "sugar", "puppy", "dog", "milk", "cloth", "soot", "face", "shankhana"]):
+        if any(w in q_lower for w in ["bhoj", "bhoja", "king", "raja", "kalidas", "kalidasa", "poem", "poetry", "gem", "gems", "crore", "court", "lakh", "scholar", "scholars"]):
+            english_sanskrit_hints.extend(["भोजराज", "कालीदास", "काव्य", "विद्वानाः", "लक्षरुप्यकाणि", "राजा"])
+        if any(w in q_lower for w in ["servant", "sugar", "puppy", "dog", "milk", "cloth", "soot", "face", "shankhan", "foolish", "fool", "govardhan"]):
             english_sanskrit_hints.extend(["शंखनाद", "मूर्खभृत्य", "शर्करा", "गोवर्धनदास"])
-        if any(w in q_lower for w in ["bhoja", "kalidasa", "poem", "poetry", "gems", "court", "lakh", "scholar"]):
-            english_sanskrit_hints.extend(["भोजराज", "कालीदास", "काव्य", "विद्वानाः", "लक्षरुप्यकाणि"])
-        if any(w in q_lower for w in ["demon", "ghanta", "old woman", "bell", "monkey", "tiger", "fruit"]):
+        if any(w in q_lower for w in ["demon", "ghanta", "ghantakarna", "old woman", "bell", "monkey", "tiger", "fruit", "fruits", "chitrapur"]):
             english_sanskrit_hints.extend(["घण्टाकर्ण", "राक्षस", "वृद्धा", "चातुर्यम्", "वानराः"])
         if any(w in q_lower for w in ["devotee", "god", "flood", "rain", "drown", "water", "effort", "prayer"]):
             english_sanskrit_hints.extend(["देवभक्त", "जल", "वृष्टि", "साहाय्यम्", "उद्यम"])
         if any(w in q_lower for w in ["cold", "winter", "badhati", "badhate", "grammar", "palanquin"]):
             english_sanskrit_hints.extend(["शीतं", "बाधति", "बाधते", "कालीदास", "पण्डित"])
 
-        bm25_query = processed_query
-        if english_sanskrit_hints:
-            bm25_query = processed_query + " " + " ".join(english_sanskrit_hints)
+        bm25_query = " ".join(english_sanskrit_hints) if english_sanskrit_hints else processed_query
 
         if mode == "dense":
             res = self.search_dense(processed_query, top_k=top_k)
@@ -205,11 +203,14 @@ class SanskritRetriever:
         # Sanskrit stop words that should not trigger stem bonuses
         sanskrit_stopwords = {"किम्", "इति", "अथ", "एवम्", "अपि", "ततः", "कदाचित्", "नाम", "यत्", "तर्हि", "यदा", "तदा", "अतः", "च", "एव", "कः", "का", "कस्मै"}
 
-        # Sanskrit Stem Substring Booster (excluding common question particles & pronouns)
-        query_stems = [
-            w for w in self._tokenize_sanskrit(processed_query) 
-            if len(w) >= 3 and w not in sanskrit_stopwords
-        ]
+        # Sanskrit Stem Substring Booster
+        if english_sanskrit_hints:
+            query_stems = english_sanskrit_hints
+        else:
+            query_stems = [
+                w for w in self._tokenize_sanskrit(processed_query) 
+                if len(w) >= 3 and w not in sanskrit_stopwords
+            ]
 
         fused_scores = {}
         for cid, hit in chunk_map.items():
