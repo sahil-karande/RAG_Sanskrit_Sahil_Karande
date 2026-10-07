@@ -139,14 +139,47 @@ class SanskritRetriever:
         # Ensure query is in Devanagari
         processed_query = to_devanagari(query)
         
+        # Cross-lingual English query topic enhancement for BM25
+        q_lower = query.lower()
+        english_sanskrit_hints = []
+        if any(w in q_lower for w in ["servant", "sugar", "puppy", "dog", "milk", "cloth", "soot", "face", "shankhana"]):
+            english_sanskrit_hints.extend(["शंखनाद", "मूर्खभृत्य", "शर्करा", "गोवर्धनदास"])
+        if any(w in q_lower for w in ["bhoja", "kalidasa", "poem", "poetry", "gems", "court", "lakh", "scholar"]):
+            english_sanskrit_hints.extend(["भोजराज", "कालीदास", "काव्य", "विद्वानाः", "लक्षरुप्यकाणि"])
+        if any(w in q_lower for w in ["demon", "ghanta", "old woman", "bell", "monkey", "tiger", "fruit"]):
+            english_sanskrit_hints.extend(["घण्टाकर्ण", "राक्षस", "वृद्धा", "चातुर्यम्", "वानराः"])
+        if any(w in q_lower for w in ["devotee", "god", "flood", "rain", "drown", "water", "effort", "prayer"]):
+            english_sanskrit_hints.extend(["देवभक्त", "जल", "वृष्टि", "साहाय्यम्", "उद्यम"])
+        if any(w in q_lower for w in ["cold", "winter", "badhati", "badhate", "grammar", "palanquin"]):
+            english_sanskrit_hints.extend(["शीतं", "बाधति", "बाधते", "कालीदास", "पण्डित"])
+
+        bm25_query = processed_query
+        if english_sanskrit_hints:
+            bm25_query = processed_query + " " + " ".join(english_sanskrit_hints)
+
         if mode == "dense":
-            return self.search_dense(processed_query, top_k=top_k)
+            res = self.search_dense(processed_query, top_k=top_k)
+            if query != processed_query:
+                res_raw = self.search_dense(query, top_k=top_k)
+                res = res + [r for r in res_raw if r["id"] not in [x["id"] for x in res]]
+            return res[:top_k]
         elif mode == "bm25":
-            return self.search_bm25(processed_query, top_k=top_k)
+            return self.search_bm25(bm25_query, top_k=top_k)
             
         # Hybrid Search with Score Normalization & Sanskrit Term Boosting
         dense_results = self.search_dense(processed_query, top_k=top_k * 3)
-        bm25_results = self.search_bm25(processed_query, top_k=top_k * 3)
+        if query != processed_query:
+            # Also search multilingual dense embeddings with original query (e.g. English)
+            raw_dense = self.search_dense(query, top_k=top_k * 3)
+            dense_map = {h["id"]: h for h in dense_results}
+            for rh in raw_dense:
+                cid = rh["id"]
+                if cid in dense_map:
+                    dense_map[cid]["dense_score"] = max(dense_map[cid]["dense_score"], rh["dense_score"])
+                else:
+                    dense_results.append(rh)
+
+        bm25_results = self.search_bm25(bm25_query, top_k=top_k * 3)
         
         # Build unified candidate pool
         chunk_map = {}

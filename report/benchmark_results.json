@@ -1,7 +1,7 @@
 {
   "accuracy_pct": 100.0,
-  "avg_retrieval_ms": 48.56,
-  "avg_total_ms": 50.68,
+  "avg_retrieval_ms": 44.3,
+  "avg_total_ms": 46.876,
   "test_runs": [
     {
       "test_id": 1,
@@ -10,10 +10,10 @@
       "expected_section": "मूर्खभृत्यस्य",
       "retrieved_section": "मूर्खभृत्यस्य",
       "accuracy_match": true,
-      "transliteration_latency_ms": 5.0,
-      "retrieval_latency_ms": 53.0,
+      "transliteration_latency_ms": 6.6,
+      "retrieval_latency_ms": 50.4,
       "generation_latency_ms": 0.0,
-      "total_latency_ms": 57.97
+      "total_latency_ms": 57.04
     },
     {
       "test_id": 2,
@@ -23,9 +23,9 @@
       "retrieved_section": "चतुरस्य कालीदासस्य",
       "accuracy_match": true,
       "transliteration_latency_ms": 0.0,
-      "retrieval_latency_ms": 37.5,
+      "retrieval_latency_ms": 46.8,
       "generation_latency_ms": 0.0,
-      "total_latency_ms": 37.47
+      "total_latency_ms": 46.77
     },
     {
       "test_id": 3,
@@ -35,9 +35,9 @@
       "retrieved_section": "वृद्धायाः चातुर्यम्",
       "accuracy_match": true,
       "transliteration_latency_ms": 0.0,
-      "retrieval_latency_ms": 58.3,
+      "retrieval_latency_ms": 42.6,
       "generation_latency_ms": 0.0,
-      "total_latency_ms": 58.33
+      "total_latency_ms": 42.56
     },
     {
       "test_id": 4,
@@ -46,10 +46,10 @@
       "expected_section": "देवभक्तस्य कथा",
       "retrieved_section": "देवभक्तस्य कथा",
       "accuracy_match": true,
-      "transliteration_latency_ms": 1.0,
-      "retrieval_latency_ms": 49.9,
+      "transliteration_latency_ms": 2.0,
+      "retrieval_latency_ms": 40.6,
       "generation_latency_ms": 0.0,
-      "total_latency_ms": 52.5
+      "total_latency_ms": 42.61
     },
     {
       "test_id": 5,
@@ -58,10 +58,10 @@
       "expected_section": "शीतं बहु बाधति",
       "retrieved_section": "शीतं बहु बाधति",
       "accuracy_match": true,
-      "transliteration_latency_ms": 3.0,
-      "retrieval_latency_ms": 44.1,
+      "transliteration_latency_ms": 4.3,
+      "retrieval_latency_ms": 41.1,
       "generation_latency_ms": 0.0,
-      "total_latency_ms": 47.13
+      "total_latency_ms": 45.4
     }
   ]
 }
