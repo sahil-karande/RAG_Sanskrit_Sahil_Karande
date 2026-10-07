@@ -115,40 +115,57 @@ st.markdown("""
         letter-spacing: 0.3px;
     }
 
-    /* Large & Prominent Search Input Box */
+    /* Large & Prominent Search Input Box - No Clipping Fix */
     div[data-testid="stTextInput"] {
         margin: 20px 0 25px 0 !important;
     }
     div[data-testid="stTextInput"] > label {
         font-family: 'Cinzel', serif !important;
-        font-size: 1.35rem !important;
+        font-size: 1.25rem !important;
         font-weight: 700 !important;
         color: #f59e0b !important;
-        margin-bottom: 12px !important;
+        margin-bottom: 10px !important;
         display: block !important;
         letter-spacing: 0.5px !important;
     }
-    div[data-testid="stTextInput"] input {
-        font-family: 'Inter', 'Noto Sans Devanagari', sans-serif !important;
-        font-size: 1.3rem !important;
-        min-height: 68px !important;
-        height: 68px !important;
-        padding: 16px 24px !important;
-        background-color: #1e293b !important;
-        color: #ffffff !important;
-        border: 2px solid #f59e0b !important;
+    div[data-testid="stTextInput"] div[data-baseweb="input"] {
+        min-height: 64px !important;
+        height: 64px !important;
         border-radius: 14px !important;
+        background-color: #1e293b !important;
+        border: 2px solid #f59e0b !important;
         box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25) !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
         transition: all 0.25s ease-in-out !important;
     }
-    div[data-testid="stTextInput"] input:focus {
+    div[data-testid="stTextInput"] div[data-baseweb="base-input"] {
+        height: 100% !important;
+        width: 100% !important;
+        background-color: transparent !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    div[data-testid="stTextInput"] input {
+        font-family: 'Inter', 'Noto Sans Devanagari', sans-serif !important;
+        font-size: 1.15rem !important;
+        line-height: 1.5 !important;
+        height: 100% !important;
+        padding: 0 22px !important;
+        background-color: transparent !important;
+        color: #ffffff !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within {
         border-color: #fef08a !important;
         box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.4), 0 8px 30px rgba(0, 0, 0, 0.4) !important;
-        outline: none !important;
     }
     div[data-testid="stTextInput"] input::placeholder {
         color: #94a3b8 !important;
-        font-size: 1.1rem !important;
+        font-size: 1.05rem !important;
     }
 
     .transliteration-card {
