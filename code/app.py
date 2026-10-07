@@ -1163,6 +1163,147 @@ st.markdown("""
         margin-top: 6px !important;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) !important;
     }
+
+    /* ====================================================
+       CINEMATIC VELLUM FADE-IN & FADE-OUT ANIMATIONS
+    ==================================================== */
+    @keyframes vellumFadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes vellumFadeInSoft {
+        0% {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Staggered Initial & Dynamic Entrance Animations */
+    .hero-container {
+        animation: vellumFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.search-gateway-banner) {
+        animation: vellumFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both !important;
+    }
+
+    div[data-testid="stVerticalBlockBorderWrapper"]:has(.directory-banner) {
+        animation: vellumFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both !important;
+    }
+
+    .archive-ready-card {
+        animation: vellumFadeIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both !important;
+    }
+
+    .transliteration-card {
+        animation: vellumFadeInSoft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    .vedic-sanskrit-card {
+        animation: vellumFadeIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both !important;
+    }
+
+    .parchment-english-card {
+        animation: vellumFadeIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both !important;
+    }
+
+    .reference-citation-card {
+        animation: vellumFadeIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both !important;
+    }
+
+    .stat-tile {
+        animation: vellumFadeInSoft 0.55s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    .vintage-divider {
+        animation: vellumFadeInSoft 0.75s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    .arch-section-header {
+        animation: vellumFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    div[data-testid="stExpander"] {
+        animation: vellumFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    /* Tab Switch Smooth Fade */
+    div[data-testid="stTabContent"] {
+        animation: vellumFadeInSoft 0.45s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+    }
+
+    /* Expander Details Open Smooth Fade */
+    div[data-testid="stExpanderDetails"] {
+        animation: vellumFadeInSoft 0.38s ease-out both !important;
+    }
+
+    /* Scroll-Driven View Fade-In & Fade-Out (Chrome 115+, Edge 115+) */
+    @supports (animation-timeline: view()) {
+        @keyframes vellumScrollFadeInOut {
+            entry 0% {
+                opacity: 0.15;
+                transform: translateY(26px);
+            }
+            entry 100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            exit 0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            exit 100% {
+                opacity: 0.15;
+                transform: translateY(-22px);
+            }
+        }
+
+        .hero-container,
+        div[data-testid="stVerticalBlockBorderWrapper"]:has(.search-gateway-banner),
+        div[data-testid="stVerticalBlockBorderWrapper"]:has(.directory-banner),
+        .archive-ready-card,
+        .vedic-sanskrit-card,
+        .parchment-english-card,
+        .reference-citation-card,
+        .transliteration-card,
+        .arch-section-header,
+        div[data-testid="stExpander"] {
+            animation: vellumScrollFadeInOut linear both !important;
+            animation-timeline: view() !important;
+            animation-range: entry 0% cover 40% exit 0% exit 100% !important;
+        }
+    }
+
+    /* Interactive Smooth Transition States */
+    .hero-container,
+    div[data-testid="stVerticalBlockBorderWrapper"],
+    .archive-ready-card,
+    .vedic-sanskrit-card,
+    .parchment-english-card,
+    .reference-citation-card,
+    div[data-testid="stExpander"],
+    div[data-testid="stButton"] button {
+        transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, ::before, ::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
