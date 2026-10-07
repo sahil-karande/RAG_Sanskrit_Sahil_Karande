@@ -875,15 +875,15 @@ if kolam_b64:
             top: 50% !important;
             left: 50% !important;
             transform: translate(-50%, -46%) !important;
-            width: 780px !important;
-            height: 780px !important;
-            max-width: 92vw !important;
-            max-height: 92vh !important;
+            width: 520px !important;
+            height: 520px !important;
+            max-width: 85vw !important;
+            max-height: 85vh !important;
             background-image: url("data:image/svg+xml;base64,{kolam_b64}") !important;
             background-size: contain !important;
             background-repeat: no-repeat !important;
             background-position: center !important;
-            opacity: 0.08 !important; /* Low intensity brown motif like Bharatiya GPT */
+            opacity: 0.05 !important; /* Soft, subtle low-intensity watermark */
             pointer-events: none !important;
             z-index: 0 !important;
         }}
