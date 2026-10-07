@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-320 -320 640 640" width="100%" height="100%"><defs>
+    <g id="kolam-arm">
+        <!-- Central spiral & braided vertical arm -->
+        <path d="M 0,-18 
+                 C 18,-18 28,-36 28,-54 
+                 C 28,-72 0,-76 0,-96 
+                 C 0,-116 28,-120 28,-138 
+                 C 28,-156 0,-160 0,-180 
+                 C 0,-200 28,-204 28,-222 
+                 C 28,-246 0,-258 0,-270 
+                 C 0,-258 -28,-246 -28,-222 
+                 C -28,-204 0,-200 0,-180 
+                 C 0,-160 -28,-156 -28,-138 
+                 C -28,-120 0,-116 0,-96 
+                 C 0,-76 -28,-72 -28,-54 
+                 C -28,-36 -18,-18 0,-18 Z" 
+              fill="none" stroke="#6e4823" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+              
+        <!-- Inner interlacing loops -->
+        <path d="M -28,-54 
+                 C -28,-72 28,-72 28,-96 
+                 C 28,-120 -28,-120 -28,-144 
+                 C -28,-168 28,-168 28,-192 
+                 C 28,-216 0,-226 -28,-210 
+                 C -44,-200 -44,-176 -28,-168 
+                 C -12,-160 28,-150 28,-126 
+                 C 28,-102 -28,-92 -28,-68 Z" 
+              fill="none" stroke="#6e4823" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Diagonal wing flourishes (Quadrant loops) -->
+        <path d="M 42,-54 
+                 C 64,-54 84,-74 84,-96 
+                 C 84,-118 64,-138 42,-138 
+                 C 20,-138 32,-168 54,-168 
+                 C 76,-168 96,-148 118,-148 
+                 C 140,-148 158,-130 158,-108 
+                 C 158,-86 138,-68 116,-68 
+                 C 94,-68 76,-42 54,-42 
+                 C 42,-42 32,-48 42,-54 Z" 
+              fill="none" stroke="#6e4823" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              
+        <path d="M 68,-96 
+                 C 68,-110 88,-124 104,-124 
+                 C 120,-124 136,-110 136,-96 
+                 C 136,-82 120,-68 104,-68 
+                 C 88,-68 68,-82 68,-96 Z" 
+              fill="none" stroke="#6e4823" stroke-width="3.5" stroke-linecap="round"/>
+
+        <path d="M 96,-148 
+                 C 96,-164 116,-178 132,-178 
+                 C 148,-178 164,-164 164,-148 
+                 C 164,-132 148,-118 132,-118 
+                 C 116,-118 96,-132 96,-148 Z" 
+              fill="none" stroke="#6e4823" stroke-width="3.5" stroke-linecap="round"/>
+    </g>
+    
+    <g id="kolam-dots">
+        <!-- Central vertical dots -->
+        <circle cx="0" cy="-42" r="4.5" fill="#6e4823"/>
+        <circle cx="0" cy="-84" r="4.5" fill="#6e4823"/>
+        <circle cx="0" cy="-126" r="4.5" fill="#6e4823"/>
+        <circle cx="0" cy="-168" r="4.5" fill="#6e4823"/>
+        <circle cx="0" cy="-210" r="4.5" fill="#6e4823"/>
+        <circle cx="0" cy="-252" r="4" fill="#6e4823"/>
+        
+        <!-- Adjacent vertical pair dots -->
+        <circle cx="-18" cy="-63" r="4" fill="#6e4823"/>
+        <circle cx="18" cy="-63" r="4" fill="#6e4823"/>
+        <circle cx="-18" cy="-105" r="4" fill="#6e4823"/>
+        <circle cx="18" cy="-105" r="4" fill="#6e4823"/>
+        <circle cx="-18" cy="-147" r="4" fill="#6e4823"/>
+        <circle cx="18" cy="-147" r="4" fill="#6e4823"/>
+        <circle cx="-18" cy="-189" r="4" fill="#6e4823"/>
+        <circle cx="18" cy="-189" r="4" fill="#6e4823"/>
+        <circle cx="-18" cy="-231" r="3.5" fill="#6e4823"/>
+        <circle cx="18" cy="-231" r="3.5" fill="#6e4823"/>
+        
+        <!-- Diagonal quadrant dots -->
+        <circle cx="54" cy="-54" r="4" fill="#6e4823"/>
+        <circle cx="96" cy="-54" r="4" fill="#6e4823"/>
+        <circle cx="54" cy="-96" r="4" fill="#6e4823"/>
+        <circle cx="96" cy="-96" r="4" fill="#6e4823"/>
+        <circle cx="138" cy="-96" r="3.5" fill="#6e4823"/>
+        <circle cx="54" cy="-138" r="4" fill="#6e4823"/>
+        <circle cx="96" cy="-138" r="4" fill="#6e4823"/>
+        <circle cx="138" cy="-138" r="3.5" fill="#6e4823"/>
+    </g>
+    </defs><circle cx="0" cy="0" r="6" fill="#6e4823"/><use href="#kolam-arm" transform="rotate(0)"/><use href="#kolam-dots" transform="rotate(0)"/><use href="#kolam-arm" transform="rotate(90)"/><use href="#kolam-dots" transform="rotate(90)"/><use href="#kolam-arm" transform="rotate(180)"/><use href="#kolam-dots" transform="rotate(180)"/><use href="#kolam-arm" transform="rotate(270)"/><use href="#kolam-dots" transform="rotate(270)"/></svg>

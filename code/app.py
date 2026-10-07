@@ -859,6 +859,41 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Sacred Indian Kolam / Yantra Background Watermark (Low-intensity brown motif like Bharatiya GPT)
+kolam_file = os.path.join(curr_dir, "..", "assets", "sacred_kolam_watermark.svg")
+kolam_b64 = ""
+if os.path.exists(kolam_file):
+    with open(kolam_file, "rb") as kf:
+        kolam_b64 = base64.b64encode(kf.read()).decode("utf-8")
+
+if kolam_b64:
+    st.markdown(f"""
+    <style>
+        .stApp::before {{
+            content: "" !important;
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -46%) !important;
+            width: 780px !important;
+            height: 780px !important;
+            max-width: 92vw !important;
+            max-height: 92vh !important;
+            background-image: url("data:image/svg+xml;base64,{kolam_b64}") !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            opacity: 0.08 !important; /* Low intensity brown motif like Bharatiya GPT */
+            pointer-events: none !important;
+            z-index: 0 !important;
+        }}
+        .main, .block-container, div[data-testid="stVerticalBlock"] {{
+            position: relative !important;
+            z-index: 1 !important;
+        }}
+    </style>
+    """, unsafe_allow_html=True)
+
 COMMON_ENGLISH_WORDS = {
     "why", "who", "what", "how", "when", "where", "did", "is", "was", "the", 
     "in", "a", "an", "and", "king", "servant", "sugar", "demon", "flood", 
