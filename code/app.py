@@ -78,10 +78,10 @@ st.markdown("""
         border: 2px solid #b38728;
         outline: 1px solid rgba(212, 175, 55, 0.45);
         outline-offset: -5px;
-        border-radius: 16px;
-        padding: 30px 36px;
-        margin-bottom: 26px;
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), inset 0 0 35px rgba(212, 175, 55, 0.12);
+        border-radius: 14px;
+        padding: 22px 30px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), inset 0 0 30px rgba(212, 175, 55, 0.12);
         position: relative;
         overflow: hidden;
         text-align: center;
@@ -93,20 +93,20 @@ st.markdown("""
         font-weight: 700;
         color: #ffd700;
         letter-spacing: normal !important;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
     }
     
     .hero-title {
-        font-family: 'Cinzel Decorative', 'Cinzel', serif;
-        font-size: 2.35rem;
-        font-weight: 900;
-        background: linear-gradient(135deg, #fff7c2 0%, #ffd700 25%, #d4af37 50%, #fff0a8 75%, #b38728 100%);
+        font-family: 'Cinzel', serif;
+        font-size: 2.25rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff7c2 0%, #ffd700 30%, #d4af37 60%, #fff0a8 85%, #b38728 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        letter-spacing: 1.5px;
+        letter-spacing: 1px;
         text-transform: uppercase;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         text-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
     }
 
@@ -439,6 +439,30 @@ st.markdown("""
         box-shadow: 0 0 20px rgba(212, 175, 55, 0.5) !important;
     }
 
+    .deck-card {
+        background: linear-gradient(180deg, #24080e 0%, #170408 100%);
+        border: 1.5px solid #b38728;
+        border-radius: 12px;
+        padding: 16px 18px 12px 18px;
+        margin-bottom: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(212, 175, 55, 0.05);
+    }
+
+    .deck-header {
+        font-family: 'Noto Sans Devanagari', 'Cinzel', serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #ffd700;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: normal !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        padding-bottom: 6px;
+    }
+
     .royal-divider {
         text-align: center;
         color: #d4af37;
@@ -536,7 +560,6 @@ st.markdown("""
     <div class="hero-title">SANSKRIT RETRIEVAL-AUGMENTED GENERATION</div>
     <div class="hero-subtitle">
         राजकीय-शास्त्रानुसन्धान-प्रणाली | Imperial Question-Answering Architecture for Classical Sanskrit Literature, Philosophy, and Royal Subhashitas.
-        Grounded with Authentic Devanagari Decrees, Comprehensive English Commentaries, and Verbatim Citations.
     </div>
     <div class="badge-container">
         <span class="spec-badge">✦ 100% CPU Only (No GPU)</span>
@@ -548,40 +571,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Quick Query Chips
-st.markdown("##### ⚜ Quick Sample Queries (Click any royal decree button to test):")
-
-st.markdown("<span style='color: #ffd700; font-family: Marcellus, serif; font-weight: 700; font-size: 0.98rem;'>◈ English Queries (आङ्ग्लभाषा-प्रश्नाः):</span>", unsafe_allow_html=True)
-en_cols = st.columns(4)
-with en_cols[0]:
-    if st.button("Why did the foolish servant ruin the sugar?", use_container_width=True):
-        set_query("Why did the foolish servant ruin the sugar?")
-with en_cols[1]:
-    if st.button("What did King Bhoja announce in his court?", use_container_width=True):
-        set_query("What did King Bhoja announce in his court?")
-with en_cols[2]:
-    if st.button("Who was Ghantakarna and why was the bell ringing?", use_container_width=True):
-        set_query("Who was Ghantakarna and why was the bell ringing?")
-with en_cols[3]:
-    if st.button("Why was 'badhati' grammatically incorrect?", use_container_width=True):
-        set_query("Why was badhati incorrect in sheetam bahu badhati?")
-
-st.markdown("<span style='color: #ffd700; font-family: Marcellus, serif; font-weight: 700; font-size: 0.98rem;'>◈ Sanskrit Queries (संस्कृत-प्रश्नाः):</span>", unsafe_allow_html=True)
-sk_cols = st.columns(4)
-with sk_cols[0]:
-    if st.button("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
-        set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
-with sk_cols[1]:
-    if st.button("भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
-        set_query("भोजराजः काव्यपठने किं घोषितवान् ?")
-with sk_cols[2]:
-    if st.button("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
-        set_query("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?")
-with sk_cols[3]:
-    if st.button("देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
-        set_query("देवभक्तः किमर्थं जले मृतवान् ?")
-
-# Full-Width Search Input (With End-Corner Golden Sceptre/Magnifying Symbol — Press Enter to Search)
+# 1. PRIMARY SEARCH GATEWAY (FRONT & CENTER)
 query_val = st.text_input(
     "⚜ प्रष्टव्य-प्रश्नद्वारम् | Enter Your Royal Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
     value=st.session_state.query_text,
@@ -589,6 +579,45 @@ query_val = st.text_input(
     key="main_query_input",
     label_visibility="visible"
 )
+
+# 2. STRUCTURED SIDE-BY-SIDE ROYAL QUERY DECKS
+col_left, col_right = st.columns(2)
+
+with col_left:
+    st.markdown("""
+    <div class="deck-header">
+        <span>◈</span> English Inquiries (आङ्ग्लभाषा-प्रश्नाः)
+    </div>
+    """, unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Why did servant ruin sugar?", use_container_width=True):
+            set_query("Why did the foolish servant ruin the sugar?")
+        if st.button("Who was Ghantakarna demon?", use_container_width=True):
+            set_query("Who was Ghantakarna and why was the bell ringing?")
+    with c2:
+        if st.button("What did King Bhoja announce?", use_container_width=True):
+            set_query("What did King Bhoja announce in his court?")
+        if st.button("Why was 'badhati' incorrect?", use_container_width=True):
+            set_query("Why was badhati incorrect in sheetam bahu badhati?")
+
+with col_right:
+    st.markdown("""
+    <div class="deck-header">
+        <span>◈</span> Sanskrit Decrees (संस्कृत-प्रश्नाः)
+    </div>
+    """, unsafe_allow_html=True)
+    c3, c4 = st.columns(2)
+    with c3:
+        if st.button("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
+            set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
+        if st.button("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
+            set_query("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?")
+    with c4:
+        if st.button("भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
+            set_query("भोजराजः काव्यपठने किं घोषितवान् ?")
+        if st.button("देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
+            set_query("देवभक्तः किमर्थं जले मृतवान् ?")
 
 if query_val.strip():
     # Step 1: Script Detection & Normalization Preview
@@ -802,11 +831,11 @@ if query_val.strip():
 else:
     # Landing Placeholder when no query is typed
     st.markdown("""
-    <div style="text-align: center; padding: 50px 24px; background: rgba(36, 8, 14, 0.45); border-radius: 14px; border: 1.5px dashed #b38728; margin-top: 25px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
-        <div style="font-size: 3.2rem; margin-bottom: 14px; color: #ffd700;">⚜</div>
-        <div style="font-family: 'Cinzel Decorative', 'Cinzel', serif; font-size: 1.45rem; color: #ffd700; margin-bottom: 8px;">Ready for Royal Queries</div>
+    <div style="text-align: center; padding: 36px 20px; background: rgba(36, 8, 14, 0.45); border-radius: 14px; border: 1.5px dashed #b38728; margin-top: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+        <div style="font-size: 2.8rem; margin-bottom: 10px; color: #ffd700;">⚜</div>
+        <div style="font-family: 'Cinzel', serif; font-size: 1.35rem; font-weight: 700; color: #ffd700; margin-bottom: 8px;">Royal Knowledge Gateway Ready</div>
         <div style="font-family: 'Marcellus', serif; color: #fce7cf; font-size: 1.05rem; max-width: 680px; margin: 0 auto; line-height: 1.7;">
-            Inquire in <b>Natural English</b>, <b>Devanagari Sanskrit</b>, or <b>Romanized Transliterations (IAST / HK / ITRANS)</b>, or select any imperial decree query above to receive the authentic Sanskrit answer with full English commentary.
+            Inquire above in <b>Natural English</b>, <b>Devanagari Sanskrit</b>, or <b>Romanized Transliterations (IAST / HK / ITRANS)</b>, or select any sample inquiry to receive the authentic Sanskrit decree with full English commentary.
         </div>
     </div>
     """, unsafe_allow_html=True)
