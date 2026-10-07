@@ -71,7 +71,7 @@ class SanskritRAGPipeline:
         # Step 2: Context Retrieval
         t1 = time.time()
         retrieved_chunks = self.retriever.retrieve(
-            query=devanagari_query,
+            query=user_query,
             top_k=top_k,
             mode=retrieval_mode
         )
@@ -80,7 +80,7 @@ class SanskritRAGPipeline:
         # Step 3: LLM Generation (CPU)
         t2 = time.time()
         gen_result = self.generator.generate(
-            query=devanagari_query,
+            query=user_query,
             context_chunks=retrieved_chunks
         )
         generation_time = time.time() - t2
