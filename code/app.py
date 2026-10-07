@@ -54,19 +54,16 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* Vintage Antique Parchment Canvas with Rich Dark Walnut Vignette Fades */
+    /* Vintage Antique Parchment Canvas with Soft Gentle Amber Fades */
     .stApp {
-        background: radial-gradient(ellipse at 50% 20%, #f7edcf 0%, #ecd6ad 25%, #c8a36d 55%, #7a4f26 80%, #241408 100%) fixed !important;
-        background-color: #ecd6ad !important;
+        background: radial-gradient(ellipse at 50% 35%, #fdf8ee 0%, #f7ecd7 35%, #ebd8b8 70%, #dfc79f 90%, #d5b88c 100%) fixed !important;
+        background-color: #f7ecd7 !important;
         color: #2b180d !important;
     }
     .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5 {
         color: #2b180d !important;
         font-family: 'Cinzel', serif !important;
         letter-spacing: 0.5px !important;
-    }
-    .stApp p, .stApp label {
-        color: #2b180d !important;
     }
 
     :root {
@@ -153,14 +150,14 @@ st.markdown("""
 
     /* Vintage Manuscript Query Tablets (Buttons) */
     div[data-testid="stButton"] button {
-        background: linear-gradient(180deg, #2e2319 0%, #1c150e 100%) !important;
+        background: linear-gradient(180deg, #2a1f15 0%, #17110c 100%) !important;
         border: 1.5px solid #8c6f43 !important;
         border-left: 5px solid #dfbe7b !important;
         border-radius: 6px !important;
-        color: #faf2de !important;
+        color: #fffdf5 !important;
         font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
-        font-size: 1.02rem !important;
-        font-weight: 600 !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
         padding: 8px 12px !important;
         min-height: 52px !important;
         display: flex !important;
@@ -168,17 +165,35 @@ st.markdown("""
         justify-content: center !important;
         text-align: center !important;
         letter-spacing: normal !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(250, 242, 222, 0.1) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(250, 242, 222, 0.1) !important;
         transition: all 0.2s ease-in-out !important;
         cursor: pointer !important;
     }
+    div[data-testid="stButton"] button *,
+    div[data-testid="stButton"] button p,
+    div[data-testid="stButton"] button span,
+    div[data-testid="stButton"] button div,
+    div[data-testid="stButton"] button [data-testid="stMarkdownContainer"],
+    div[data-testid="stButton"] button [data-testid="stMarkdownContainer"] p {
+        color: #fffdf5 !important;
+        font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+        letter-spacing: normal !important;
+    }
     div[data-testid="stButton"] button:hover {
-        background: linear-gradient(180deg, #443424 0%, #2b1f15 100%) !important;
+        background: linear-gradient(180deg, #443222 0%, #291d13 100%) !important;
         border-color: #dfbe7b !important;
         border-left-color: #ffd782 !important;
-        color: #ffffff !important;
-        box-shadow: 0 6px 18px rgba(197, 159, 91, 0.35) !important;
+        box-shadow: 0 6px 18px rgba(197, 159, 91, 0.45) !important;
         transform: translateY(-2px) !important;
+    }
+    div[data-testid="stButton"] button:hover *,
+    div[data-testid="stButton"] button:hover p,
+    div[data-testid="stButton"] button:hover span {
+        color: #ffffff !important;
+        text-shadow: 0 0 8px rgba(255, 215, 130, 0.6) !important;
     }
     div[data-testid="stButton"] button:active {
         transform: translateY(1px) !important;
@@ -509,33 +524,105 @@ st.markdown("""
     div[data-testid="stExpander"] {
         border: 1.5px solid #8c6f43 !important;
         border-radius: 8px !important;
-        background: rgba(30, 22, 15, 0.9) !important;
+        background: linear-gradient(180deg, #281d13 0%, #1a120b 100%) !important;
         margin-bottom: 12px !important;
-        box-shadow: 0 4px 14px rgba(45, 30, 15, 0.25) !important;
+        box-shadow: 0 4px 14px rgba(45, 30, 15, 0.3) !important;
     }
     div[data-testid="stExpander"] summary {
+        background: transparent !important;
+    }
+    div[data-testid="stExpander"] summary *,
+    div[data-testid="stExpander"] summary p,
+    div[data-testid="stExpander"] summary span,
+    div[data-testid="stExpander"] summary svg {
         font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
-        color: #dfbe7b !important;
-        font-size: 1.05rem !important;
+        color: #ffd782 !important;
+        fill: #ffd782 !important;
+        font-size: 1.1rem !important;
         font-weight: 700 !important;
+    }
+    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] {
+        background: #1b130b !important;
+        border-top: 1px solid #5a4225 !important;
+        padding: 16px !important;
+    }
+    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] *,
+    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] p,
+    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] span,
+    div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] label {
+        color: #f7eed8 !important;
     }
 
     /* Vintage Download Button */
     div[data-testid="stDownloadButton"] button {
-        background: linear-gradient(180deg, #2b2219 0%, #1a140f 100%) !important;
+        background: linear-gradient(180deg, #2a1f15 0%, #17110c 100%) !important;
         border: 1.5px solid #8c6f43 !important;
-        color: #faf2de !important;
+        border-left: 5px solid #dfbe7b !important;
+        border-radius: 6px !important;
+        color: #fffdf5 !important;
         font-family: 'EB Garamond', 'Cinzel', serif !important;
         font-size: 1.05rem !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
         padding: 12px 20px !important;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.5) !important;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.4) !important;
+        transition: all 0.2s ease !important;
+    }
+    div[data-testid="stDownloadButton"] button *,
+    div[data-testid="stDownloadButton"] button p,
+    div[data-testid="stDownloadButton"] button span,
+    div[data-testid="stDownloadButton"] button div,
+    div[data-testid="stDownloadButton"] button [data-testid="stMarkdownContainer"],
+    div[data-testid="stDownloadButton"] button [data-testid="stMarkdownContainer"] p {
+        color: #fffdf5 !important;
+        font-family: 'EB Garamond', 'Cinzel', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
     }
     div[data-testid="stDownloadButton"] button:hover {
-        background: linear-gradient(180deg, #3d3023 0%, #251c14 100%) !important;
+        background: linear-gradient(180deg, #423120 0%, #2a1c11 100%) !important;
         border-color: #dfbe7b !important;
-        color: #ffffff !important;
         box-shadow: 0 0 16px rgba(197, 159, 91, 0.4) !important;
+    }
+    div[data-testid="stDownloadButton"] button:hover *,
+    div[data-testid="stDownloadButton"] button:hover p,
+    div[data-testid="stDownloadButton"] button:hover span {
+        color: #ffffff !important;
+    }
+
+    /* Antique Alert Cards (Success & Info Boxes) */
+    div[data-testid="stAlert"],
+    div.stAlert {
+        background: linear-gradient(135deg, #271c13 0%, #1a120b 100%) !important;
+        border: 1.5px solid #8c6f43 !important;
+        border-left: 6px solid #dfbe7b !important;
+        border-radius: 6px !important;
+        box-shadow: 0 4px 12px rgba(45, 30, 15, 0.25) !important;
+        color: #fffdf5 !important;
+    }
+    div[data-testid="stAlert"] *,
+    div.stAlert *,
+    div[data-testid="stAlert"] p,
+    div.stAlert p,
+    div[data-testid="stAlert"] span,
+    div.stAlert span,
+    div[data-testid="stAlert"] div,
+    div.stAlert div,
+    div[data-testid="stAlert"] strong,
+    div.stAlert strong {
+        color: #fffdf5 !important;
+        font-size: 1rem !important;
+        font-family: 'EB Garamond', serif !important;
+    }
+
+    /* Caption Styling for Archival Clarity on Parchment */
+    div[data-testid="stCaptionContainer"] *,
+    div[data-testid="stCaptionContainer"] p,
+    .stCaption,
+    small {
+        color: #3b2311 !important;
+        font-weight: 600 !important;
+        font-size: 0.98rem !important;
     }
 
     /* Primary Search Console Gateway Banner */
@@ -1017,11 +1104,11 @@ if query_val.strip():
 else:
     # Landing Placeholder when no query is typed
     st.markdown("""
-    <div style="text-align: center; padding: 32px 20px; background: rgba(30, 23, 16, 0.55); border-radius: 10px; border: 1.5px dashed #8c6f43; margin-top: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.5);">
-        <div style="font-size: 2.6rem; margin-bottom: 8px; color: #dfbe7b;">❖</div>
-        <div style="font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; color: #dfbe7b; margin-bottom: 6px;">Historical Manuscript Archive Ready</div>
-        <div style="font-family: 'EB Garamond', serif; color: #d9c8af; font-size: 1.1rem; max-width: 680px; margin: 0 auto; line-height: 1.6;">
-            Inquire above in <b>Natural English</b>, <b>Devanagari Sanskrit</b>, or <b>Romanized Transliterations (IAST / HK / ITRANS)</b>, or select any sample inquiry to retrieve authentic Sanskrit excerpts with full English commentary.
+    <div style="text-align: center; padding: 34px 24px; background: linear-gradient(135deg, #261b12 0%, #1a120c 100%); border-radius: 10px; border: 2px solid #8c6f43; outline: 1px solid rgba(223, 190, 123, 0.35); outline-offset: -5px; margin-top: 18px; box-shadow: 0 10px 28px rgba(45, 28, 14, 0.4);">
+        <div style="font-size: 2.4rem; margin-bottom: 8px; color: #ffd782; text-shadow: 0 0 12px rgba(223, 190, 123, 0.5);">❖</div>
+        <div style="font-family: 'Cinzel', serif; font-size: 1.35rem; font-weight: 800; color: #ffd782; letter-spacing: 1px; margin-bottom: 8px;">HISTORICAL MANUSCRIPT ARCHIVE READY</div>
+        <div style="font-family: 'EB Garamond', serif; color: #fbf4e6; font-size: 1.15rem; max-width: 720px; margin: 0 auto; line-height: 1.7;">
+            Inquire above in <b style="color: #ffd782;">Natural English</b>, <b style="color: #ffd782;">Devanagari Sanskrit</b>, or <b style="color: #ffd782;">Romanized Transliterations (IAST / HK / ITRANS)</b>, or select any sample inquiry above to retrieve authentic Sanskrit excerpts with full English commentary.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -1070,4 +1157,4 @@ with st.expander("Document Ingestion: Upload & Index Additional Sanskrit Documen
                 count = pipeline.index_document(save_path, overwrite=False)
                 st.success(f"Indexed {count} chunks successfully!")
 
-st.markdown("<div style='text-align: center; color: #8c6f43; font-family: EB Garamond, serif; font-size: 1.05rem; padding: 28px 0 14px 0;'>◈ Sanskrit RAG System | Historical Manuscript Archive Edition | Developed by Sahil Karande ◈</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: #5a381b; font-family: EB Garamond, serif; font-size: 1.1rem; font-weight: 700; padding: 28px 0 14px 0;'>◈ Sanskrit RAG System | Historical Manuscript Archive Edition | Developed by Sahil Karande ◈</div>", unsafe_allow_html=True)
