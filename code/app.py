@@ -143,8 +143,9 @@ st.markdown("""
 
     /* Vintage Manuscript Query Tablets (Buttons) */
     div[data-testid="stButton"] button {
-        background: linear-gradient(180deg, #2b2219 0%, #1a140f 100%) !important;
+        background: linear-gradient(180deg, #2e2319 0%, #1c150e 100%) !important;
         border: 1.5px solid #8c6f43 !important;
+        border-left: 5px solid #dfbe7b !important;
         border-radius: 6px !important;
         color: #faf2de !important;
         font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
@@ -157,14 +158,16 @@ st.markdown("""
         justify-content: center !important;
         text-align: center !important;
         letter-spacing: normal !important;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(250, 242, 222, 0.1) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(250, 242, 222, 0.1) !important;
         transition: all 0.2s ease-in-out !important;
+        cursor: pointer !important;
     }
     div[data-testid="stButton"] button:hover {
-        background: linear-gradient(180deg, #3d3023 0%, #251c14 100%) !important;
+        background: linear-gradient(180deg, #443424 0%, #2b1f15 100%) !important;
         border-color: #dfbe7b !important;
+        border-left-color: #ffd782 !important;
         color: #ffffff !important;
-        box-shadow: 0 0 16px rgba(197, 159, 91, 0.4), inset 0 0 8px rgba(197, 159, 91, 0.2) !important;
+        box-shadow: 0 6px 18px rgba(197, 159, 91, 0.35) !important;
         transform: translateY(-2px) !important;
     }
     div[data-testid="stButton"] button:active {
@@ -174,23 +177,18 @@ st.markdown("""
 
     /* Vintage Manuscript Query Input */
     div[data-testid="stTextInput"] {
-        margin: 20px 0 24px 0 !important;
+        margin: 0 0 20px 0 !important;
     }
     div[data-testid="stTextInput"] > label {
-        font-family: 'EB Garamond', 'Cinzel', serif !important;
-        font-size: 1.25rem !important;
-        font-weight: 700 !important;
-        color: #dfbe7b !important;
-        margin-bottom: 10px !important;
-        display: block !important;
-        letter-spacing: normal !important;
+        display: none !important;
     }
     div[data-testid="stTextInput"] div[data-baseweb="input"] {
         min-height: 64px !important;
         height: 64px !important;
-        border-radius: 10px !important;
+        border-radius: 0 0 10px 10px !important;
         background: #1c150f !important;
         border: 2px solid #8c6f43 !important;
+        border-top: none !important;
         outline: 1px solid rgba(197, 159, 91, 0.35) !important;
         outline-offset: -5px !important;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), inset 0 2px 6px rgba(0,0,0,0.6) !important;
@@ -298,68 +296,146 @@ st.markdown("""
         text-shadow: 0 0 10px rgba(197, 159, 91, 0.35);
     }
 
-    /* Antique Manuscript Answer Cards */
-    .answer-card {
-        background: linear-gradient(180deg, #251d15 0%, #1b140e 100%);
-        border: 2px solid #8c6f43;
-        border-left: 6px solid #dfbe7b;
-        border-radius: 10px;
-        padding: 24px 26px;
-        margin-top: 16px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 0 20px rgba(140, 111, 67, 0.08);
-        position: relative;
+    /* 1. Luminous Aged Parchment Manuscript Answer Card (English Commentary) */
+    .parchment-english-card {
+        background: linear-gradient(180deg, #fdf8eb 0%, #f4e7cd 100%) !important;
+        border: 2px solid #a3814e !important;
+        border-left: 8px solid #c59f5b !important;
+        border-radius: 10px !important;
+        padding: 24px 28px !important;
+        margin-top: 18px !important;
+        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.7), inset 0 0 40px rgba(184, 148, 87, 0.15) !important;
+        position: relative !important;
+    }
+    .parchment-english-card .card-badge {
+        display: inline-block !important;
+        background: #362415 !important;
+        color: #dfbe7b !important;
+        font-family: 'Cinzel', serif !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        padding: 3px 12px !important;
+        border-radius: 4px !important;
+        letter-spacing: 1px !important;
+        margin-bottom: 10px !important;
+    }
+    .parchment-english-card .answer-heading {
+        font-family: 'Cinzel', 'EB Garamond', serif !important;
+        font-size: 1.35rem !important;
+        font-weight: 800 !important;
+        color: #2b1c0e !important;
+        margin-bottom: 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        border-bottom: 2px solid rgba(140, 111, 67, 0.4) !important;
+        padding-bottom: 8px !important;
+    }
+    .parchment-english-card .explanation-box {
+        background: rgba(255, 255, 255, 0.6) !important;
+        border: 1px solid #d4c2a1 !important;
+        border-left: 5px solid #8c6f43 !important;
+        padding: 20px 24px !important;
+        border-radius: 6px !important;
+        color: #1a1106 !important;
+        font-family: 'EB Garamond', Georgia, serif !important;
+        font-size: 1.25rem !important;
+        line-height: 1.85 !important;
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05) !important;
     }
 
-    .answer-heading {
-        font-family: 'Cinzel', 'EB Garamond', serif;
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #dfbe7b;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        letter-spacing: 0.5px;
-        border-bottom: 1px solid rgba(140, 111, 67, 0.3);
-        padding-bottom: 6px;
+    /* 2. Deep Sanctum Vedic Manuscript Card (Sanskrit Excerpt) */
+    .vedic-sanskrit-card {
+        background: linear-gradient(180deg, #221810 0%, #150f09 100%) !important;
+        border: 2px solid #8c6f43 !important;
+        border-left: 8px solid #dfbe7b !important;
+        border-radius: 10px !important;
+        padding: 24px 28px !important;
+        margin-top: 18px !important;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.7), inset 0 0 25px rgba(223, 190, 123, 0.08) !important;
+        position: relative !important;
+    }
+    .vedic-sanskrit-card .card-badge {
+        display: inline-block !important;
+        background: #3d2417 !important;
+        color: #fca86c !important;
+        font-family: 'Cinzel', serif !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        padding: 3px 12px !important;
+        border-radius: 4px !important;
+        letter-spacing: 1px !important;
+        margin-bottom: 10px !important;
+    }
+    .vedic-sanskrit-card .answer-heading {
+        font-family: 'Noto Serif Devanagari', 'Cinzel', serif !important;
+        font-size: 1.35rem !important;
+        font-weight: 700 !important;
+        color: #dfbe7b !important;
+        margin-bottom: 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        border-bottom: 1.5px solid rgba(223, 190, 123, 0.3) !important;
+        padding-bottom: 8px !important;
+        letter-spacing: normal !important;
+    }
+    .vedic-sanskrit-card .sanskrit-text {
+        font-family: 'Noto Serif Devanagari', serif !important;
+        font-size: 1.4rem !important;
+        line-height: 2.2 !important;
+        color: #fffef7 !important;
+        background: rgba(12, 8, 5, 0.95) !important;
+        border: 1.5px solid #6d5432 !important;
+        padding: 22px 26px !important;
+        border-radius: 8px !important;
+        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.7) !important;
+        letter-spacing: normal !important;
     }
 
-    .sanskrit-text {
-        font-family: 'Noto Serif Devanagari', serif;
-        font-size: 1.35rem;
-        line-height: 2.1;
-        color: #fffef7;
-        background: rgba(18, 13, 9, 0.85);
-        border: 1px solid #6d5432;
-        padding: 20px 24px;
-        border-radius: 8px;
-        margin-bottom: 18px;
-        box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+    /* 3. Archival Seal Reference Card */
+    .reference-citation-card {
+        background: linear-gradient(180deg, #151e17 0%, #0d150e 100%) !important;
+        border: 2px solid #3d694f !important;
+        border-left: 8px solid #4d8263 !important;
+        border-radius: 10px !important;
+        padding: 22px 26px !important;
+        margin-top: 18px !important;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
     }
-
-    .explanation-box {
-        background: rgba(28, 22, 16, 0.85);
-        border: 1px solid rgba(140, 111, 67, 0.25);
-        border-left: 5px solid #dfbe7b;
-        padding: 18px 22px;
-        border-radius: 6px;
-        color: #f7eed8;
-        font-family: 'EB Garamond', serif;
-        font-size: 1.15rem;
-        line-height: 1.8;
-        margin-bottom: 18px;
+    .reference-citation-card .card-badge {
+        display: inline-block !important;
+        background: #1c3123 !important;
+        color: #8ed6aa !important;
+        font-family: 'Cinzel', serif !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        padding: 3px 12px !important;
+        border-radius: 4px !important;
+        letter-spacing: 1px !important;
+        margin-bottom: 10px !important;
     }
-
-    .citation-box {
-        background: rgba(16, 24, 18, 0.85);
-        border: 1px solid rgba(77, 130, 99, 0.35);
-        border-left: 5px solid #4d8263;
-        padding: 14px 20px;
-        border-radius: 6px;
-        color: #dbebe0;
-        font-size: 1.05rem;
-        font-family: 'Noto Serif Devanagari', 'EB Garamond', serif;
-        line-height: 1.8;
+    .reference-citation-card .answer-heading {
+        font-family: 'Cinzel', 'Noto Serif Devanagari', serif !important;
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        color: #7bc498 !important;
+        margin-bottom: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        border-bottom: 1px solid rgba(77, 130, 99, 0.4) !important;
+        padding-bottom: 6px !important;
+    }
+    .reference-citation-card .citation-box {
+        background: rgba(7, 13, 8, 0.85) !important;
+        border: 1px solid rgba(77, 130, 99, 0.4) !important;
+        padding: 16px 22px !important;
+        border-radius: 6px !important;
+        color: #e2f5e8 !important;
+        font-size: 1.12rem !important;
+        font-family: 'Noto Serif Devanagari', 'EB Garamond', serif !important;
+        line-height: 1.85 !important;
     }
 
     /* Vintage Tabs */
@@ -442,19 +518,99 @@ st.markdown("""
         box-shadow: 0 0 16px rgba(197, 159, 91, 0.4) !important;
     }
 
-    .deck-header {
-        font-family: 'Noto Serif Devanagari', 'Cinzel', serif;
-        font-size: 1.05rem;
-        font-weight: 700;
-        color: #dfbe7b;
-        margin-top: 8px;
-        margin-bottom: 10px;
+    /* Primary Search Console Gateway Banner */
+    .search-gateway-banner {
         display: flex;
         align-items: center;
-        gap: 8px;
+        justify-content: space-between;
+        background: linear-gradient(90deg, rgba(62, 45, 29, 0.95) 0%, rgba(32, 23, 15, 0.95) 100%);
+        border: 2px solid #8c6f43;
+        border-left: 8px solid #dfbe7b;
+        border-radius: 10px 10px 0 0;
+        padding: 12px 20px;
+        margin-top: 18px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    }
+    .gateway-title {
+        font-family: 'Cinzel', serif;
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #dfbe7b;
+        letter-spacing: 1px;
+    }
+    .gateway-hint {
+        font-family: 'EB Garamond', serif;
+        font-size: 0.98rem;
+        color: #d9c8af;
+        font-style: italic;
+    }
+
+    /* Master Inquiry Directory Box */
+    .inquiry-directory {
+        background: rgba(30, 22, 15, 0.85);
+        border: 2px solid #6d5432;
+        border-radius: 10px;
+        padding: 18px 22px 14px 22px;
+        margin: 22px 0 16px 0;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.55), inset 0 0 20px rgba(140, 111, 67, 0.08);
+    }
+    .directory-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        border-bottom: 1.5px solid rgba(140, 111, 67, 0.35);
+        padding-bottom: 8px;
+    }
+    .directory-title {
+        font-family: 'Cinzel', serif;
+        font-size: 1.18rem;
+        font-weight: 800;
+        color: #dfbe7b;
+        letter-spacing: 1px;
+    }
+    .directory-badge {
+        font-family: 'EB Garamond', serif;
+        font-size: 0.95rem;
+        color: #dfbe7b;
+        background: rgba(54, 40, 27, 0.9);
+        border: 1px solid #8c6f43;
+        padding: 3px 12px;
+        border-radius: 4px;
+        font-style: italic;
+    }
+    .shelf-label-en {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'Cinzel', serif;
+        font-size: 0.96rem;
+        font-weight: 700;
+        color: #ffd782;
+        background: rgba(54, 40, 27, 0.95);
+        border: 1px solid #8c6f43;
+        border-left: 5px solid #dfbe7b;
+        padding: 5px 14px;
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .shelf-label-sa {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'Noto Serif Devanagari', serif;
+        font-size: 1.02rem;
+        font-weight: 700;
+        color: #ffb17a;
+        background: rgba(50, 26, 18, 0.95);
+        border: 1px solid #b56839;
+        border-left: 5px solid #e07a38;
+        padding: 5px 14px;
+        border-radius: 4px;
+        margin-top: 18px;
+        margin-bottom: 10px;
         letter-spacing: normal !important;
-        border-bottom: 1px solid rgba(140, 111, 67, 0.3);
-        padding-bottom: 6px;
     }
 
     .vintage-divider {
@@ -484,15 +640,15 @@ def is_natural_english_query(text: str) -> bool:
 def get_sanskrit_topic_representation(text: str) -> str:
     """Translates English conversational questions into corresponding Sanskrit query formulation."""
     t = text.lower()
-    if any(w in t for w in ["bhoj", "kalidas", "king", "raja"]):
-        if any(w in t for w in ["amount", "prize", "reward", "money", "lakh", "announce", "announced", "annouced", "how much"]):
+    if any(w in t for w in ["bhoj", "kalidas", "king", "raja", "poet", "reward", "prize", "court", "lakh", "rupee", "poem", "verse"]):
+        if any(w in t for w in ["why", "fail", "prevent", "unable", "not able", "originally able", "win", "who"]):
+            return "कविभ्यः पारितोषिकप्राप्तौ विघ्नः (Why Poets Failed To Win Prize)"
+        elif any(w in t for w in ["amount", "prize", "reward", "money", "lakh", "announce", "announced", "annouced", "how much"]):
             return "भोजराज्ञा घोषितं काव्यपारितोषिकम् (King Bhoja's Announced Reward)"
         elif any(w in t for w in ["99", "crore", "riddle", "gem", "gems"]):
             return "कालीदासस्य ९९-कोटिरत्नकूटश्लोकः (Kalidasa's 99-Crore Gems Riddle)"
         elif any(w in t for w in ["scholar", "scholars", "memory", "ekapathi", "dvipathi", "tripathi"]):
             return "एकपाठि-द्विपाठि-त्रिपाठि विद्वांसः (Scholars' Photographic Memory)"
-        elif any(w in t for w in ["why", "fail", "prevent"]):
-            return "कविभ्यः पारितोषिकप्राप्तौ विघ्नः (Why Poets Failed To Win Prize)"
         return "चतुरस्य कालीदासस्य कथा (Story of Clever Kalidasa & King Bhoja)"
     elif any(w in t for w in ["servant", "sugar", "puppy", "dog", "milk", "cloth", "soot", "face", "shankhan", "fool"]):
         if any(w in t for w in ["sugar", "market", "spill", "leak"]):
@@ -515,8 +671,7 @@ def get_sanskrit_topic_representation(text: str) -> str:
     elif any(w in t for w in ["cold", "winter", "badhati", "badhate", "grammar", "palanquin"]):
         return "शीतं बहु बाधति आत्मनेपद-दोषविचारः (Grammar Error in 'Sheetam Bahu Badhati')"
     else:
-        dev_tr = to_devanagari(text)
-        return dev_tr if dev_tr else "संस्कृत-अर्थानुसन्धानम् (Sanskrit Semantic Search)"
+        return "संस्कृत-अर्थानुसन्धानम् (Cross-Lingual Semantic Concept Retrieval)"
 
 # Pipeline Singleton
 @st.cache_resource
@@ -566,53 +721,62 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 1. PRIMARY SEARCH GATEWAY (FRONT & CENTER)
+st.markdown("""
+<div class="search-gateway-banner">
+    <span class="gateway-title">✦ PRIMARY INQUIRY CONSOLE | ग्रन्थ-सन्धानम्</span>
+    <span class="gateway-hint">Type below in English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS</span>
+</div>
+""", unsafe_allow_html=True)
+
 query_val = st.text_input(
-    "Historical Manuscript Query | Enter Your Question (English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS):",
+    "Historical Manuscript Query | Enter Your Question:",
     value=st.session_state.query_text,
-    placeholder="Inquire in English (e.g. 'What did King Bhoja announce?') or Sanskrit and press Enter...",
+    placeholder="Inquire in English (e.g. 'Why was no poet able to win the reward?') or Sanskrit and press Enter...",
     key="main_query_input",
-    label_visibility="visible"
+    label_visibility="collapsed"
 )
 
-# 2. STRUCTURED VINTAGE QUERY DECKS (ENGLISH IN UPPER LINE, SANSKRIT IN DOWN LINE)
+# 2. STRUCTURED VINTAGE QUERY DIRECTORY
 st.markdown("""
-<div class="deck-header">
-    <span>◈</span> English Inquiries (Classical Literature)
+<div class="inquiry-directory">
+    <div class="directory-banner">
+        <span class="directory-title">◈ HISTORICAL QUERY DIRECTORY | शीघ्र-ग्रन्थ-प्रश्नावली</span>
+        <span class="directory-badge">Click any tablet below to load authentic query</span>
+    </div>
+    <div class="shelf-label-en">◆ Classical English Inquiries (आङ्ग्लप्रश्नाः)</div>
 </div>
 """, unsafe_allow_html=True)
 
 ec1, ec2, ec3, ec4 = st.columns(4)
 with ec1:
-    if st.button("Why did servant ruin sugar?", use_container_width=True):
+    if st.button("◆ Why did servant ruin sugar?", use_container_width=True):
         set_query("Why did the foolish servant ruin the sugar?")
 with ec2:
-    if st.button("What did King Bhoja announce?", use_container_width=True):
+    if st.button("◆ What did King Bhoja announce?", use_container_width=True):
         set_query("What did King Bhoja announce in his court?")
 with ec3:
-    if st.button("Who was Ghantakarna demon?", use_container_width=True):
+    if st.button("◆ Who was Ghantakarna demon?", use_container_width=True):
         set_query("Who was Ghantakarna and why was the bell ringing?")
 with ec4:
-    if st.button("Why was 'badhati' incorrect?", use_container_width=True):
+    if st.button("◆ Why was 'badhati' incorrect?", use_container_width=True):
         set_query("Why was badhati incorrect in sheetam bahu badhati?")
 
 st.markdown("""
-<div class="deck-header" style="margin-top: 14px;">
-    <span>◈</span> Sanskrit Inscriptions (मूलसंस्कृतप्रश्नाः)
-</div>
+<div class="shelf-label-sa">◈ Native Sanskrit Inscriptions (मूलसंस्कृतप्रश्नाः)</div>
 """, unsafe_allow_html=True)
 
 sc1, sc2, sc3, sc4 = st.columns(4)
 with sc1:
-    if st.button("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
+    if st.button("◈ मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
         set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
 with sc2:
-    if st.button("भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
+    if st.button("◈ भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
         set_query("भोजराजः काव्यपठने किं घोषितवान् ?")
 with sc3:
-    if st.button("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
+    if st.button("◈ चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
         set_query("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?")
 with sc4:
-    if st.button("देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
+    if st.button("◈ देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
         set_query("देवभक्तः किमर्थं जले मृतवान् ?")
 
 if query_val.strip():
@@ -708,11 +872,12 @@ if query_val.strip():
             sanskrit_part = response_text
 
         # Format and display cards:
-        # 1. English Commentary & Historical Meaning (UP SIDE)
+        # 1. English Commentary & Historical Meaning (UP SIDE - Radiant Aged Parchment)
         if english_part:
             st.markdown("""
-            <div class="answer-card">
-                <div class="answer-heading" style="color: #dfbe7b;">
+            <div class="parchment-english-card">
+                <div class="card-badge">MANUSCRIPT EXEGESIS & HISTORICAL COMMENTARY</div>
+                <div class="answer-heading">
                     <span>◆</span> English Commentary & Historical Meaning (विस्तृत-आङ्ग्लार्थः)
                 </div>
                 <div class="explanation-box">
@@ -721,9 +886,10 @@ if query_val.strip():
             </div>
             """, unsafe_allow_html=True)
 
-        # 2. Classical Sanskrit Excerpt (DOWN OF THE ENGLISH)
+        # 2. Classical Sanskrit Excerpt (DOWN OF THE ENGLISH - Sacred Vedic Tablet)
         st.markdown("""
-        <div class="answer-card" style="margin-top: 18px;">
+        <div class="vedic-sanskrit-card">
+            <div class="card-badge">AUTHENTIC SANSKRIT CORPUS PASSAGE</div>
             <div class="answer-heading">
                 <span>◈</span> उत्तरम् (Classical Sanskrit Excerpt)
             </div>
@@ -733,11 +899,12 @@ if query_val.strip():
         </div>
         """, unsafe_allow_html=True)
 
-        # 3. Direct Manuscript Reference (DOWN OF SANSKRIT)
+        # 3. Direct Manuscript Reference (DOWN OF SANSKRIT - Archival Seal)
         if reference_part:
             st.markdown("""
-            <div class="answer-card" style="border-left: 6px solid #4d8263; margin-top: 18px;">
-                <div class="answer-heading" style="color: #7bc498; font-size: 1.15rem;">
+            <div class="reference-citation-card">
+                <div class="card-badge">VERBATIM MANUSCRIPT CITATION</div>
+                <div class="answer-heading">
                     <span>◈</span> प्रमाणम् / Direct Manuscript Reference (मूलग्रन्थसन्दर्भः)
                 </div>
                 <div class="citation-box">
