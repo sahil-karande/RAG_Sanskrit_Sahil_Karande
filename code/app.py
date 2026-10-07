@@ -88,12 +88,12 @@ st.markdown("""
     }
 
     .hero-crest {
-        font-family: 'Cinzel Decorative', 'Cinzel', serif;
-        font-size: 1.15rem;
+        font-family: 'Noto Sans Devanagari', 'Noto Serif Devanagari', serif;
+        font-size: 1.25rem;
         font-weight: 700;
         color: #ffd700;
-        letter-spacing: 3px;
-        margin-bottom: 6px;
+        letter-spacing: normal !important;
+        margin-bottom: 8px;
         text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
     }
     
@@ -111,12 +111,13 @@ st.markdown("""
     }
 
     .hero-subtitle {
-        font-family: 'Marcellus', 'Noto Serif Devanagari', serif;
+        font-family: 'Noto Sans Devanagari', 'Marcellus', serif;
         font-size: 1.12rem;
         color: #fce7cf;
         line-height: 1.7;
         max-width: 960px;
         margin: 0 auto;
+        letter-spacing: normal !important;
     }
 
     .badge-container {
@@ -137,10 +138,10 @@ st.markdown("""
         color: #fff2b2;
         padding: 5px 15px;
         border-radius: 20px;
-        font-family: 'Marcellus', serif;
+        font-family: 'Noto Sans Devanagari', 'Marcellus', serif;
         font-size: 0.88rem;
         font-weight: 600;
-        letter-spacing: 0.4px;
+        letter-spacing: normal !important;
     }
 
     /* Royal King Court Buttons (राजमुद्रा-पट्टिका) */
@@ -149,11 +150,11 @@ st.markdown("""
         border: 1.5px solid #d4af37 !important;
         border-radius: 8px !important;
         color: #fff0a8 !important;
-        font-family: 'Marcellus', 'Noto Serif Devanagari', serif !important;
+        font-family: 'Noto Sans Devanagari', 'Marcellus', serif !important;
         font-size: 0.98rem !important;
         font-weight: 600 !important;
-        padding: 10px 16px !important;
-        letter-spacing: 0.4px !important;
+        padding: 12px 16px !important;
+        letter-spacing: normal !important;
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 242, 178, 0.2) !important;
         transition: all 0.22s ease-in-out !important;
     }
@@ -174,14 +175,14 @@ st.markdown("""
         margin: 24px 0 28px 0 !important;
     }
     div[data-testid="stTextInput"] > label {
-        font-family: 'Cinzel', serif !important;
+        font-family: 'Noto Sans Devanagari', 'Cinzel', serif !important;
         font-size: 1.25rem !important;
         font-weight: 700 !important;
         color: #d4af37 !important;
         text-shadow: 0 0 12px rgba(212, 175, 55, 0.3) !important;
         margin-bottom: 12px !important;
         display: block !important;
-        letter-spacing: 0.8px !important;
+        letter-spacing: normal !important;
     }
     div[data-testid="stTextInput"] div[data-baseweb="input"] {
         min-height: 66px !important;
