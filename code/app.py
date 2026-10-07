@@ -395,13 +395,10 @@ with st.sidebar:
     st.caption("Engineered for low-latency CPU inference via Vector Space & BM25 Fusion.")
 
     st.markdown("---")
-    st.markdown("#### 🔍 Retrieval Strategy")
-    retrieval_mode = st.selectbox(
-        "Search Strategy",
-        options=["hybrid", "dense", "bm25"],
-        format_func=lambda x: "🔥 Hybrid Fusion (Vector + BM25)" if x == "hybrid" else ("🧬 Dense Vector (ChromaDB)" if x == "dense" else "🔤 Keyword Search (BM25)")
-    )
-    top_k = st.slider("Context Depth (Top-K Chunks)", min_value=1, max_value=6, value=3)
+    st.markdown("#### 🔍 Retrieval Engine")
+    st.info("🔥 **Hybrid Fusion Active**\n\nDual-channel search combining dense multilingual embeddings (ChromaDB) with Sanskrit lexical indexing (BM25).")
+    retrieval_mode = "hybrid"
+    top_k = 3
 
     st.markdown("---")
     st.markdown("#### 📄 Document Ingestion")
