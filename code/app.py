@@ -32,7 +32,7 @@ from pipeline import SanskritRAGPipeline
 # Page Configuration
 st.set_page_config(
     page_title="Sanskrit RAG | CPU-Only Retrieval-Augmented Generation",
-    page_icon="🕉️",
+    page_icon="✦",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -399,40 +399,40 @@ top_k = 3
 # Hero Section
 st.markdown("""
 <div class="hero-container">
-    <div class="hero-title">🕉️ Sanskrit Retrieval-Augmented Generation</div>
+    <div class="hero-title">✦ Sanskrit Retrieval-Augmented Generation</div>
     <div class="hero-subtitle">
         An end-to-end question-answering architecture for Sanskrit classical literature, philosophy, and subhashitas.
         Processes queries in native Devanagari, Romanized transliterations (IAST/HK/ITRANS), or Natural English with instant Sanskrit response and comprehensive English meaning.
     </div>
     <div class="badge-container">
-        <span class="spec-badge">⚡ 100% CPU Only (No GPU)</span>
-        <span class="spec-badge">🌐 English Queries Supported with Full English Meaning</span>
-        <span class="spec-badge">🔤 Dual Script: Devanagari + IAST / HK / ITRANS</span>
-        <span class="spec-badge">🧬 Hybrid Vector & BM25 Fusion</span>
-        <span class="spec-badge">📜 Sanskrit Verse & Danda (।) Aware Chunking</span>
+        <span class="spec-badge">✦ 100% CPU Only (No GPU)</span>
+        <span class="spec-badge">◆ English Queries Supported with Full English Meaning</span>
+        <span class="spec-badge">◈ Dual Script: Devanagari + IAST / HK / ITRANS</span>
+        <span class="spec-badge">❖ Hybrid Vector & BM25 Fusion</span>
+        <span class="spec-badge">§ Sanskrit Verse & Danda (।) Aware Chunking</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 # Quick Query Chips
-st.markdown("##### 💡 Quick Sample Queries (Click any button to test):")
+st.markdown("##### ✦ Quick Sample Queries (Click any button to test):")
 
-st.markdown("<span style='color: #38bdf8; font-weight: 600; font-size: 0.9rem;'>🇬🇧 English Queries:</span>", unsafe_allow_html=True)
+st.markdown("<span style='color: #38bdf8; font-weight: 600; font-size: 0.9rem;'>◈ English Queries:</span>", unsafe_allow_html=True)
 en_cols = st.columns(4)
 with en_cols[0]:
-    if st.button("🍬 Why did the servant spoil the sugar?", use_container_width=True):
+    if st.button("Why did the foolish servant ruin the sugar?", use_container_width=True):
         set_query("Why did the foolish servant ruin the sugar?")
 with en_cols[1]:
-    if st.button("👑 What did King Bhoja announce?", use_container_width=True):
+    if st.button("What did King Bhoja announce in his court?", use_container_width=True):
         set_query("What did King Bhoja announce in his court?")
 with en_cols[2]:
-    if st.button("🔔 Who was demon Ghantakarna?", use_container_width=True):
+    if st.button("Who was Ghantakarna and why was the bell ringing?", use_container_width=True):
         set_query("Who was Ghantakarna and why was the bell ringing?")
 with en_cols[3]:
-    if st.button("❄️ Why was 'badhati' grammatically wrong?", use_container_width=True):
+    if st.button("Why was 'badhati' grammatically incorrect?", use_container_width=True):
         set_query("Why was badhati incorrect in sheetam bahu badhati?")
 
-st.markdown("<span style='color: #fbbf24; font-weight: 600; font-size: 0.9rem;'>🕉️ Sanskrit & Transliterated Queries:</span>", unsafe_allow_html=True)
+st.markdown("<span style='color: #fbbf24; font-weight: 600; font-size: 0.9rem;'>◈ Sanskrit & Transliterated Queries:</span>", unsafe_allow_html=True)
 sk_cols = st.columns(4)
 with sk_cols[0]:
     if st.button("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
@@ -487,7 +487,7 @@ if query_val.strip():
     """, unsafe_allow_html=True)
 
     # Step 2: Query Execution with Spinner & Auto-Recovery
-    with st.spinner("🔍 Retrieving Sanskrit context chunks & synthesizing grounded bilingual response on CPU..."):
+    with st.spinner("Retrieving Sanskrit context chunks and synthesizing grounded bilingual response on CPU..."):
         t0 = time.time()
         try:
             result = pipeline.query(query_val, top_k=top_k, retrieval_mode=retrieval_mode)
@@ -503,10 +503,10 @@ if query_val.strip():
 
     # Tabs for Rich Layout
     tab_ans, tab_chunks, tab_metrics, tab_corpus = st.tabs([
-        "🕉️ Grounded Sanskrit & English Response",
-        "📜 Retrieved Context Chunks",
-        "⚡ Performance & CPU Telemetry",
-        "📖 Corpus Explorer"
+        "✦ Grounded Sanskrit & English Response",
+        "◈ Retrieved Context Chunks",
+        "❖ Performance & CPU Telemetry",
+        "§ Corpus Explorer"
     ])
 
     with tab_ans:
@@ -517,7 +517,7 @@ if query_val.strip():
         if not is_matched or "The query does not match with the retrieved document" in response_text:
             st.markdown("""
             <div class="unmatched-alert">
-                <span style="font-size: 2.2rem;">⚠️</span>
+                <span style="font-size: 1.8rem; color: #f87171; font-weight: bold;">[ ! ]</span>
                 <div>
                     <div style="font-weight: 700; color: #f87171; font-size: 1.2rem;">The query does not match with the retrieved document</div>
                     <div style="color: #cbd5e1; font-size: 0.95rem; margin-top: 4px;">
@@ -552,7 +552,7 @@ if query_val.strip():
         st.markdown("""
         <div class="answer-card">
             <div class="answer-heading">
-                <span>🕉️</span> उत्तरम् (Sanskrit Answer)
+                <span>◈</span> उत्तरम् (Sanskrit Answer)
             </div>
             <div class="sanskrit-text">
         """ + sanskrit_part + """
@@ -564,7 +564,7 @@ if query_val.strip():
             st.markdown("""
             <div class="answer-card" style="border-left: 6px solid #38bdf8; margin-top: 18px;">
                 <div class="answer-heading" style="color: #38bdf8;">
-                    <span>📘</span> English Explanation & Complete Meaning (विस्तृत-आङ्ग्लार्थः)
+                    <span>◆</span> English Explanation & Complete Meaning (विस्तृत-आङ्ग्लार्थः)
                 </div>
                 <div class="explanation-box">
             """ + english_part.replace("\n", "<br>") + """
@@ -576,7 +576,7 @@ if query_val.strip():
             st.markdown("""
             <div class="answer-card" style="border-left: 6px solid #10b981; margin-top: 18px;">
                 <div class="answer-heading" style="color: #10b981; font-size: 1.1rem;">
-                    <span>📜</span> प्रमाणम् / Direct Corpus Reference (मूलसन्दर्भः)
+                    <span>§</span> प्रमाणम् / Direct Corpus Reference (मूलसन्दर्भः)
                 </div>
                 <div class="citation-box">
                     <b>मूलग्रन्थसन्दर्भः:</b> """ + reference_part.replace("\n", "<br>") + """
@@ -590,7 +590,7 @@ if query_val.strip():
         if not chunks or not is_matched:
             st.markdown("""
             <div style="background: rgba(15, 23, 42, 0.7); border: 1.5px dashed #ef4444; border-radius: 10px; padding: 24px; text-align: center; color: #cbd5e1; margin-top: 10px;">
-                <span style="font-size: 2rem;">📜</span><br>
+                <span style="font-size: 2rem; color: #94a3b8;">§</span><br>
                 <b style="color: #f87171; font-size: 1.15rem;">The query does not match with the retrieved document</b><br>
                 <span style="color: #94a3b8; font-size: 0.95rem;">No relevant context chunks were found above the relevance threshold in the ingested Sanskrit corpus.</span>
             </div>
@@ -602,7 +602,7 @@ if query_val.strip():
                 source = c.get("metadata", {}).get("source", "sanskrit_corpus")
                 score = c.get("rrf_score", c.get("dense_score", c.get("bm25_score", 0.0)))
                 
-                with st.expander(f"📍 Context Chunk #{idx} — Section: 『{sec}』 (Relevance Score: {score:.4f})", expanded=(idx == 1)):
+                with st.expander(f"§ Context Chunk #{idx} — Section: 『{sec}』 (Relevance Score: {score:.4f})", expanded=(idx == 1)):
                     st.markdown(f"""
                     <div style="font-family: 'Noto Sans Devanagari', serif; font-size: 1.15rem; line-height: 1.8; background: #0f172a; padding: 16px; border-radius: 8px; border: 1px solid #334155;">
                         {c.get('content', '')}
@@ -612,7 +612,7 @@ if query_val.strip():
 
     with tab_metrics:
         m = result.get("metrics", {})
-        st.markdown("#### ⏱️ Latency & CPU Resource Breakdown")
+        st.markdown("#### ❖ Latency & CPU Resource Breakdown")
         
         stat_cols = st.columns(4)
         with stat_cols[0]:
@@ -660,7 +660,7 @@ if query_val.strip():
         if os.path.exists(corpus_file):
             with open(corpus_file, "r", encoding="utf-8") as f:
                 full_corpus = f.read()
-            st.markdown("#### 📜 Ingested Sanskrit Corpus Preview")
+            st.markdown("#### § Ingested Sanskrit Corpus Preview")
             st.text_area("Full Corpus Text", value=full_corpus, height=350, disabled=True)
         else:
             st.info("Corpus text file not found.")
@@ -669,7 +669,7 @@ else:
     # Landing Placeholder when no query is typed
     st.markdown("""
     <div style="text-align: center; padding: 45px 20px; background: rgba(30, 41, 59, 0.3); border-radius: 14px; border: 1px dashed #334155; margin-top: 25px;">
-        <div style="font-size: 2.8rem; margin-bottom: 12px;">📖</div>
+        <div style="font-size: 2.8rem; margin-bottom: 12px; color: #f59e0b;">◈</div>
         <div style="font-family: 'Cinzel', serif; font-size: 1.35rem; color: #f59e0b; margin-bottom: 8px;">Ready for Queries</div>
         <div style="color: #94a3b8; font-size: 1.0rem; max-width: 650px; margin: 0 auto; line-height: 1.6;">
             Type your question above in <b>Natural English</b>, <b>Devanagari Sanskrit</b>, or <b>Romanized Transliterations (IAST / HK / ITRANS)</b>, or click any of the quick sample queries above to see the Sanskrit answer and full English explanation.
@@ -681,27 +681,27 @@ else:
 # BOTTOM SECTION: SYSTEM ARCHITECTURE & DOCUMENTATION
 # =====================================================================
 st.markdown("---")
-st.markdown("### ⚙️ System Architecture & Project Documentation")
+st.markdown("### ❖ System Architecture & Project Documentation")
 
 bot_cols = st.columns([1, 1, 1])
 
 with bot_cols[0]:
-    st.markdown("##### ⚡ Hardware Inference Engine")
-    st.success("✅ **100% CPU Inference (Zero GPU)**")
+    st.markdown("##### ✦ Hardware Inference Engine")
+    st.success("✓ **100% CPU Inference (Zero GPU)**")
     st.caption("Low-latency inference via Multilingual MiniLM embeddings & BM25 Fusion on CPU.")
 
 with bot_cols[1]:
-    st.markdown("##### 🔍 Retrieval Engine")
-    st.info("🔥 **Hybrid Fusion Active**")
+    st.markdown("##### ◈ Retrieval Engine")
+    st.info("✦ **Hybrid Fusion Active**")
     st.caption("ChromaDB Vector Embeddings + Sanskrit Lexical Indexing (Rank-BM25).")
 
 with bot_cols[2]:
-    st.markdown("##### 📑 Technical Documentation")
+    st.markdown("##### § Technical Documentation")
     report_file_path = os.path.join(curr_dir, "..", "report", "Sanskrit_RAG_Technical_Report.pdf")
     if os.path.exists(report_file_path):
         with open(report_file_path, "rb") as rf:
             st.download_button(
-                label="📥 Download Technical Report (PDF)",
+                label="Download Technical Report (PDF)",
                 data=rf.read(),
                 file_name="Sanskrit_RAG_Technical_Report.pdf",
                 mime="application/pdf",
@@ -709,16 +709,16 @@ with bot_cols[2]:
             )
     st.caption("Author: **Sahil Karande** | Assignment Submission")
 
-with st.expander("📄 Document Ingestion: Upload & Index Additional Sanskrit Documents (.txt / .pdf)", expanded=False):
+with st.expander("Document Ingestion: Upload & Index Additional Sanskrit Documents (.txt / .pdf)", expanded=False):
     st.caption("Upload any custom Sanskrit text or PDF document to index it on CPU into ChromaDB and BM25.")
     uploaded_file = st.file_uploader("Upload Sanskrit Document (.txt / .pdf)", type=["txt", "pdf"])
     if uploaded_file is not None:
         save_path = os.path.join(curr_dir, "..", "data", uploaded_file.name)
         with open(save_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
-        if st.button("🚀 Index Document Now", use_container_width=True):
+        if st.button("Index Document Now", use_container_width=True):
             with st.spinner("Parsing Sanskrit glyphs & indexing on CPU..."):
                 count = pipeline.index_document(save_path, overwrite=False)
                 st.success(f"Indexed {count} chunks successfully!")
 
-st.markdown("<div style='text-align: center; color: #64748b; font-size: 0.85rem; padding: 25px 0 10px 0;'>🕉️ Sanskrit RAG System | Developed by Sahil Karande | Assignment Submission</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: #64748b; font-size: 0.85rem; padding: 25px 0 10px 0;'>✦ Sanskrit RAG System | Developed by Sahil Karande | Assignment Submission</div>", unsafe_allow_html=True)
