@@ -536,6 +536,9 @@ st.markdown("""
     }
     div[data-testid="stExpander"] summary {
         background: transparent !important;
+        display: flex !important;
+        align-items: center !important;
+        overflow: hidden !important;
     }
     div[data-testid="stExpander"] summary p,
     div[data-testid="stExpander"] summary span {
@@ -543,13 +546,25 @@ st.markdown("""
         color: #ffd782 !important;
         font-size: 1.1rem !important;
         font-weight: 700 !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
     }
     div[data-testid="stExpander"] summary svg {
         fill: #ffd782 !important;
         width: 18px !important;
         height: 18px !important;
-        margin-right: 8px !important;
         flex-shrink: 0 !important;
+        overflow: visible !important;
+    }
+    /* Hide the accessible title text inside SVG icons — prevents "keyboardArrowRight" from rendering as visible text */
+    div[data-testid="stExpander"] summary svg title,
+    div[data-testid="stExpander"] summary svg text {
+        display: none !important;
+        visibility: hidden !important;
+        font-size: 0 !important;
+        color: transparent !important;
     }
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] {
         background: #1b130b !important;
