@@ -554,12 +554,132 @@ st.markdown("""
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] {
         background: #1b130b !important;
         border-top: 1px solid #5a4225 !important;
-        padding: 16px !important;
+        padding: 20px 24px !important;
     }
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] p,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] span,
     div[data-testid="stExpander"] div[data-testid="stExpanderDetails"] label {
         color: #f7eed8 !important;
+    }
+    div[data-testid="stExpander"] div[data-testid="stCaptionContainer"] p,
+    div[data-testid="stExpander"] .stCaption {
+        color: #dfbe7b !important;
+        font-family: 'EB Garamond', serif !important;
+        font-size: 1.02rem !important;
+        font-weight: 500 !important;
+    }
+
+    /* Vintage Document Ingestion & File Uploader */
+    div[data-testid="stFileUploader"] {
+        background: #16100a !important;
+        border: 1.5px solid #6d5432 !important;
+        border-radius: 8px !important;
+        padding: 18px 20px !important;
+        margin: 14px 0 18px 0 !important;
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+    }
+    div[data-testid="stFileUploader"] label,
+    div[data-testid="stFileUploader"] label p {
+        color: #ffd782 !important;
+        font-family: 'Cinzel', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 10px !important;
+    }
+    section[data-testid="stFileUploaderDropzone"],
+    div[data-testid="stFileUploaderDropzone"] {
+        background: #231911 !important;
+        border: 1.5px dashed #8c6f43 !important;
+        border-radius: 6px !important;
+        padding: 24px 20px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        text-align: center !important;
+        transition: all 0.2s ease !important;
+    }
+    section[data-testid="stFileUploaderDropzone"]:hover,
+    div[data-testid="stFileUploaderDropzone"]:hover {
+        border-color: #dfbe7b !important;
+        background: #2c2016 !important;
+    }
+    section[data-testid="stFileUploaderDropzone"] div,
+    section[data-testid="stFileUploaderDropzone"] span,
+    section[data-testid="stFileUploaderDropzone"] p {
+        color: #faf2de !important;
+        font-family: 'EB Garamond', serif !important;
+        font-size: 1.08rem !important;
+    }
+    section[data-testid="stFileUploaderDropzone"] small {
+        color: #dfbe7b !important;
+        font-size: 0.92rem !important;
+        font-weight: 500 !important;
+        display: block !important;
+        margin-top: 4px !important;
+    }
+    section[data-testid="stFileUploaderDropzone"] svg {
+        fill: #dfbe7b !important;
+        color: #dfbe7b !important;
+        width: 34px !important;
+        height: 34px !important;
+        margin-bottom: 4px !important;
+    }
+    section[data-testid="stFileUploaderDropzone"] button,
+    div[data-testid="stFileUploaderDropzone"] button {
+        background: linear-gradient(180deg, #3d2c1c 0%, #221810 100%) !important;
+        border: 1.5px solid #8c6f43 !important;
+        border-radius: 6px !important;
+        color: #fffdf5 !important;
+        font-family: 'Cinzel', serif !important;
+        font-size: 0.95rem !important;
+        font-weight: 700 !important;
+        padding: 8px 20px !important;
+        min-height: auto !important;
+        height: auto !important;
+        cursor: pointer !important;
+        margin-top: 8px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+    }
+    section[data-testid="stFileUploaderDropzone"] button:hover {
+        border-color: #dfbe7b !important;
+        color: #ffffff !important;
+        background: linear-gradient(180deg, #523b26 0%, #322216 100%) !important;
+    }
+
+    /* Uploaded File Data Row */
+    div[data-testid="stFileUploaderFileData"],
+    div[data-testid="stFileUploaderFileData"] > div {
+        background: #1f160e !important;
+        border: 1px solid #8c6f43 !important;
+        border-radius: 6px !important;
+        padding: 12px 16px !important;
+        margin-top: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 14px !important;
+    }
+    div[data-testid="stFileUploaderFileData"] span,
+    div[data-testid="stFileUploaderFileData"] p {
+        color: #fffdf5 !important;
+        font-family: 'EB Garamond', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 600 !important;
+    }
+    div[data-testid="stFileUploaderFileData"] small {
+        color: #dfbe7b !important;
+        font-size: 0.92rem !important;
+    }
+    div[data-testid="stFileUploaderFileData"] button {
+        background: transparent !important;
+        border: none !important;
+        color: #e07a38 !important;
+        cursor: pointer !important;
+    }
+    div[data-testid="stFileUploaderFileData"] button:hover {
+        color: #f87171 !important;
     }
 
     /* Vintage Download Button */
