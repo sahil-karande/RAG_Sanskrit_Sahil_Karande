@@ -11,6 +11,10 @@ A modular, production-grade **Retrieval-Augmented Generation (RAG)** system engi
 
 Designed strictly for **commodity CPU-only execution (zero GPU dependencies)** on **localhost**, this pipeline delivers **100% benchmark retrieval accuracy** with **sub-80 ms latency** on standard hardware.
 
+<p align="center">
+  <img src="assets/screenshots/hero_banner.png" alt="Sanskrit RAG Header & System Specifications" width="100%">
+</p>
+
 ---
 
 ## 📌 Deliverables & Quick Links
@@ -202,28 +206,42 @@ The generator enforces strict grounding in the retrieved context:
 
 ---
 
-## Interactive Web Interface Features
+## Interactive Web Interface & Visual Showcase
 
-The Streamlit web application (`code/app.py`) provides a rich interface modeled after classical Indian manuscript traditions:
+The Streamlit web application (`code/app.py`) provides an intuitive, classical manuscript interface designed for seamless research, translation reading, and inquiry retrieval:
 
-1. **Canonical Story Documents Reader (मूलग्रन्थ-कथा-पटलम्)**:
-   - Covers all 5 ingested classical stories (*Mūrkhabhṛtyasya Kathā*, *Chaturasya Kālidāsasya Kathā*, *Vṛddhāyāḥ Cāturyam*, *Devabhaktasya Kathā*, *Śītaṁ Bahu Bādhate*).
-   - Features **4 collapsible expanders** for each story:
-     - ◈ **Original Sanskrit Manuscript** (`मूलसंस्कृतपाठः`)
-     - ◆ **English Translation** (`आङ्ग्लानुवादः`)
-     - ❖ **Hindi Translation** (`हिन्दी-अनुवादः`)
-     - ✦ **Trilingual Parallel View** (`त्रैभाषिक तुलना` - 3-column side-by-side comparison)
-2. **Classical English Inquiry Tablets (आङ्ग्लप्रश्नाः)**:
-   - 4 pre-configured inquiry tablets located directly above the search bar.
-   - 1-click execution: clicking any tablet populates the search console and retrieves the answer immediately.
-3. **Primary Inquiry Console (ग्रन्थ-सन्धानम्)**:
-   - Free-form search input supporting English, Devanagari, IAST, HK, and ITRANS.
-4. **Diagnostic Tabs**:
-   - **Retrieved Context Chunks**: Displays individual chunk cards with relevance scores and section tags.
-   - **Performance & CPU Telemetry**: Real-time breakdown of parsing latency, hybrid retrieval latency, and CPU generation time.
-   - **Corpus Explorer**: Interactive viewer of the raw ingested manuscripts.
-5. **Document Ingestion Portal**:
-   - Allows users to upload and index custom Sanskrit `.txt` and `.pdf` files on the fly.
+### 1. Canonical Story Documents & Inquiry Directory
+- **Multi-Story Scope Selector**: Filter between individual stories or browse all 5 ingested classical narratives.
+- **4 Collapsible Manuscript Expanders**:
+  - ◈ **Original Sanskrit Manuscript** (`मूलसंस्कृतपाठः`)
+  - ◆ **English Translation** (`आङ्ग्लानुवादः`)
+  - ❖ **Hindi Translation** (`हिन्दी-अनुवादः`)
+  - ✦ **Trilingual Parallel View** (`त्रैभाषिक तुलना` — 3-column side-by-side comparative layout)
+- **Classical English Inquiry Tablets**: 4 curated query presets positioned directly below the story expanders for 1-click execution.
+
+<p align="center">
+  <img src="assets/screenshots/manuscript_archive_directory.png" alt="Historical Manuscript Archive & Inquiry Directory" width="100%">
+</p>
+
+### 2. Primary Inquiry Console (`ग्रन्थ-सन्धानम्`)
+- Single unified search input accepting natural English questions, native Devanagari Sanskrit, or Romanized transliterations (IAST, Harvard-Kyoto, ITRANS).
+- Directly triggers hybrid BM25 + dense retrieval and grounded bilingual response synthesis.
+
+<p align="center">
+  <img src="assets/screenshots/primary_inquiry_console.png" alt="Primary Inquiry Console" width="100%">
+</p>
+
+### 3. Historical Manuscript Archive Status & Response Telemetry
+- Ready-state indicator providing search guidance across supported input languages and transliteration schemes.
+- Grounded bilingual responses render with exact Sanskrit text citations (`प्रमाणम्`) and live CPU latency telemetry across diagnostic tabs:
+  - **Retrieved Context Chunks**: Inspects individual chunk cards with relevance scores and section tags.
+  - **Performance & CPU Telemetry**: Real-time breakdown of parsing latency, hybrid retrieval latency, and CPU generation time.
+  - **Corpus Explorer**: Interactive viewer of the raw ingested manuscripts.
+  - **Document Ingestion Portal**: Upload and index custom Sanskrit `.txt` and `.pdf` files on the fly.
+
+<p align="center">
+  <img src="assets/screenshots/archive_ready_card.png" alt="Historical Manuscript Archive Ready Status" width="100%">
+</p>
 
 ---
 
@@ -268,8 +286,13 @@ Automated benchmarks were executed using `code/benchmark.py`. Results are logged
 ```text
 RAG_Sanskrit_Sahil_Karande/
 ├── assets/
-│   ├── sacred_mandala_watermark.svg    # Mandala background vector asset
-│   └── sacred_kolam_watermark.svg      # Sacred Kolam vector asset
+│   ├── screenshots/
+│   │   ├── hero_banner.png                 # Header banner & system specifications
+│   │   ├── manuscript_archive_directory.png# Story document reader & inquiry tablets
+│   │   ├── primary_inquiry_console.png     # Multi-script search input console
+│   │   └── archive_ready_card.png          # Ready status card & inquiry guide
+│   ├── sacred_mandala_watermark.svg        # Mandala background vector asset
+│   └── sacred_kolam_watermark.svg          # Sacred Kolam vector asset
 ├── code/
 │   ├── app.py                # Streamlit web application & UI
 │   ├── story_docs.py         # Full canonical story repository (Sanskrit, English, Hindi)
