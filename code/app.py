@@ -29,6 +29,7 @@ from ingestion import load_document, chunk_sanskrit_text
 from retriever import SanskritRetriever
 from generator import SanskritGenerator
 from pipeline import SanskritRAGPipeline
+from story_docs import STORY_DOCUMENTS
 
 # Page Configuration (Must be first Streamlit call)
 st.set_page_config(
@@ -989,7 +990,8 @@ st.markdown("""
     /* Shelf Labels: Unified Antique Dark Wood Pill with Gold Trim */
     .shelf-label-en,
     .shelf-label-sa,
-    .shelf-label-sum {
+    .shelf-label-sum,
+    .shelf-label-doc {
         display: inline-flex !important;
         align-items: center !important;
         gap: 8px !important;
@@ -1007,8 +1009,119 @@ st.markdown("""
         box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
     }
     .shelf-label-sa,
-    .shelf-label-sum {
+    .shelf-label-sum,
+    .shelf-label-doc {
         margin-top: 18px !important;
+    }
+
+    /* Document Block Manuscript Reader */
+    .doc-reader-card {
+        background: linear-gradient(135deg, #1e140d 0%, #2b1c12 50%, #160e09 100%) !important;
+        border: 2px solid #8c6f43 !important;
+        outline: 1px solid rgba(197, 159, 91, 0.4) !important;
+        outline-offset: -5px !important;
+        border-radius: 10px !important;
+        padding: 22px 24px !important;
+        margin-top: 16px !important;
+        margin-bottom: 12px !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(140, 111, 67, 0.15) !important;
+    }
+    .doc-reader-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        border-bottom: 1px solid rgba(197, 159, 91, 0.35) !important;
+        padding-bottom: 12px !important;
+        margin-bottom: 14px !important;
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+    }
+    .doc-story-title-sa {
+        font-family: 'Noto Serif Devanagari', 'Cinzel', serif !important;
+        font-size: 1.45rem !important;
+        font-weight: 800 !important;
+        color: #dfbe7b !important;
+        letter-spacing: 0.8px !important;
+        text-shadow: 0 0 10px rgba(197, 159, 91, 0.4) !important;
+    }
+    .doc-story-title-en {
+        font-family: 'EB Garamond', serif !important;
+        font-size: 1.15rem !important;
+        font-weight: 600 !important;
+        color: #f7eed8 !important;
+        margin-top: 3px !important;
+    }
+    .doc-story-title-hi {
+        font-family: 'Noto Serif Devanagari', 'EB Garamond', serif !important;
+        font-size: 1.05rem !important;
+        color: #c7b399 !important;
+        margin-top: 2px !important;
+    }
+    .doc-badge-pill {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        background: rgba(35, 27, 20, 0.95) !important;
+        border: 1px solid #8c6f43 !important;
+        color: #dfbe7b !important;
+        padding: 4px 12px !important;
+        border-radius: 4px !important;
+        font-family: 'Cinzel', serif !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+    }
+    .doc-prose-block {
+        font-family: 'Noto Serif Devanagari', 'EB Garamond', serif !important;
+        font-size: 1.12rem !important;
+        line-height: 1.95 !important;
+        color: #fffef7 !important;
+        white-space: pre-line !important;
+        padding: 18px 22px !important;
+        background: rgba(12, 8, 5, 0.82) !important;
+        border: 1.5px solid rgba(140, 111, 67, 0.45) !important;
+        border-radius: 8px !important;
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6) !important;
+    }
+    .doc-shloka-frame {
+        background: linear-gradient(135deg, #2a1f14 0%, #1c130b 100%) !important;
+        border: 1.5px solid #dfbe7b !important;
+        border-left: 6px solid #dfbe7b !important;
+        border-radius: 6px !important;
+        padding: 16px 20px !important;
+        margin: 16px 0 !important;
+        color: #ffd782 !important;
+        font-family: 'Noto Serif Devanagari', 'Cinzel', serif !important;
+        font-size: 1.16rem !important;
+        line-height: 1.8 !important;
+        text-shadow: 0 0 8px rgba(223, 190, 123, 0.3) !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+    }
+    .doc-parallel-card {
+        background: rgba(12, 8, 5, 0.85) !important;
+        border: 1.5px solid rgba(140, 111, 67, 0.45) !important;
+        border-radius: 8px !important;
+        padding: 18px 20px !important;
+        height: 100% !important;
+        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+    }
+    .doc-parallel-header {
+        font-family: 'Cinzel', 'Noto Serif Devanagari', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+        color: #dfbe7b !important;
+        border-bottom: 1px solid rgba(197, 159, 91, 0.35) !important;
+        padding-bottom: 8px !important;
+        margin-bottom: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+    .doc-parallel-body {
+        font-family: 'Noto Serif Devanagari', 'EB Garamond', serif !important;
+        font-size: 1.02rem !important;
+        line-height: 1.85 !important;
+        color: #f7eed8 !important;
+        white-space: pre-line !important;
     }
 
     /* Unified Button Styling: Matches Hero Badges & Tablets */
@@ -1393,10 +1506,15 @@ if "main_query_input" not in st.session_state:
     st.session_state["main_query_input"] = ""
 if "active_tablet_query" not in st.session_state:
     st.session_state["active_tablet_query"] = ""
+if "active_doc_story_id" not in st.session_state:
+    st.session_state["active_doc_story_id"] = 1
 
 def select_query_preset(q_str: str):
     st.session_state["main_query_input"] = q_str
     st.session_state["active_tablet_query"] = q_str
+
+def select_doc_story(s_id: int):
+    st.session_state["active_doc_story_id"] = s_id
 
 # System Pipeline Settings (Permanently Locked to CPU Hybrid Fusion)
 retrieval_mode = "hybrid"
@@ -1457,20 +1575,116 @@ with st.container(border=True):
         st.button("◆ Why was 'badhati' incorrect?", key="btn_en_4", use_container_width=True, on_click=select_query_preset, args=("Why was badhati incorrect in sheetam bahu badhati?",))
 
     st.markdown("""
-    <div class="shelf-label-sum">❖ Classical Story Summaries (ग्रन्थ-कथा-सारांशाः)</div>
+    <div class="shelf-label-doc">📖 CANONICAL CORPUS STORY DOCUMENTS (मूलग्रन्थ-कथा-पटलम्)</div>
+    <div style="font-family: 'Cinzel', serif; font-size: 0.85rem; color: #dfbe7b; margin: 4px 0 14px 2px; letter-spacing: 0.5px;">
+        ✦ Select any canonical story document below to read the authentic text in <b>Sanskrit</b>, <b>English</b>, and <b>Hindi</b>:
+    </div>
     """, unsafe_allow_html=True)
 
-    sm1, sm2, sm3, sm4, sm5 = st.columns(5)
-    with sm1:
-        st.button("❖ Summary: Foolish Servant (मूर्खभृत्यः)", key="btn_sum_1", use_container_width=True, on_click=select_query_preset, args=("Summary of the foolish servant Shankhanada story (मूर्खभृत्यस्य कथा सारांशः)",))
-    with sm2:
-        st.button("❖ Summary: Clever Kalidasa (कालीदासः)", key="btn_sum_2", use_container_width=True, on_click=select_query_preset, args=("Summary of King Bhoja and clever Kalidasa 99 crore gem reward story (चतुरस्य कालीदासस्य कथा सारांशः)",))
-    with sm3:
-        st.button("❖ Summary: Old Woman & Bell (वृद्धायाः चातुर्यम्)", key="btn_sum_3", use_container_width=True, on_click=select_query_preset, args=("Summary of the old woman and bell demon story (वृद्धायाः चातुर्यम् सारांशः)",))
-    with sm4:
-        st.button("❖ Summary: Devotee in Flood (देवभक्तः)", key="btn_sum_4", use_container_width=True, on_click=select_query_preset, args=("Summary of the devotee in flood and human effort story (देवभक्तस्य कथा सारांशः)",))
-    with sm5:
-        st.button("❖ Summary: Winter Riddle (शीतं बाधति)", key="btn_sum_5", use_container_width=True, on_click=select_query_preset, args=("Summary of the winter grammar riddle Sheetam Bahu Badhati (शीतं बहु बाधति सारांशः)",))
+    dc1, dc2, dc3, dc4, dc5 = st.columns(5)
+    with dc1:
+        st.button("📜 1. मूर्खभृत्यः (Foolish Servant)", key="btn_doc_tab_1", use_container_width=True, on_click=select_doc_story, args=(1,))
+    with dc2:
+        st.button("📜 2. कालीदासः (Clever Kalidasa)", key="btn_doc_tab_2", use_container_width=True, on_click=select_doc_story, args=(2,))
+    with dc3:
+        st.button("📜 3. वृद्धायाः चातुर्यम् (Old Woman)", key="btn_doc_tab_3", use_container_width=True, on_click=select_doc_story, args=(3,))
+    with dc4:
+        st.button("📜 4. देवभक्तः (Devotee in Flood)", key="btn_doc_tab_4", use_container_width=True, on_click=select_doc_story, args=(4,))
+    with dc5:
+        st.button("📜 5. शीतं बाधति (Winter Riddle)", key="btn_doc_tab_5", use_container_width=True, on_click=select_doc_story, args=(5,))
+
+    # Render Active Story Document Chamber
+    cur_doc_id = st.session_state.get("active_doc_story_id", 1)
+    doc_item = STORY_DOCUMENTS.get(cur_doc_id, STORY_DOCUMENTS[1])
+
+    st.markdown(f"""
+    <div class="doc-reader-card">
+        <div class="doc-reader-header">
+            <div>
+                <div class="doc-story-title-sa">◈ {doc_item['title_sa']}</div>
+                <div class="doc-story-title-en">◆ {doc_item['title_en']}</div>
+                <div class="doc-story-title-hi">❖ {doc_item['title_hi']}</div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                <span class="doc-badge-pill">📜 {doc_item['source']}</span>
+                <span class="doc-badge-pill">🏛️ {doc_item['genre']}</span>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    dtab_sa, dtab_en, dtab_hi, dtab_par = st.tabs([
+        "📜 मूलसंस्कृतपाठः (Original Sanskrit)",
+        "🌐 English Translation",
+        "🇮🇳 हिन्दी अनुवाद (Hindi)",
+        "⚖️ Trilingual Parallel View (त्रैभाषिक तुलना)"
+    ])
+
+    with dtab_sa:
+        st.markdown(f"""
+        <div class="doc-prose-block">
+{doc_item['content_sa']}
+        </div>
+        """, unsafe_allow_html=True)
+        if doc_item.get("shloka_sa"):
+            st.markdown(f"""
+            <div class="doc-shloka-frame">
+                <div style="font-size: 0.85rem; font-family: 'Cinzel', serif; letter-spacing: 1px; color: #dfbe7b; margin-bottom: 6px;">✦ मुख्य-नीतिश्लोकः (Core Shloka):</div>
+                {doc_item['shloka_sa'].replace(chr(10), '<br>')}
+            </div>
+            """, unsafe_allow_html=True)
+
+    with dtab_en:
+        st.markdown(f"""
+        <div class="doc-prose-block">
+{doc_item['content_en']}
+        </div>
+        """, unsafe_allow_html=True)
+        if doc_item.get("shloka_en"):
+            st.markdown(f"""
+            <div class="doc-shloka-frame">
+                <div style="font-size: 0.85rem; font-family: 'Cinzel', serif; letter-spacing: 1px; color: #dfbe7b; margin-bottom: 6px;">✦ Core Moral Verse Translation:</div>
+                {doc_item['shloka_en'].replace(chr(10), '<br>')}
+            </div>
+            """, unsafe_allow_html=True)
+
+    with dtab_hi:
+        st.markdown(f"""
+        <div class="doc-prose-block">
+{doc_item['content_hi']}
+        </div>
+        """, unsafe_allow_html=True)
+        if doc_item.get("shloka_hi"):
+            st.markdown(f"""
+            <div class="doc-shloka-frame">
+                <div style="font-size: 0.85rem; font-family: 'Cinzel', serif; letter-spacing: 1px; color: #dfbe7b; margin-bottom: 6px;">✦ मुख्य नीति-श्लोक का हिन्दी भावार्थ:</div>
+                {doc_item['shloka_hi'].replace(chr(10), '<br>')}
+            </div>
+            """, unsafe_allow_html=True)
+
+    with dtab_par:
+        pcol1, pcol2, pcol3 = st.columns(3)
+        with pcol1:
+            st.markdown(f"""
+            <div class="doc-parallel-card">
+                <div class="doc-parallel-header">📜 मूलसंस्कृतपाठः (Sanskrit)</div>
+                <div class="doc-parallel-body">{doc_item['content_sa']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with pcol2:
+            st.markdown(f"""
+            <div class="doc-parallel-card">
+                <div class="doc-parallel-header">🌐 English Translation</div>
+                <div class="doc-parallel-body">{doc_item['content_en']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with pcol3:
+            st.markdown(f"""
+            <div class="doc-parallel-card">
+                <div class="doc-parallel-header">🇮🇳 हिन्दी अनुवाद (Hindi)</div>
+                <div class="doc-parallel-body">{doc_item['content_hi']}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
 # Determine active query to execute (from text_input or tablet selection)
 active_query = query_val.strip()
