@@ -1326,16 +1326,16 @@ def get_sanskrit_topic_representation(text: str) -> str:
     """Translates English conversational questions into corresponding Sanskrit query formulation."""
     t = text.lower()
     if any(w in t for w in ["summary", "overview", "synopsis"]) or "सारांश" in t:
-        if any(w in t for w in ["bhoj", "kalidas", "king", "reward", "poem"]):
-            return "कथा-सारांशः — चतुरस्य कालीदासस्य कथा (Summary: Clever Kalidasa & King Bhoja)"
+        if any(w in t for w in ["cold", "winter", "badhati", "sheetam", "grammar"]):
+            return "कथा-सारांशः — शीतं बहु बाधति (Summary: Winter Grammar Riddle & Retort)"
         elif any(w in t for w in ["servant", "shankhan", "sugar", "fool"]):
             return "कथा-सारांशः — मूर्खभृत्यस्य शंखनादस्य कथा (Summary: Foolish Servant Shankhanada)"
         elif any(w in t for w in ["ghanta", "demon", "old woman", "bell"]):
             return "कथा-सारांशः — वृद्धायाः चातुर्यम् (Summary: Old Woman & Bell Demon)"
         elif any(w in t for w in ["devotee", "god", "flood", "effort"]):
             return "कथा-सारांशः — देवभक्तस्य कथा (Summary: Devotee in Flood & Human Effort)"
-        elif any(w in t for w in ["cold", "winter", "badhati"]):
-            return "कथा-सारांशः — शीतं बहु बाधति (Summary: Winter Grammar Riddle)"
+        elif any(w in t for w in ["bhoj", "kalidas", "king", "reward", "poem"]):
+            return "कथा-सारांशः — चतुरस्य कालीदासस्य कथा (Summary: Clever Kalidasa & King Bhoja)"
         return "ग्रन्थ-कथा-सारांशः (Classical Narrative Summary)"
     elif any(w in t for w in ["bhoj", "kalidas", "king", "raja", "poet", "reward", "prize", "court", "lakh", "rupee", "poem", "verse"]):
         if any(w in t for w in ["why", "fail", "prevent", "unable", "not able", "originally able", "win", "who"]):
@@ -1457,34 +1457,20 @@ with st.container(border=True):
         st.button("◆ Why was 'badhati' incorrect?", key="btn_en_4", use_container_width=True, on_click=select_query_preset, args=("Why was badhati incorrect in sheetam bahu badhati?",))
 
     st.markdown("""
-    <div class="shelf-label-sa">◈ Native Sanskrit Inscriptions (मूलसंस्कृतप्रश्नाः)</div>
-    """, unsafe_allow_html=True)
-
-    sc1, sc2, sc3, sc4 = st.columns(4)
-    with sc1:
-        st.button("◈ मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", key="btn_sa_1", use_container_width=True, on_click=select_query_preset, args=("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?",))
-    with sc2:
-        st.button("◈ भोजराजः काव्यपठने किं घोषितवान् ?", key="btn_sa_2", use_container_width=True, on_click=select_query_preset, args=("भोजराजः काव्यपठने किं घोषितवान् ?",))
-    with sc3:
-        st.button("◈ चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", key="btn_sa_3", use_container_width=True, on_click=select_query_preset, args=("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?",))
-    with sc4:
-        st.button("◈ देवभक्तः किमर्थं जले मृतवान् ?", key="btn_sa_4", use_container_width=True, on_click=select_query_preset, args=("देवभक्तः किमर्थं जले मृतवान् ?",))
-
-    st.markdown("""
     <div class="shelf-label-sum">❖ Classical Story Summaries (ग्रन्थ-कथा-सारांशाः)</div>
     """, unsafe_allow_html=True)
 
     sm1, sm2, sm3, sm4, sm5 = st.columns(5)
     with sm1:
-        st.button("❖ Summary: Foolish Servant (मूर्खभृत्यः)", key="btn_sum_1", use_container_width=True, on_click=select_query_preset, args=("Summary of the foolish servant Shankhanada story",))
+        st.button("❖ Summary: Foolish Servant (मूर्खभृत्यः)", key="btn_sum_1", use_container_width=True, on_click=select_query_preset, args=("Summary of the foolish servant Shankhanada story (मूर्खभृत्यस्य कथा सारांशः)",))
     with sm2:
-        st.button("❖ Summary: Clever Kalidasa (कालीदासः)", key="btn_sum_2", use_container_width=True, on_click=select_query_preset, args=("Summary of King Bhoja and clever Kalidasa story",))
+        st.button("❖ Summary: Clever Kalidasa (कालीदासः)", key="btn_sum_2", use_container_width=True, on_click=select_query_preset, args=("Summary of King Bhoja and clever Kalidasa 99 crore gem reward story (चतुरस्य कालीदासस्य कथा सारांशः)",))
     with sm3:
-        st.button("❖ Summary: Old Woman & Bell (वृद्धायाः चातुर्यम्)", key="btn_sum_3", use_container_width=True, on_click=select_query_preset, args=("Summary of the old woman and Ghantakarna bell story",))
+        st.button("❖ Summary: Old Woman & Bell (वृद्धायाः चातुर्यम्)", key="btn_sum_3", use_container_width=True, on_click=select_query_preset, args=("Summary of the old woman and bell demon story (वृद्धायाः चातुर्यम् सारांशः)",))
     with sm4:
-        st.button("❖ Summary: Devotee in Flood (देवभक्तः)", key="btn_sum_4", use_container_width=True, on_click=select_query_preset, args=("Summary of the devotee in flood and human effort story",))
+        st.button("❖ Summary: Devotee in Flood (देवभक्तः)", key="btn_sum_4", use_container_width=True, on_click=select_query_preset, args=("Summary of the devotee in flood and human effort story (देवभक्तस्य कथा सारांशः)",))
     with sm5:
-        st.button("❖ Summary: Winter Riddle (शीतं बाधति)", key="btn_sum_5", use_container_width=True, on_click=select_query_preset, args=("Summary of the winter grammar riddle and Kalidasa retort",))
+        st.button("❖ Summary: Winter Riddle (शीतं बाधति)", key="btn_sum_5", use_container_width=True, on_click=select_query_preset, args=("Summary of the winter grammar riddle Sheetam Bahu Badhati (शीतं बहु बाधति सारांशः)",))
 
 # Determine active query to execute (from text_input or tablet selection)
 active_query = query_val.strip()
