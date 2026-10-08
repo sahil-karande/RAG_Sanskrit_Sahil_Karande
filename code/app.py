@@ -1008,9 +1008,14 @@ st.markdown("""
         margin-bottom: 12px !important;
         box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
     }
-    .shelf-label-sa,
-    .shelf-label-sum,
     .shelf-label-doc {
+        margin-top: 4px !important;
+    }
+    .shelf-label-en {
+        margin-top: 20px !important;
+    }
+    .shelf-label-sa,
+    .shelf-label-sum {
         margin-top: 18px !important;
     }
 
@@ -1555,23 +1560,9 @@ st.markdown("""
 with st.container(border=True):
     st.markdown("""
     <div class="directory-banner">
-        <span class="directory-title">◈ HISTORICAL QUERY DIRECTORY | शीघ्र-ग्रन्थ-प्रश्नावली</span>
-        <span class="directory-badge">✦ Click any tablet below to load authentic query</span>
+        <span class="directory-title">◈ HISTORICAL MANUSCRIPT ARCHIVE & INQUIRY DIRECTORY | ग्रन्थ-पटलम्</span>
+        <span class="directory-badge">✦ Classical Manuscripts & Authentic Inquiries</span>
     </div>
-    <div class="shelf-label-en">◆ Classical English Inquiries (आङ्ग्लप्रश्नाः)</div>
-    """, unsafe_allow_html=True)
-
-    ec1, ec2, ec3, ec4 = st.columns(4)
-    with ec1:
-        st.button("◆ Why did servant ruin sugar?", key="btn_en_1", use_container_width=True, on_click=select_query_preset, args=("Why did the foolish servant ruin the sugar?",))
-    with ec2:
-        st.button("◆ What did King Bhoja announce?", key="btn_en_2", use_container_width=True, on_click=select_query_preset, args=("What did King Bhoja announce in his court?",))
-    with ec3:
-        st.button("◆ Who was Ghantakarna demon?", key="btn_en_3", use_container_width=True, on_click=select_query_preset, args=("Who was Ghantakarna demon and why was the bell ringing?",))
-    with ec4:
-        st.button("◆ Why was 'badhati' incorrect?", key="btn_en_4", use_container_width=True, on_click=select_query_preset, args=("Why was badhati incorrect in sheetam bahu badhati?",))
-
-    st.markdown("""
     <div class="shelf-label-doc">◈ CANONICAL STORY DOCUMENTS (मूलग्रन्थ-कथा-पटलम्)</div>
     <div style="font-family: 'Cinzel', serif; font-size: 0.85rem; color: #dfbe7b; margin: 4px 0 14px 2px; letter-spacing: 0.5px;">
         ✦ Click any manuscript section below to open and view the authentic canonical text:
@@ -1693,6 +1684,21 @@ with st.container(border=True):
                     <div class="doc-parallel-body">{s_item['content_hi']}</div>
                 </div>
                 """, unsafe_allow_html=True)
+
+    # Classical English Inquiries (Now placed down of Canonical Story Documents)
+    st.markdown("""
+    <div class="shelf-label-en">◆ Classical English Inquiries (आङ्ग्लप्रश्नाः)</div>
+    """, unsafe_allow_html=True)
+
+    ec1, ec2, ec3, ec4 = st.columns(4)
+    with ec1:
+        st.button("◆ Why did servant ruin sugar?", key="btn_en_1", use_container_width=True, on_click=select_query_preset, args=("Why did the foolish servant ruin the sugar?",))
+    with ec2:
+        st.button("◆ What did King Bhoja announce?", key="btn_en_2", use_container_width=True, on_click=select_query_preset, args=("What did King Bhoja announce in his court?",))
+    with ec3:
+        st.button("◆ Who was Ghantakarna demon?", key="btn_en_3", use_container_width=True, on_click=select_query_preset, args=("Who was Ghantakarna demon and why was the bell ringing?",))
+    with ec4:
+        st.button("◆ Why was 'badhati' incorrect?", key="btn_en_4", use_container_width=True, on_click=select_query_preset, args=("Why was badhati incorrect in sheetam bahu badhati?",))
 
 # 2. PRIMARY SEARCH GATEWAY (Sacred Royal Sapphire Sanctum - Placed just above the response archive)
 with st.container(border=True):
