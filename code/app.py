@@ -1722,36 +1722,7 @@ if not active_query and st.session_state.get("active_tablet_query", "").strip():
     active_query = st.session_state["active_tablet_query"].strip()
 
 if active_query:
-    # Step 1: Script Detection & Normalization Preview
-    is_dev = is_devanagari(active_query)
-    is_en = is_natural_english_query(active_query)
-
-    if is_dev:
-        detected_scheme = "Devanagari (Native Sanskrit)"
-        search_target_display = active_query
-    elif is_en:
-        detected_scheme = "English (Natural Language Query)"
-        search_target_display = get_sanskrit_topic_representation(active_query)
-    else:
-        detected_scheme = f"Romanized Sanskrit ({detect_transliteration_scheme(active_query)})"
-        search_target_display = to_devanagari(active_query)
-
-    # Transliteration Visualizer Bar
-    st.markdown(f"""
-    <div class="transliteration-card">
-        <div>
-            <span style="color: #c7b399; font-family: 'EB Garamond', serif; font-size: 0.95rem;">Input Query Language / Script:</span><br>
-            <span class="script-pill">{detected_scheme}</span>
-        </div>
-        <div style="font-size: 1.5rem; color: #dfbe7b;">➔</div>
-        <div style="flex-grow: 1;">
-            <span style="color: #c7b399; font-family: 'EB Garamond', serif; font-size: 0.95rem;">Manuscript Sanskrit Representation (संस्कृत-प्रतीकम्):</span><br>
-            <span class="devanagari-preview">{search_target_display}</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Step 2: Query Execution with Spinner & Auto-Recovery
+    # Query Execution with Spinner & Auto-Recovery
     with st.spinner("Deciphering historical Sanskrit corpus and synthesizing grounded bilingual response on CPU..."):
         t0 = time.time()
         try:
