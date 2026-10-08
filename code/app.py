@@ -988,7 +988,8 @@ st.markdown("""
 
     /* Shelf Labels: Unified Antique Dark Wood Pill with Gold Trim */
     .shelf-label-en,
-    .shelf-label-sa {
+    .shelf-label-sa,
+    .shelf-label-sum {
         display: inline-flex !important;
         align-items: center !important;
         gap: 8px !important;
@@ -1005,7 +1006,8 @@ st.markdown("""
         margin-bottom: 12px !important;
         box-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
     }
-    .shelf-label-sa {
+    .shelf-label-sa,
+    .shelf-label-sum {
         margin-top: 18px !important;
     }
 
@@ -1323,7 +1325,19 @@ def is_natural_english_query(text: str) -> bool:
 def get_sanskrit_topic_representation(text: str) -> str:
     """Translates English conversational questions into corresponding Sanskrit query formulation."""
     t = text.lower()
-    if any(w in t for w in ["bhoj", "kalidas", "king", "raja", "poet", "reward", "prize", "court", "lakh", "rupee", "poem", "verse"]):
+    if any(w in t for w in ["summary", "overview", "synopsis"]) or "सारांश" in t:
+        if any(w in t for w in ["bhoj", "kalidas", "king", "reward", "poem"]):
+            return "कथा-सारांशः — चतुरस्य कालीदासस्य कथा (Summary: Clever Kalidasa & King Bhoja)"
+        elif any(w in t for w in ["servant", "shankhan", "sugar", "fool"]):
+            return "कथा-सारांशः — मूर्खभृत्यस्य शंखनादस्य कथा (Summary: Foolish Servant Shankhanada)"
+        elif any(w in t for w in ["ghanta", "demon", "old woman", "bell"]):
+            return "कथा-सारांशः — वृद्धायाः चातुर्यम् (Summary: Old Woman & Bell Demon)"
+        elif any(w in t for w in ["devotee", "god", "flood", "effort"]):
+            return "कथा-सारांशः — देवभक्तस्य कथा (Summary: Devotee in Flood & Human Effort)"
+        elif any(w in t for w in ["cold", "winter", "badhati"]):
+            return "कथा-सारांशः — शीतं बहु बाधति (Summary: Winter Grammar Riddle)"
+        return "ग्रन्थ-कथा-सारांशः (Classical Narrative Summary)"
+    elif any(w in t for w in ["bhoj", "kalidas", "king", "raja", "poet", "reward", "prize", "court", "lakh", "rupee", "poem", "verse"]):
         if any(w in t for w in ["why", "fail", "prevent", "unable", "not able", "originally able", "win", "who"]):
             return "कविभ्यः पारितोषिकप्राप्तौ विघ्नः (Why Poets Failed To Win Prize)"
         elif any(w in t for w in ["amount", "prize", "reward", "money", "lakh", "announce", "announced", "annouced", "how much"]):
@@ -1374,12 +1388,15 @@ def get_pipeline():
 
 pipeline = get_pipeline()
 
-# Session State for Query input
-if "query_text" not in st.session_state:
-    st.session_state.query_text = ""
+# Session State for Query input & Active Preset Selection
+if "main_query_input" not in st.session_state:
+    st.session_state["main_query_input"] = ""
+if "active_tablet_query" not in st.session_state:
+    st.session_state["active_tablet_query"] = ""
 
-def set_query(q_str):
-    st.session_state.query_text = q_str
+def select_query_preset(q_str: str):
+    st.session_state["main_query_input"] = q_str
+    st.session_state["active_tablet_query"] = q_str
 
 # System Pipeline Settings (Permanently Locked to CPU Hybrid Fusion)
 retrieval_mode = "hybrid"
@@ -1414,7 +1431,6 @@ with st.container(border=True):
 
     query_val = st.text_input(
         "Historical Manuscript Query | Enter Your Question:",
-        value=st.session_state.query_text,
         placeholder="Inquire in English (e.g. 'Why was no poet able to win the reward?') or Sanskrit and press Enter...",
         key="main_query_input",
         label_visibility="collapsed"
@@ -1432,17 +1448,13 @@ with st.container(border=True):
 
     ec1, ec2, ec3, ec4 = st.columns(4)
     with ec1:
-        if st.button("◆ Why did servant ruin sugar?", use_container_width=True):
-            set_query("Why did the foolish servant ruin the sugar?")
+        st.button("◆ Why did servant ruin sugar?", key="btn_en_1", use_container_width=True, on_click=select_query_preset, args=("Why did the foolish servant ruin the sugar?",))
     with ec2:
-        if st.button("◆ What did King Bhoja announce?", use_container_width=True):
-            set_query("What did King Bhoja announce in his court?")
+        st.button("◆ What did King Bhoja announce?", key="btn_en_2", use_container_width=True, on_click=select_query_preset, args=("What did King Bhoja announce in his court?",))
     with ec3:
-        if st.button("◆ Who was Ghantakarna demon?", use_container_width=True):
-            set_query("Who was Ghantakarna and why was the bell ringing?")
+        st.button("◆ Who was Ghantakarna demon?", key="btn_en_3", use_container_width=True, on_click=select_query_preset, args=("Who was Ghantakarna demon and why was the bell ringing?",))
     with ec4:
-        if st.button("◆ Why was 'badhati' incorrect?", use_container_width=True):
-            set_query("Why was badhati incorrect in sheetam bahu badhati?")
+        st.button("◆ Why was 'badhati' incorrect?", key="btn_en_4", use_container_width=True, on_click=select_query_preset, args=("Why was badhati incorrect in sheetam bahu badhati?",))
 
     st.markdown("""
     <div class="shelf-label-sa">◈ Native Sanskrit Inscriptions (मूलसंस्कृतप्रश्नाः)</div>
@@ -1450,32 +1462,49 @@ with st.container(border=True):
 
     sc1, sc2, sc3, sc4 = st.columns(4)
     with sc1:
-        if st.button("◈ मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", use_container_width=True):
-            set_query("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?")
+        st.button("◈ मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?", key="btn_sa_1", use_container_width=True, on_click=select_query_preset, args=("मूर्खभृत्यः शर्कराम् कुत्र न्यस्यति ?",))
     with sc2:
-        if st.button("◈ भोजराजः काव्यपठने किं घोषितवान् ?", use_container_width=True):
-            set_query("भोजराजः काव्यपठने किं घोषितवान् ?")
+        st.button("◈ भोजराजः काव्यपठने किं घोषितवान् ?", key="btn_sa_2", use_container_width=True, on_click=select_query_preset, args=("भोजराजः काव्यपठने किं घोषितवान् ?",))
     with sc3:
-        if st.button("◈ चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", use_container_width=True):
-            set_query("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?")
+        st.button("◈ चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?", key="btn_sa_3", use_container_width=True, on_click=select_query_preset, args=("चित्रपुरे घण्टाकर्णः नाम कः आसीत् ?",))
     with sc4:
-        if st.button("◈ देवभक्तः किमर्थं जले मृतवान् ?", use_container_width=True):
-            set_query("देवभक्तः किमर्थं जले मृतवान् ?")
+        st.button("◈ देवभक्तः किमर्थं जले मृतवान् ?", key="btn_sa_4", use_container_width=True, on_click=select_query_preset, args=("देवभक्तः किमर्थं जले मृतवान् ?",))
 
-if query_val.strip():
+    st.markdown("""
+    <div class="shelf-label-sum">❖ Classical Story Summaries (ग्रन्थ-कथा-सारांशाः)</div>
+    """, unsafe_allow_html=True)
+
+    sm1, sm2, sm3, sm4, sm5 = st.columns(5)
+    with sm1:
+        st.button("❖ Summary: Foolish Servant (मूर्खभृत्यः)", key="btn_sum_1", use_container_width=True, on_click=select_query_preset, args=("Summary of the foolish servant Shankhanada story",))
+    with sm2:
+        st.button("❖ Summary: Clever Kalidasa (कालीदासः)", key="btn_sum_2", use_container_width=True, on_click=select_query_preset, args=("Summary of King Bhoja and clever Kalidasa story",))
+    with sm3:
+        st.button("❖ Summary: Old Woman & Bell (वृद्धायाः चातुर्यम्)", key="btn_sum_3", use_container_width=True, on_click=select_query_preset, args=("Summary of the old woman and Ghantakarna bell story",))
+    with sm4:
+        st.button("❖ Summary: Devotee in Flood (देवभक्तः)", key="btn_sum_4", use_container_width=True, on_click=select_query_preset, args=("Summary of the devotee in flood and human effort story",))
+    with sm5:
+        st.button("❖ Summary: Winter Riddle (शीतं बाधति)", key="btn_sum_5", use_container_width=True, on_click=select_query_preset, args=("Summary of the winter grammar riddle and Kalidasa retort",))
+
+# Determine active query to execute (from text_input or tablet selection)
+active_query = query_val.strip()
+if not active_query and st.session_state.get("active_tablet_query", "").strip():
+    active_query = st.session_state["active_tablet_query"].strip()
+
+if active_query:
     # Step 1: Script Detection & Normalization Preview
-    is_dev = is_devanagari(query_val)
-    is_en = is_natural_english_query(query_val)
+    is_dev = is_devanagari(active_query)
+    is_en = is_natural_english_query(active_query)
 
     if is_dev:
         detected_scheme = "Devanagari (Native Sanskrit)"
-        search_target_display = query_val
+        search_target_display = active_query
     elif is_en:
         detected_scheme = "English (Natural Language Query)"
-        search_target_display = get_sanskrit_topic_representation(query_val)
+        search_target_display = get_sanskrit_topic_representation(active_query)
     else:
-        detected_scheme = f"Romanized Sanskrit ({detect_transliteration_scheme(query_val)})"
-        search_target_display = to_devanagari(query_val)
+        detected_scheme = f"Romanized Sanskrit ({detect_transliteration_scheme(active_query)})"
+        search_target_display = to_devanagari(active_query)
 
     # Transliteration Visualizer Bar
     st.markdown(f"""
@@ -1496,7 +1525,7 @@ if query_val.strip():
     with st.spinner("Deciphering historical Sanskrit corpus and synthesizing grounded bilingual response on CPU..."):
         t0 = time.time()
         try:
-            result = pipeline.query(query_val, top_k=top_k, retrieval_mode=retrieval_mode)
+            result = pipeline.query(active_query, top_k=top_k, retrieval_mode=retrieval_mode)
         except Exception:
             # Gracefully refresh collection handle across terminal processes
             pipeline.retriever._get_collection()
@@ -1504,7 +1533,7 @@ if query_val.strip():
             default_doc = os.path.join(curr_dir, "..", "data", "sanskrit_corpus.txt")
             if os.path.exists(default_doc):
                 pipeline.index_document(default_doc, overwrite=False)
-            result = pipeline.query(query_val, top_k=top_k, retrieval_mode=retrieval_mode)
+            result = pipeline.query(active_query, top_k=top_k, retrieval_mode=retrieval_mode)
         exec_latency = time.time() - t0
 
     # Tabs for Rich Layout

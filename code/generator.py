@@ -103,8 +103,31 @@ class SanskritGenerator:
         # -------------------------------------------------------------
         if any(w in q_lower for w in ["bhoj", "bhoja", "kalidas", "kalidasa", "poem", "poetry", "gem", "gems", "crore", "lakh", "scholar", "memoriz", "prize", "reward", "amount"]) or any(w in dev_query for w in ["भोज", "कालीदास", "काव्य", "रत्न", "लक्ष", "नृप", "राजा"]):
             
+            # Sub-question 1.0: Full Story Summary / Synopsis
+            if any(w in q_lower for w in ["summary", "overview", "synopsis", "story"]) or any(w in dev_query for w in ["सारांश", "कथासारांश"]):
+                sanskrit_ans = (
+                    "**चतुरस्य कालीदासस्य कथा-सारांशः:**\n"
+                    "भोजराज्ञा स्वसभायां घोषितं यत् यः कोऽपि कविः नूतनं काव्यं पठति, तस्मै लक्षरूप्यकाणि (१,००,०००) दीयन्ते । परन्तु दरबारे अद्भुतस्मरणशक्तियुक्ताः "
+                    "एकपाठिनः, द्विपाठिनः, त्रिपाठिनः च विद्वांसः आसन्, ये कवेः काव्यं श्रुत्वा तत्क्षणमेव कण्ठोक्तेन पुनरुक्तवन्तः तथा 'वयमपि एतत् पुरातनं काव्यं जानीमः' "
+                    "इति उक्त्वा कवेः पारितोषिकं वारयन्ति स्म ।\n\n"
+                    "कविनाम् एतां दुर्दशां दृष्ट्वा महाकविः कालीदासः कञ्चित् नवकविं स्वकक्षे आनीय एकं कूटश्लोकं दत्तवान्—'हे राजन्, भवतः पित्रा मम ९९ कोटिरत्नानि संगृहीतानि, "
+                    "तानि प्रत्यर्पयन्तु । इदं सत्यं भवतः विद्वांसः जानन्ति; यदि न जानन्ति, तर्हि मम काव्यं नूतनम् अतः लक्षरूप्यकाणि देयानि' । दरबारे केऽपि विद्वांसः 'वयं जानीमः' "
+                    "इति वक्तुं न अशक्नुवन्, अन्यथा राज्ञा ९९ कोटिरत्नानि देयानि अभविष्यन् । एवं कवेः लक्षरूप्यकाणि प्राप्तानि, कालीदासस्य चातुर्यं च सर्वत्र प्रशंसितम् ।"
+                )
+                english_exp = (
+                    "**Summary of Clever Kalidasa and King Bhoja (चतुरस्य कालीदासस्य कथा):**\n"
+                    "King Bhoja proclaimed a royal reward of 1 Lakh Rupees (100,000 Rs) to any poet reciting an original, unpublished poem in his court. "
+                    "However, the court was home to scholars with phenomenal photographic memories (Ekapathins reciting after 1 hearing, Dvipathins after 2, Tripathins after 3). "
+                    "They would immediately repeat any visiting poet's poem and falsely claim: *'This is not new; see, we already know it!'*, depriving every poet of the reward.\n\n"
+                    "To stop this injustice, poet Kalidasa gave a new poet an ingenious trap verse: *'King Bhoja, your father borrowed 99 Crore gems from me. All your scholars know this is true. "
+                    "If they know it, repay my 99 Crores of gems; if they don't, then this poem is brand new, so pay me the 1 Lakh Rupees!'* "
+                    "The scholars were trapped: affirming the poem would cost the king 99 Crores, while denying it proved the work was new. Thus, the poet won the reward through Kalidasa's brilliant wit."
+                )
+                ref = "स्वस्ति श्री भोजराजन् त्वमखिलभुवने धार्मिकः सत्यवक्ता । पित्रा ते संगृहीता नवनवतिमिता रत्नकोट्यो मदीयः ॥ ... अतः अप्राप्नोत् कविः लक्षरुप्यकाणि । चतुरः खलु कालीदासः ।"
+                return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "चतुरस्य कालीदासस्य"}
+
             # Sub-question 1.1: Amount / Prize announced by King Bhoja
-            if any(w in q_lower for w in ["amount", "money", "prize", "reward", "how much", "announce", "annouced", "announced", "declared", "rupee", "lakh", "give", "offered", "ghosh", "ghoshit", "ghoshhit"]) or any(w in dev_query for w in ["कियत्", "धन", "पारितोषिक", "लक्ष", "रूप्यक", "घोष", "घोषित"]):
+            elif any(w in q_lower for w in ["amount", "money", "prize", "reward", "how much", "announce", "annouced", "announced", "declared", "rupee", "lakh", "give", "offered", "ghosh", "ghoshit", "ghoshhit"]) or any(w in dev_query for w in ["कियत्", "धन", "पारितोषिक", "लक्ष", "रूप्यक", "घोष", "घोषित"]):
                 sanskrit_ans = (
                     "भोजराज्ञा स्वदरबारे नूतनकाव्यपठनाय **लक्षरूप्यकाणि (१,००,००० रूप्यकाणि / One Lakh Rupees)** पारितोषिकरूपेण घोषितानि आसन् । "
                     "(अनन्तरं कालीदासस्य कूटश्लोके राज्ञः पित्रा **९९ कोटिरत्नानि** संगृहीतानि इति उक्तम् ।)"
@@ -177,8 +200,32 @@ class SanskritGenerator:
         # -------------------------------------------------------------
         elif any(w in q_lower for w in ["servant", "shankhan", "sugar", "sharkara", "puppy", "dog", "milk", "cloth", "soot", "face", "black", "foolish", "fool", "govardhan"]) or any(w in dev_query for w in ["शंखनाद", "मूर्ख", "भृत्य", "शर्करा", "गोवर्धन"]):
             
+            # Sub-question 2.0: Full Story Summary / Synopsis
+            if any(w in q_lower for w in ["summary", "overview", "synopsis", "story"]) or any(w in dev_query for w in ["सारांश", "कथासारांश"]):
+                sanskrit_ans = (
+                    "**मूर्खभृत्यस्य शंखनादस्य कथा-सारांशः:**\n"
+                    "गोवर्धनदासस्य आज्ञापालकः किन्तु नितान्तं मूढः भृत्यः शंखनादः आसीत् । स्वामिनः आदेशान् अक्षरशः अनुसरन् सः सर्वाणि कार्याणि व्यनाशयत्—\n"
+                    "१. आपणं गत्वा शर्कराम् जीर्णे वस्त्रे न्यस्तवान्, येन सर्वा शर्करा मार्गे अस्रवत् व्यर्था च अभवत् ।\n"
+                    "२. स्वामिना 'दृढायां सञ्चिकायाम् आनय' इति उक्ते, श्वानशावकं सञ्चिकायां क्षिप्त्वा वस्त्रेण आच्छादितवान्, येन शावकस्य श्वासरोधः जातः सः च मृतवान् ।\n"
+                    "३. स्वामिना 'दोरकेण बद्ध्वा आनय' इति उक्ते, दुग्धपात्रं दोरकेण बद्ध्वा अकर्षत्, येन सर्वं दुग्धं भूमौ प्रवहत् ।\n"
+                    "४. स्वामिना क्रुद्धेन 'कृष्णं भवतु ते मुखम्' इति शापे दत्ते, कज्जलेन स्वमुखं लिप्त्वा कृष्णमुखः सन् प्रत्यागतवान् ।\n\n"
+                    "**कथायाः मुख्यः नीतिश्लोकः:**\n"
+                    "'वरम् भृत्यविहिनस्य जिवितम् श्रमपूरितम् । मूर्खभृत्यस्य संसर्गात् सर्वम् कार्यम् विनश्यति ॥'"
+                )
+                english_exp = (
+                    "**Summary of the Story of the Foolish Servant (मूर्खभृत्यस्य कथा):**\n"
+                    "Master Govardhanadas had an obedient but completely foolish servant named Shankhanada who caused comical disasters by taking every instruction literally without common sense:\n"
+                    "1. **Spilled Sugar:** When ordered to buy sugar, he tied it in a torn cloth, causing all the sugar to leak onto the road.\n"
+                    "2. **Suffocated Puppy:** When scolded and instructed to bring things in a sturdy sack, he stuffed a live puppy into a sack and covered it, suffocating the puppy to death.\n"
+                    "3. **Spilled Milk:** When told that animals should be led with a rope, he tied a rope to a pot of milk and dragged it along the stone street, overturning the pot and spilling all the milk.\n"
+                    "4. **Blackened Face:** When his exasperated master cursed, *'Go away, may your face turn black!'*, Shankhanada smeared black soot/kohl all over his face and proudly returned.\n\n"
+                    "**Moral:** A life of hard personal labor without any servants is far better than keeping a foolish servant. Association with a fool ruins every endeavor."
+                )
+                ref = "वरम् भृत्यविहिनस्य जिवितम् श्रमपूरितम् । मूर्खभृत्यस्य संसर्गात् सर्वम् कार्यम् विनश्यति ॥"
+                return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "मूर्खभृत्यस्य"}
+
             # Sub-question 2.1: Sugar / market / spill
-            if any(w in q_lower for w in ["sugar", "sharkara", "spill", "leak", "market", "cloth", "torn"]) or any(w in dev_query for w in ["शर्करा", "आपण", "वस्त्र"]):
+            elif any(w in q_lower for w in ["sugar", "sharkara", "spill", "leak", "market", "cloth", "torn"]) or any(w in dev_query for w in ["शर्करा", "आपण", "वस्त्र"]):
                 sanskrit_ans = (
                     "गोवर्धनदासस्य आज्ञया शंखनादः आपणं गत्वा शर्कराम् **जीर्णे वस्त्रे (torn cloth)** न्यस्तवान् । "
                     "तस्मात् जीर्णवस्त्रात् मार्गे एव सर्वापि शर्करा स्रुता व्यर्था च अभवत् ।"
@@ -247,8 +294,26 @@ class SanskritGenerator:
         # -------------------------------------------------------------
         elif any(w in q_lower for w in ["ghanta", "ghantakarna", "demon", "monster", "old woman", "vriddha", "bell", "monkey", "monkeys", "tiger", "fruit", "fruits", "chitrapur"]) or any(w in dev_query for w in ["घण्टा", "राक्षस", "वृद्धा", "वानर", "चित्रपुर"]):
             
+            # Sub-question 3.0: Full Story Summary / Synopsis
+            if any(w in q_lower for w in ["summary", "overview", "synopsis", "story"]) or any(w in dev_query for w in ["सारांश", "कथासारांश"]):
+                sanskrit_ans = (
+                    "**वृद्धायाः चातुर्यम् कथा-सारांशः:**\n"
+                    "चित्रपुरनगरस्य समीपे श्रीपर्वतशिखरात् वारं वारं घण्टानादः श्रूयते स्म । पौरजनाः भीताः सन्तः 'घण्टाकर्णः नाम नरभक्षकः राक्षसः प्रतिवसति यः घण्टां वादयति' "
+                    "इति मत्वा नगरं त्यक्त्वा पलायनं प्रारभन्त । नृपेण घोषितं यत् यः एतं घण्टाकर्णं नाशयेत् तस्मै विपुलं सुवर्णं दीयते ।\n\n"
+                    "एका चतुरा वृद्धा निभृतं वने गत्वा वस्तुस्थितिं दृष्टवती यत् कश्चन चौरः घण्टां चोरयित्वा व्याघ्रेण हतः, ततः वने पतितां तां घण्टां वानराः कुतूहलेन वादयन्ति स्म । "
+                    "वृद्धा वानरेभ्यः मधुराणि फलानि अयच्छत् । यदा वानराः फलभक्षणे मग्नाः अभवन्, तदा सा अनायासेन घण्टाम् आदाय राज्ञे समर्प्य विपुलं सुवर्णं पारितोषिकं प्राप्तवती, "
+                    "चित्रपुरस्य च अन्धविश्वासं दूरीकृतवती ।"
+                )
+                english_exp = (
+                    "**Summary of The Wisdom of the Old Woman (वृद्धायाः चातुर्यम्):**\n"
+                    "In the town of Chitrapur near Mount Sriparvata, eerie bell tolls repeatedly echoed from the mountains. Terrified citizens spread a rumor that a man-eating demon named Ghantakarna ('Bell-Eared') was haunting the heights and devouring people, causing the population to panic and flee. The anxious king announced a massive gold reward for vanquishing the demon.\n\n"
+                    "A fearless, observant old woman went into the forest to investigate. She discovered that a thief had stolen a bronze bell and was killed by a tiger; inquisitive wild monkeys had picked up the bell and were playfully ringing it. The clever woman scattered sweet fruits before the monkeys. While they feasted, she retrieved the bell and presented it to the king, dispelling the superstition and earning abundant gold."
+                )
+                ref = "तत् श्रुत्वा काचन वृद्धा वनं गता ... 'वानराः एव घण्टां वादयन्ति' इति सा अपश्यत् । अन्येद्युः सा वानरेभ्यः मधुराणि फलाणि अयच्छत् ... नृपः तस्यै प्रभूतं सुवर्णमयच्छत् ।"
+                return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "वृद्धायाः चातुर्यम्"}
+
             # Sub-question 3.1: Who was ringing the bell / Why sound was heard
-            if any(w in q_lower for w in ["ringing", "who rang", "who made", "sound", "monkeys", "monkey"]) or any(w in dev_query for w in ["वादयति", "वानर", "घण्टानाद"]):
+            elif any(w in q_lower for w in ["ringing", "who rang", "who made", "sound", "monkeys", "monkey"]) or any(w in dev_query for w in ["वादयति", "वानर", "घण्टानाद"]):
                 sanskrit_ans = (
                     "वने **वानराः (monkeys)** कुतूहलेन तां घण्टां हस्ते धृत्वा अधुन्वन् घण्टानादं च अकुर्वन्, न तु कश्चित् राक्षसः ।"
                 )
@@ -299,8 +364,29 @@ class SanskritGenerator:
         # -------------------------------------------------------------
         elif any(w in q_lower for w in ["devotee", "devabhakta", "bhakta", "god", "flood", "rain", "drown", "water", "cart", "effort", "prayer", "virtue", "virtues", "heaven"]) or any(w in dev_query for w in ["देवभक्त", "उद्यम", "वृष्टि", "साहाय्य", "जल"]):
             
+            # Sub-question 4.0: Full Story Summary / Synopsis
+            if any(w in q_lower for w in ["summary", "overview", "synopsis", "story"]) or any(w in dev_query for w in ["सारांश", "कथासारांश"]):
+                sanskrit_ans = (
+                    "**देवभक्तस्य कथा-सारांशः:**\n"
+                    "एकः परमः देवभक्तः आसीत् यः स्वयं किञ्चिदपि प्रयत्नं न करोति स्म, केवलं 'देवः एव साहाय्यं करिष्यति' इति विश्वसिति स्म । यदा तस्य शकटस्य चक्रं मार्गे पङ्के निमग्नम् अभवत्, "
+                    "तदा घटिकात्रयं निरंतरवृष्ट्या जलवृद्धौ सत्यां मार्गे आगताः त्रयः सज्जनाः तस्मै साहाय्यं दातुम् ऐच्छन् । किन्तु भक्तः 'मम देवः अस्ति, सः एव करिष्यति' इति उक्त्वा तान् सर्वान् निराकृतवान् । "
+                    "जलं कण्ठपर्यन्तम् आगतं सः च जले मृतवान् ।\n\n"
+                    "स्वर्गे गत्वा यदा सः देवाय उलाहनाम् अयच्छत्, तदा देवः प्रत्यवदत्—'भो मूढ, अहम् एव त्रिवारं तेषां सज्जनानां रूपेण साहाय्यार्थम् आगतवान्, किन्तु त्वया प्रयत्नः एव न कृतः । "
+                    "यदि भवान् प्रयत्नम् एव न करोति, तर्हि देवः कथं साहाय्यं करोति ?'\n\n"
+                    "**कथायाः मुख्यः नीतिश्लोकः:**\n"
+                    "'उद्यमः साहसम् धैर्यम् बुद्धिः शक्तिः पराक्रमः । षडेते यत्र वर्तन्ते तत्र देवः साहाय्यकृत् ॥'"
+                )
+                english_exp = (
+                    "**Summary of The Devotee in the Flood (देवभक्तस्य कथा):**\n"
+                    "A pious man continually prayed to God for health and wealth but took zero personal action, expecting miracles without effort. One day, his bullock cart became stuck in mud during a torrential rainstorm. As floodwaters rose, three separate people offered to help pull him out, but the devotee arrogantly turned each away, declaring: *'My God will save me!'* The floodwaters rose to his neck and he drowned.\n\n"
+                    "In heaven, he confronted God: *'Why didn't you save me?'* God responded: *'I came to you three times in the form of those three helpers! But you refused to lift a finger. If you make no effort, how can God help you?'*\n\n"
+                    "**Moral:** God helps those who display the six noble virtues: Effort (उद्यम), Courage (साहस), Patience (धैर्य), Intellect (बुद्धि), Strength (शक्ति), and Valour (पराक्रम)."
+                )
+                ref = "उद्यमः साहसम् धैर्यम् बुद्धिः शक्तिः पराक्रमः । षडेते यत्र वर्तन्ते तत्र देवः साहाय्यकृत् ॥"
+                return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "देवभक्तस्य कथा"}
+
             # Sub-question 4.1: Why devotee drowned / died
-            if any(w in q_lower for w in ["why", "drown", "die", "dead", "death", "flood", "water"]) or any(w in dev_query for w in ["किमर्थम्", "मृत", "जल"]):
+            elif any(w in q_lower for w in ["why", "drown", "die", "dead", "death", "flood", "water"]) or any(w in dev_query for w in ["किमर्थम्", "मृत", "जल"]):
                 sanskrit_ans = (
                     "वृष्टौ शकटस्य चक्रे निमग्ने त्रयः जनाः साहाय्यम् आगतवन्तः, परन्तु भक्तः 'देवः एव साहाय्यं करिष्यति' इति उक्त्वा तान् निराकृतवान्, "
                     "स्वयं च किञ्चिदपि प्रयत्नं न कृतवान् । अतः जलवृद्धौ सः **जले मृतवान्** ।"
@@ -343,8 +429,25 @@ class SanskritGenerator:
         # -------------------------------------------------------------
         elif any(w in q_lower for w in ["cold", "winter", "sheetam", "badhati", "badhate", "grammar", "palanquin", "carrier", "parasmaipada", "atmanepada", "verb", "error", "mistake"]) or any(w in dev_query for w in ["शीतं", "बाधति", "बाधते", "पालखी"]):
             
+            # Sub-question 5.0: Full Story Summary / Synopsis
+            if any(w in q_lower for w in ["summary", "overview", "synopsis", "story"]) or any(w in dev_query for w in ["सारांश", "कथासारांश"]):
+                sanskrit_ans = (
+                    "**शीतं बहु बाधति कथा-सारांशः:**\n"
+                    "एकः अभिमानी परदेशीयः पण्डितः राजा भोजस्य दरबारे पण्डितैः सह शास्त्रार्थं कर्तुं धारा-नगरीम् आगतवान् । शिशिरे शीतेन कम्पमानः सः पालख्यां गच्छन् अशुद्धसंस्कृतेन अवदत्—'शीतं बहु बाधति' । "
+                    "पालखीधारकवेषेण स्थितः महाकविः कालीदासः तत्क्षणमेव प्रत्यवदत्—'न तथा बाधते शीतं यथा बाधति बाधते' इति ।\n\n"
+                    "कालीदासस्य आशयः आसीत् यत् 'बाध्' धातुः पाणिनीयव्याकरणे आत्मनेपदी (बाधते) अस्ति, न तु परस्मैपदी (बाधति) । पण्डितस्य व्याकरणदोषः कालीदासं शीततोऽपि अधिकं पीडयति स्म । "
+                    "पण्डितः अचिन्तयत्—यदि अस्मिन् राज्ये पालखीवाहकाः अपि एतावत् गभीरं व्याकरणं जानन्ति, तर्हि राजसभायाः पण्डितैः सह विवादे मम निश्चितः पराभवः भविष्यति । लज्जितः सः शास्त्रार्थं विना एव पलायितवान् ।"
+                )
+                english_exp = (
+                    "**Summary of the Winter Grammar Riddle (शीतं बहु बाधति):**\n"
+                    "An arrogant visiting scholar arrived in King Bhoja's kingdom to challenge the royal scholars to a debate. Shivering in the severe winter cold while riding in a palanquin, he made a basic grammatical error: *'शीतं बहु बाधति'* (Cold torments me much).\n\n"
+                    "Poet Kalidasa, disguised as a palanquin bearer, immediately retorted: *'न तथा बाधते शीतं यथा बाधति बाधते'* (*'The winter cold does not torment me as much as hearing your incorrect \"badhati\" torments me!'*). Kalidasa highlighted that the verb *'badh'* is strictly Atmanepada (*'badhate'*). Astonished that even humble palanquin carriers possessed flawless mastery of Sanskrit grammar, the scholar realized he would be humiliated in the royal assembly and fled without debating."
+                )
+                ref = "चतुरः कालीदासः त्वरया एव प्रतिवदति, 'न तथा बाधते शीतं यथा बाधति बाधते' । आत्मनेपदी खलु 'बाध्' धातुः इति न विज्ञातं पण्डितेन ।"
+                return {"sanskrit": sanskrit_ans, "english": english_exp, "ref": ref, "section": "शीतं बहु बाधति"}
+
             # Sub-question 5.1: The grammatical error / Mistake in badhati
-            if any(w in q_lower for w in ["error", "mistake", "grammar", "grammatical", "wrong", "incorrect", "badhati", "badhate"]) or any(w in dev_query for w in ["दोष", "त्रुटि", "अशुद्ध"]):
+            elif any(w in q_lower for w in ["error", "mistake", "grammar", "grammatical", "wrong", "incorrect", "badhati", "badhate"]) or any(w in dev_query for w in ["दोष", "त्रुटि", "अशुद्ध"]):
                 sanskrit_ans = (
                     "पण्डितेन 'शीतं बहु **बाधति**' इति अशुद्धं प्रयुक्तम् । संस्कृतव्याकरणे 'बाध्' धातुः **आत्मनेपदी (बाधते)** भवति, न तु परस्मैपदी (बाधति) । "
                     "तदेव अत्र व्याकरणगतं दूषणम् आसीत् ।"

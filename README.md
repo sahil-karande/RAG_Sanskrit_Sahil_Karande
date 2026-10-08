@@ -61,7 +61,12 @@ This implementation provides an end-to-end architecture tailored to these specif
 - **Sanskrit-Aware Segmentation**: Chunks text along narrative sections and verse terminators (`।`, `॥`), maintaining 100-character rolling overlap to preserve context continuity.
 - **Hybrid Retrieval Fusion**: Combines multilingual dense semantic representations (MiniLM-L12 via ChromaDB) with sparse lexical indexing (Rank-BM25) and morphological stem boosting.
 - **Bilingual Grounded Synthesis**: Outputs a clear English explanation, authentic Sanskrit answer (`उत्तरम्`), and exact source citations (`प्रमाणम्`), preventing hallucinations.
-- **Interactive Web Interface**: Streamlit application with query presets, real-time transliteration visualizer, latency breakdown HUD, and dynamic document upload for `.txt` and `.pdf` files.
+- **Interactive Web Interface**: Streamlit application featuring an antique manuscript aesthetic, real-time transliteration visualizer, latency breakdown HUD, and dynamic document upload for `.txt` and `.pdf` files.
+- **Historical Query & Story Summary Directory**: Features pre-indexed tablets across three curated shelves:
+  - *Classical English Inquiries* (`आङ्ग्लप्रश्नाः`)
+  - *Native Sanskrit Inscriptions* (`मूलसंस्कृतप्रश्नाः`)
+  - *Classical Story Summaries* (`ग्रन्थ-कथा-सारांशाः`) covering all five ingested classical narratives.
+- **Single-Click Instant Retrieval**: Clicking any query or summary tablet immediately loads the text into the search console and executes the retrieval pipeline in a single pass without manual re-typing.
 - **Automated Verification & Reporting**: Includes an automated pre-flight audit script (`verify_setup.py`), empirical benchmark suite (`code/benchmark.py`), and programmatic PDF technical report generator (`code/generate_report.py`).
 
 ---
@@ -311,6 +316,15 @@ python -m streamlit run code/app.py
 ```
 
 Open `http://localhost:8501` in your browser.
+
+The interface includes:
+- **Primary Inquiry Console**: Free-form search input supporting natural English, native Devanagari, and Romanized Sanskrit transliterations (IAST, Harvard-Kyoto, ITRANS).
+- **Historical Query Directory**: Interactive tablets arranged across three specialized shelves:
+  - **Classical English Inquiries**: Pre-indexed questions exploring core narrative events.
+  - **Native Sanskrit Inscriptions**: Authentic Sanskrit interrogatives.
+  - **Classical Story Summaries**: Grounded narrative overviews for each of the five classical stories.
+- **Single-Click Instant Retrieval**: Clicking any tablet automatically populates the inquiry console and executes end-to-end retrieval and bilingual answer generation in a single pass.
+- **Diagnostic Tabs**: Inspect retrieved context chunks with similarity scores, latency telemetry, and the complete indexed Sanskrit corpus.
 
 ---
 
