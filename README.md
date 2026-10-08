@@ -131,45 +131,56 @@ Every technology was selected to balance **accuracy**, **CPU inference efficienc
 
 The pipeline processes user requests through five modular, decoupled phases:
 
-```mermaid
-flowchart TD
-    subgraph Ingestion ["1. Document Ingestion & Indexing"]
-        A[Sanskrit Documents .txt / .pdf] --> B[Text Cleaner & Unicode NFKC Normalizer]
-        B --> C[Verse-Aware Chunker\nPurna Virama ।, ॥ Splitter]
-        C --> D[26 Semantic Chunks + 100-Char Rolling Overlap]
-        D --> E[ChromaDB Vector Store\nMiniLM-L12 Multilingual Embeddings]
-        D --> F[Rank-BM25 Lexical Index\nTokenized Sanskrit Inverted Index]
-    end
-
-    subgraph QueryFlow ["2. Query Preprocessing & Routing"]
-        Q[User Query\nDevanagari / English / IAST / HK / ITRANS] --> G{Script & Language Detector}
-        G -->|Romanized Sanskrit| H[indic-transliteration Engine]
-        G -->|Native Devanagari| I[Devanagari Unicode Normalizer]
-        G -->|Natural English| J[Cross-Lingual Embedding Projection]
-        H --> K[Normalized Devanagari Query]
-        I --> K
-    end
-
-    subgraph Retrieval ["3. Hybrid Fusion Retrieval"]
-        K & J --> L[Hybrid Retrieval Engine]
-        E -->|Dense Semantic Similarity| L
-        F -->|Sparse BM25 Okapi Scores| L
-        L --> M[Scoring Fusion Formula\n0.50 BM25 + 0.25 Dense + 0.25 Stem Bonus]
-        M --> N[Ranked Top-k Context Passages]
-    end
-
-    subgraph Generation ["4. CPU-Grounded Response Synthesis"]
-        N --> O[CPU Grounded Generation Engine]
-        Q --> O
-        O --> P1[1. English Explanation & Narrative Context]
-        O --> P2[2. Sanskrit Answer - उत्तरम्]
-        O --> P3[3. Verbatim Manuscript Proof - प्रमाणम्]
-    end
-
-    subgraph Interface ["5. Web Application Layer"]
-        P1 & P2 & P3 --> UI[Streamlit Interactive Dashboard]
-        UI --> Metrics[Latency Breakdown & CPU Telemetry HUD]
-    end
+```text
++----------------------------------------------------------------------------------------------------+
+|                                    1. DOCUMENT INGESTION & INDEXING                                |
+|                                                                                                    |
+|  [Sanskrit Documents] ---> [Unicode NFKC Cleaner] ---> [Verse Chunker (।, ॥ Splitter + 100c Overlap]|
+|                                                                    |                               |
+|                         +------------------------------------------+                               |
+|                         v                                          v                               |
+|              [ChromaDB Vector Store]                             [Rank-BM25 Index]                 |
+|       (MiniLM-L12 Multilingual Embeddings)              (Tokenized Sanskrit Inverted Index)        |
++----------------------------------------------------------------------------------------------------+
+                                                  |
++-------------------------------------------------+--------------------------------------------------+
+|                                                                                                    |
+|                                    2. POLY-SCRIPT QUERY ROUTING                                    |
+|                                                                                                    |
+|   User Query [English / Devanagari / IAST / Harvard-Kyoto / ITRANS]                                |
+|        |                                                                                           |
+|        +---> [Script & Scheme Detector]                                                            |
+|                    |--> Romanized Sanskrit (IAST/HK/ITRANS) --> [indic-transliteration] -> Devanagari |
+|                    |--> Native Sanskrit (Devanagari)        --> [Unicode Normalizer]   -> Devanagari |
+|                    |--> Natural Language English            --> [Cross-Lingual Dense Projection]   |
++----------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++----------------------------------------------------------------------------------------------------+
+|                                    3. HYBRID FUSION RETRIEVAL                                      |
+|                                                                                                    |
+|   Final Score = 0.50 * BM25(d) + 0.25 * Dense(d) + 0.25 * MorphologicalStemBonus(d)                |
+|                                                                                                    |
+|   ===> Ranked Top-k Grounded Manuscript Passages                                                   |
++----------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++----------------------------------------------------------------------------------------------------+
+|                                4. CPU-GROUNDED RESPONSE GENERATION                                 |
+|                                                                                                    |
+|   [Retrieved Chunks + User Query] ---> [Zero-GPU Grounded Synthesizer Engine]                      |
+|                                                  |                                                 |
+|         +----------------------------------------+---------------------------------------+         |
+|         v                                        v                                       v         |
+|   1. English Meaning                   2. Sanskrit Answer (उत्तरम्)          3. Source Proof (प्रमाणम्)|
++----------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
++----------------------------------------------------------------------------------------------------+
+|                                    5. STREAMLIT WEB INTERFACE                                      |
+|                                                                                                    |
+|   [Trilingual Story Reader]  |  [Classical Inquiry Tablets]  |  [Diagnostic Telemetry & Chunks]    |
++----------------------------------------------------------------------------------------------------+
 ```
 
 ---
