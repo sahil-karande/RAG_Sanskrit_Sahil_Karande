@@ -1015,16 +1015,29 @@ st.markdown("""
     }
 
     /* Document Block Manuscript Reader */
-    .doc-reader-card {
-        background: linear-gradient(135deg, #1e140d 0%, #2b1c12 50%, #160e09 100%) !important;
-        border: 2px solid #8c6f43 !important;
-        outline: 1px solid rgba(197, 159, 91, 0.4) !important;
-        outline-offset: -5px !important;
-        border-radius: 10px !important;
-        padding: 22px 24px !important;
-        margin-top: 16px !important;
+    .doc-story-section-header {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 10px 16px !important;
+        margin-top: 18px !important;
         margin-bottom: 12px !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(140, 111, 67, 0.15) !important;
+        background: linear-gradient(135deg, #251a10 0%, #1a110a 100%) !important;
+        border: 1px solid #8c6f43 !important;
+        border-left: 5px solid #dfbe7b !important;
+        border-radius: 6px !important;
+    }
+    .doc-story-num {
+        font-family: 'Cinzel', serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 800 !important;
+        color: #dfbe7b !important;
+    }
+    .doc-story-sub {
+        font-family: 'EB Garamond', 'Noto Serif Devanagari', serif !important;
+        font-size: 0.98rem !important;
+        color: #c7b399 !important;
+        font-style: italic !important;
     }
     .doc-reader-header {
         display: flex !important;
@@ -1575,116 +1588,127 @@ with st.container(border=True):
         st.button("◆ Why was 'badhati' incorrect?", key="btn_en_4", use_container_width=True, on_click=select_query_preset, args=("Why was badhati incorrect in sheetam bahu badhati?",))
 
     st.markdown("""
-    <div class="shelf-label-doc">📖 CANONICAL CORPUS STORY DOCUMENTS (मूलग्रन्थ-कथा-पटलम्)</div>
+    <div class="shelf-label-doc">◈ CANONICAL STORY DOCUMENTS (मूलग्रन्थ-कथा-पटलम्)</div>
     <div style="font-family: 'Cinzel', serif; font-size: 0.85rem; color: #dfbe7b; margin: 4px 0 14px 2px; letter-spacing: 0.5px;">
-        ✦ Select any canonical story document below to read the authentic text in <b>Sanskrit</b>, <b>English</b>, and <b>Hindi</b>:
+        ✦ Click any manuscript section below to open and view the authentic canonical text:
     </div>
     """, unsafe_allow_html=True)
 
-    dc1, dc2, dc3, dc4, dc5 = st.columns(5)
-    with dc1:
-        st.button("📜 1. मूर्खभृत्यः (Foolish Servant)", key="btn_doc_tab_1", use_container_width=True, on_click=select_doc_story, args=(1,))
-    with dc2:
-        st.button("📜 2. कालीदासः (Clever Kalidasa)", key="btn_doc_tab_2", use_container_width=True, on_click=select_doc_story, args=(2,))
-    with dc3:
-        st.button("📜 3. वृद्धायाः चातुर्यम् (Old Woman)", key="btn_doc_tab_3", use_container_width=True, on_click=select_doc_story, args=(3,))
-    with dc4:
-        st.button("📜 4. देवभक्तः (Devotee in Flood)", key="btn_doc_tab_4", use_container_width=True, on_click=select_doc_story, args=(4,))
-    with dc5:
-        st.button("📜 5. शीतं बाधति (Winter Riddle)", key="btn_doc_tab_5", use_container_width=True, on_click=select_doc_story, args=(5,))
+    story_filter_options = [
+        "◈ All 5 Manuscript Stories (समग्र-ग्रन्थ-कथाः)",
+        "◈ Story 1: मूर्खभृत्यस्य कथा (Foolish Servant)",
+        "◈ Story 2: चतुरस्य कालीदासस्य कथा (Clever Kalidasa)",
+        "◈ Story 3: वृद्धायाः चातुर्यम् (Old Woman & Bell)",
+        "◈ Story 4: देवभक्तस्य कथा (Devotee in Flood)",
+        "◈ Story 5: शीतं बहु बाधति (Winter Grammar Riddle)"
+    ]
+    selected_story_choice = st.selectbox(
+        "◈ Select Story Scope / ग्रन्थ-कथा-चयनम्:",
+        story_filter_options,
+        key="doc_corpus_story_filter"
+    )
 
-    # Render Active Story Document Chamber
-    cur_doc_id = st.session_state.get("active_doc_story_id", 1)
-    doc_item = STORY_DOCUMENTS.get(cur_doc_id, STORY_DOCUMENTS[1])
+    if selected_story_choice.startswith("◈ All"):
+        display_stories = list(STORY_DOCUMENTS.values())
+    else:
+        chosen_id = int(selected_story_choice.split(":")[0].replace("◈ Story ", "").strip())
+        display_stories = [STORY_DOCUMENTS[chosen_id]]
 
-    st.markdown(f"""
-    <div class="doc-reader-card">
-        <div class="doc-reader-header">
-            <div>
-                <div class="doc-story-title-sa">◈ {doc_item['title_sa']}</div>
-                <div class="doc-story-title-en">◆ {doc_item['title_en']}</div>
-                <div class="doc-story-title-hi">❖ {doc_item['title_hi']}</div>
-            </div>
-            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
-                <span class="doc-badge-pill">📜 {doc_item['source']}</span>
-                <span class="doc-badge-pill">🏛️ {doc_item['genre']}</span>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    dtab_sa, dtab_en, dtab_hi, dtab_par = st.tabs([
-        "📜 मूलसंस्कृतपाठः (Original Sanskrit)",
-        "🌐 English Translation",
-        "🇮🇳 हिन्दी अनुवाद (Hindi)",
-        "⚖️ Trilingual Parallel View (त्रैभाषिक तुलना)"
-    ])
-
-    with dtab_sa:
-        st.markdown(f"""
-        <div class="doc-prose-block">
-{doc_item['content_sa']}
-        </div>
-        """, unsafe_allow_html=True)
-        if doc_item.get("shloka_sa"):
+    # 1. Original Sanskrit Expander (Open / Close)
+    with st.expander("◈ Original Sanskrit Manuscript (मूलसंस्कृतपाठः)", expanded=False):
+        for s_item in display_stories:
             st.markdown(f"""
-            <div class="doc-shloka-frame">
-                <div style="font-size: 0.85rem; font-family: 'Cinzel', serif; letter-spacing: 1px; color: #dfbe7b; margin-bottom: 6px;">✦ मुख्य-नीतिश्लोकः (Core Shloka):</div>
-                {doc_item['shloka_sa'].replace(chr(10), '<br>')}
+            <div class="doc-story-section-header">
+                <span class="doc-story-num">◈ कथा {s_item['id']}</span>
+                <span class="doc-story-title-sa">{s_item['title_sa']}</span>
+                <span class="doc-story-sub">({s_item['title_en']})</span>
+            </div>
+            <div class="doc-prose-block">
+{s_item['content_sa']}
             </div>
             """, unsafe_allow_html=True)
+            if s_item.get("shloka_sa"):
+                st.markdown(f"""
+                <div class="doc-shloka-frame">
+                    <div style="font-size: 0.85rem; font-family: 'Cinzel', serif; letter-spacing: 1px; color: #dfbe7b; margin-bottom: 6px;">✦ मुख्य-नीतिश्लोकः (Core Shloka):</div>
+                    {s_item['shloka_sa'].replace(chr(10), '<br>')}
+                </div>
+                """, unsafe_allow_html=True)
 
-    with dtab_en:
-        st.markdown(f"""
-        <div class="doc-prose-block">
-{doc_item['content_en']}
-        </div>
-        """, unsafe_allow_html=True)
-        if doc_item.get("shloka_en"):
+    # 2. English Translation Expander (Open / Close)
+    with st.expander("◆ English Translation (आङ्ग्लानुवादः)", expanded=False):
+        for s_item in display_stories:
             st.markdown(f"""
-            <div class="doc-shloka-frame">
-                <div style="font-size: 0.85rem; font-family: 'Cinzel', serif; letter-spacing: 1px; color: #dfbe7b; margin-bottom: 6px;">✦ Core Moral Verse Translation:</div>
-                {doc_item['shloka_en'].replace(chr(10), '<br>')}
+            <div class="doc-story-section-header">
+                <span class="doc-story-num">◆ Story {s_item['id']}</span>
+                <span class="doc-story-title-en">{s_item['title_en']}</span>
+                <span class="doc-story-sub">({s_item['title_sa']})</span>
+            </div>
+            <div class="doc-prose-block">
+{s_item['content_en']}
             </div>
             """, unsafe_allow_html=True)
+            if s_item.get("shloka_en"):
+                st.markdown(f"""
+                <div class="doc-shloka-frame">
+                    <div style="font-size: 0.85rem; font-family: 'Cinzel', serif; letter-spacing: 1px; color: #dfbe7b; margin-bottom: 6px;">✦ Core Moral Verse Translation:</div>
+                    {s_item['shloka_en'].replace(chr(10), '<br>')}
+                </div>
+                """, unsafe_allow_html=True)
 
-    with dtab_hi:
-        st.markdown(f"""
-        <div class="doc-prose-block">
-{doc_item['content_hi']}
-        </div>
-        """, unsafe_allow_html=True)
-        if doc_item.get("shloka_hi"):
+    # 3. Hindi Translation Expander (Open / Close)
+    with st.expander("❖ Hindi Translation (हिन्दी-अनुवादः)", expanded=False):
+        for s_item in display_stories:
             st.markdown(f"""
-            <div class="doc-shloka-frame">
-                <div style="font-size: 0.85rem; font-family: 'Cinzel', serif; letter-spacing: 1px; color: #dfbe7b; margin-bottom: 6px;">✦ मुख्य नीति-श्लोक का हिन्दी भावार्थ:</div>
-                {doc_item['shloka_hi'].replace(chr(10), '<br>')}
+            <div class="doc-story-section-header">
+                <span class="doc-story-num">❖ कथा {s_item['id']}</span>
+                <span class="doc-story-title-hi">{s_item['title_hi']}</span>
+                <span class="doc-story-sub">({s_item['title_sa']})</span>
+            </div>
+            <div class="doc-prose-block">
+{s_item['content_hi']}
             </div>
             """, unsafe_allow_html=True)
+            if s_item.get("shloka_hi"):
+                st.markdown(f"""
+                <div class="doc-shloka-frame">
+                    <div style="font-size: 0.85rem; font-family: 'Cinzel', serif; letter-spacing: 1px; color: #dfbe7b; margin-bottom: 6px;">✦ मुख्य नीति-श्लोक का हिन्दी भावार्थ:</div>
+                    {s_item['shloka_hi'].replace(chr(10), '<br>')}
+                </div>
+                """, unsafe_allow_html=True)
 
-    with dtab_par:
-        pcol1, pcol2, pcol3 = st.columns(3)
-        with pcol1:
+    # 4. Trilingual Parallel View Expander (Open / Close)
+    with st.expander("✦ Trilingual Parallel View (त्रैभाषिक तुलना)", expanded=False):
+        for s_item in display_stories:
             st.markdown(f"""
-            <div class="doc-parallel-card">
-                <div class="doc-parallel-header">📜 मूलसंस्कृतपाठः (Sanskrit)</div>
-                <div class="doc-parallel-body">{doc_item['content_sa']}</div>
+            <div class="doc-story-section-header" style="margin-top: 14px;">
+                <span class="doc-story-num">✦ कथा {s_item['id']}</span>
+                <span class="doc-story-title-sa">{s_item['title_sa']}</span>
+                <span class="doc-story-sub">| {s_item['title_en']} | {s_item['title_hi']}</span>
             </div>
             """, unsafe_allow_html=True)
-        with pcol2:
-            st.markdown(f"""
-            <div class="doc-parallel-card">
-                <div class="doc-parallel-header">🌐 English Translation</div>
-                <div class="doc-parallel-body">{doc_item['content_en']}</div>
-            </div>
-            """, unsafe_allow_html=True)
-        with pcol3:
-            st.markdown(f"""
-            <div class="doc-parallel-card">
-                <div class="doc-parallel-header">🇮🇳 हिन्दी अनुवाद (Hindi)</div>
-                <div class="doc-parallel-body">{doc_item['content_hi']}</div>
-            </div>
-            """, unsafe_allow_html=True)
+            pcol1, pcol2, pcol3 = st.columns(3)
+            with pcol1:
+                st.markdown(f"""
+                <div class="doc-parallel-card">
+                    <div class="doc-parallel-header">◈ मूलसंस्कृतपाठः (Sanskrit)</div>
+                    <div class="doc-parallel-body">{s_item['content_sa']}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            with pcol2:
+                st.markdown(f"""
+                <div class="doc-parallel-card">
+                    <div class="doc-parallel-header">◆ English Translation</div>
+                    <div class="doc-parallel-body">{s_item['content_en']}</div>
+                </div>
+                """, unsafe_allow_html=True)
+            with pcol3:
+                st.markdown(f"""
+                <div class="doc-parallel-card">
+                    <div class="doc-parallel-header">❖ हिन्दी अनुवाद (Hindi)</div>
+                    <div class="doc-parallel-body">{s_item['content_hi']}</div>
+                </div>
+                """, unsafe_allow_html=True)
 
 # Determine active query to execute (from text_input or tablet selection)
 active_query = query_val.strip()
