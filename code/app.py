@@ -1551,23 +1551,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 1. PRIMARY SEARCH GATEWAY (Sacred Royal Sapphire Sanctum)
-with st.container(border=True):
-    st.markdown("""
-    <div class="search-gateway-banner">
-        <span class="gateway-title">✦ PRIMARY INQUIRY CONSOLE | ग्रन्थ-सन्धानम्</span>
-        <span class="gateway-hint">Type below in English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-    query_val = st.text_input(
-        "Historical Manuscript Query | Enter Your Question:",
-        placeholder="Inquire in English (e.g. 'Why was no poet able to win the reward?') or Sanskrit and press Enter...",
-        key="main_query_input",
-        label_visibility="collapsed"
-    )
-
-# 2. STRUCTURED VINTAGE QUERY DIRECTORY (Forest Jade Pavilion)
+# 1. STRUCTURED VINTAGE QUERY DIRECTORY & CANONICAL DOCUMENTS (Forest Jade Pavilion)
 with st.container(border=True):
     st.markdown("""
     <div class="directory-banner">
@@ -1709,6 +1693,22 @@ with st.container(border=True):
                     <div class="doc-parallel-body">{s_item['content_hi']}</div>
                 </div>
                 """, unsafe_allow_html=True)
+
+# 2. PRIMARY SEARCH GATEWAY (Sacred Royal Sapphire Sanctum - Placed just above the response archive)
+with st.container(border=True):
+    st.markdown("""
+    <div class="search-gateway-banner">
+        <span class="gateway-title">✦ PRIMARY INQUIRY CONSOLE | ग्रन्थ-सन्धानम्</span>
+        <span class="gateway-hint">Type below in English, Devanagari Sanskrit, or Romanized IAST / HK / ITRANS</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    query_val = st.text_input(
+        "Historical Manuscript Query | Enter Your Question:",
+        placeholder="Inquire in English (e.g. 'Why was no poet able to win the reward?') or Sanskrit and press Enter...",
+        key="main_query_input",
+        label_visibility="collapsed"
+    )
 
 # Determine active query to execute (from text_input or tablet selection)
 active_query = query_val.strip()
@@ -1939,7 +1939,7 @@ else:
     # Landing Placeholder when no query is typed (Radiant Golden Temple Saffron)
     st.markdown("""
     <div class="archive-ready-card">
-        <div class="archive-ready-icon">◈ 🪷 ◈</div>
+        <div class="archive-ready-icon">◈ ✦ ◈</div>
         <div class="archive-ready-title">HISTORICAL MANUSCRIPT ARCHIVE READY</div>
         <div class="archive-ready-body">
             Inquire above in <b>Natural English</b>, <b>Devanagari Sanskrit</b>, or <b>Romanized Transliterations (IAST / HK / ITRANS)</b>, or select any sample inquiry above to retrieve authentic Sanskrit excerpts with full English commentary.
