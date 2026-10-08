@@ -4,18 +4,17 @@
 [![Inference](https://img.shields.io/badge/Inference-CPU%20Only%20(Zero%20GPU)-success.svg)](#hardware--resource-profile)
 [![Retriever](https://img.shields.io/badge/Retriever-Hybrid%20ChromaDB%20%2B%20BM25-orange.svg)](#3-hybrid-retrieval-fusion)
 [![Transliteration](https://img.shields.io/badge/Transliteration-IAST%20%7C%20Harvard--Kyoto%20%7C%20ITRANS-purple.svg)](#2-poly-script-query-normalization)
-[![Application](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B.svg)](https://rag-sanskrit-sahil-karande-qwa5pyfjqyyslpqmwhbmzj.streamlit.app/)
+[![Application](https://img.shields.io/badge/Deployment-Localhost%20(Streamlit)-FF4B4B.svg)](#-evaluator-guide-quickstart-in-3-steps)
 [![Author](https://img.shields.io/badge/Author-Sahil%20Karande-darkgoldenrod.svg)](https://sahil-karande.vercel.app/)
 
 A modular, production-grade **Retrieval-Augmented Generation (RAG)** system engineered to ingest, retrieve, and synthesize classical Sanskrit literature, didactic manuscripts, and metric verses (*shlokas*). 
 
-Designed strictly for **commodity CPU-only execution (zero GPU dependencies)**, this pipeline delivers **100% benchmark retrieval accuracy** with **sub-80 ms latency** on standard hardware.
+Designed strictly for **commodity CPU-only execution (zero GPU dependencies)** on **localhost**, this pipeline delivers **100% benchmark retrieval accuracy** with **sub-80 ms latency** on standard hardware.
 
 ---
 
-## 🌐 Live Cloud Demo & Quick Links
+## 📌 Deliverables & Quick Links
 
-- **Live Deployed Web Application**: [rag-sanskrit-sahil-karande.streamlit.app](https://rag-sanskrit-sahil-karande-qwa5pyfjqyyslpqmwhbmzj.streamlit.app/)
 - **Technical Report (PDF)**: [`report/Sanskrit_RAG_Technical_Report.pdf`](report/Sanskrit_RAG_Technical_Report.pdf)
 - **Empirical Benchmark Logs**: [`report/benchmark_results.json`](report/benchmark_results.json)
 - **Source Code Repository**: [github.com/sahil-karande/RAG_Sanskrit_Sahil_Karande](https://github.com/sahil-karande/RAG_Sanskrit_Sahil_Karande)
@@ -44,17 +43,9 @@ Designed strictly for **commodity CPU-only execution (zero GPU dependencies)**, 
 
 ## 🚀 Evaluator Guide: Quickstart in 3 Steps
 
-If you are evaluating this repository, you can verify and run the entire pipeline locally in under **3 minutes**.
+If you are evaluating this repository, you can clone, audit, and launch the pipeline on your local machine (`localhost`) in under **3 minutes**:
 
-### Option A: 1-Click Instant Evaluation (No Setup Required)
-Open the deployed cloud application directly in your browser:  
-👉 **[Open Live Sanskrit RAG Application](https://rag-sanskrit-sahil-karande-qwa5pyfjqyyslpqmwhbmzj.streamlit.app/)**
-
----
-
-### Option B: Local Setup & Evaluation
-
-#### Step 1: Clone the Repository & Create Virtual Environment
+### Step 1: Clone Repository & Set Up Virtual Environment
 ```bash
 # Clone the repository
 git clone https://github.com/sahil-karande/RAG_Sanskrit_Sahil_Karande.git
@@ -328,5 +319,5 @@ The generated report will be updated in [`report/Sanskrit_RAG_Technical_Report.p
 
 - **Author**: [Sahil Karande](https://sahil-karande.vercel.app/)
 - **Repository**: [sahil-karande/RAG_Sanskrit_Sahil_Karande](https://github.com/sahil-karande/RAG_Sanskrit_Sahil_Karande)
-- **Live Demo**: [rag-sanskrit-sahil-karande.streamlit.app](https://rag-sanskrit-sahil-karande-qwa5pyfjqyyslpqmwhbmzj.streamlit.app/)
+- **Deployment**: Localhost (`localhost:8501`) via Streamlit
 - **Project**: Sanskrit Document Retrieval-Augmented Generation (RAG) System
